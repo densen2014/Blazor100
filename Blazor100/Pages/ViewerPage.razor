@@ -1,0 +1,21 @@
+﻿@page "/viewer"
+
+    <Viewerjs Images="imagesList" />
+
+    @code{
+        List<string>? imagesList;
+
+        protected override void OnInitialized()
+        {
+
+            imagesList = new List<string>();
+            if (!imagesList.Any())
+            {
+                for (int i = 1; i <= 9; i++)
+                {
+                    imagesList.Add($"https://fengyuanchen.github.io/viewerjs/images/thumbnails/tibet-{i}.jpg");
+                }
+            }
+        }
+
+    }
