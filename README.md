@@ -3,7 +3,7 @@ Blazor入门100天
 
 [D1.使用JS隔离封装viewerjs库](D1.Viewer.md)
 
-D2.使用JS隔离制作手写签名组件
+[D2.使用JS隔离制作手写签名组件](D2.Handwritten.md)
 
 D3.使用JS隔离封装ZXing扫码
 

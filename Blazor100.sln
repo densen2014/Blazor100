@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor100", "Blazor100\Blazor100.csproj", "{ECDE88FA-E210-4D83-A4F5-8A1D4341DDD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor100", "Blazor100\Blazor100.csproj", "{ECDE88FA-E210-4D83-A4F5-8A1D4341DDD3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5165E290-A44D-4042-A9C0-EB6415B425B5}"
+	ProjectSection(SolutionItems) = preProject
+		D1.Viewer.md = D1.Viewer.md
+		D2.Handwritten.md = D2.Handwritten.md
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
