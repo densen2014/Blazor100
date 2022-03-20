@@ -1,0 +1,35 @@
+﻿@page "/handwritten"
+
+<h3>Handwritten 手写签名</h3>
+<h6>注意:只支持移动设备签名,桌面版浏览器测试请打开F12模拟为移动设备.</h6>
+
+<button class="btn btn-primary"
+        type="button"
+        @onclick="(() => ShowHandwritten = !ShowHandwritten)">
+    [签名]
+</button>
+<textarea type="text" class="form-control" style="min-width: 100px;" rows="10"
+          @bind="DrawBase64"
+          placeholder="Base64" />
+@if (ShowHandwritten)
+{
+
+    <Handwritten HandwrittenBase64="(e => { DrawBase64=e; ShowHandwritten = !ShowHandwritten; })"
+                 Close="(()=>ShowHandwritten=!ShowHandwritten)" />
+
+}
+
+@code{
+
+    /// <summary>
+    /// 显示签名界面
+    /// </summary>
+    bool ShowHandwritten { get; set; } = false;
+
+    /// <summary>
+    /// 签名Base64
+    /// </summary>
+    public string? DrawBase64 { get; set; }
+
+
+}
