@@ -1,0 +1,136 @@
+﻿@implements IAsyncDisposable
+@namespace Blazor100.Components
+@inject IJSRuntime JS
+
+<div class="modal alert-popup" tabindex="-1" style="display:block" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Edit form for the current item -->
+            <div class="modal-body">
+
+                <button class="btn btn-primary p-2 m-1 w-25" id="startButton">@ScanBtnTitle</button>
+                <button class="btn btn-secondary p-2 m-1 w-25" id="resetButton">@ResetBtnTitle</button>
+                <button type="button" class="btn btn-info p-2 m-1 w-25" id="closeButton">@CloseBtnTitle</button>
+
+                <div id="sourceSelectPanel" style="display:none">
+                    <label for="sourceSelect">@SelectDeviceBtnTitle:</label><span class="text-dark" id="result"></span>
+                    <select id="sourceSelect" style="max-width:100%" class="form-control">
+                    </select>
+                </div>
+                <div>
+                    <video id="video" style="min-height:150px;max-height:60%; max-width: 100%;border: 1px solid gray"></video>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@Result
+
+
+@code {
+    /// <summary>
+    /// BarcodeScanner 条码扫描
+    /// </summary>
+
+    /// <summary>
+    /// 扫码按钮文本/Scan button title
+    /// </summary>
+    [Parameter]
+    public string ScanBtnTitle { get; set; } = "扫码";
+
+    /// <summary>
+    /// 复位按钮文本/Reset button title
+    /// </summary>
+    [Parameter]
+    public string ResetBtnTitle { get; set; } = "复位";
+
+    /// <summary>
+    /// 关闭按钮文本/Close button title
+    /// </summary>
+    [Parameter]
+    public string CloseBtnTitle { get; set; } = "关闭";
+
+    /// <summary>
+    /// 选择设备按钮文本/Select device button title
+    /// </summary>
+    [Parameter]
+    public string SelectDeviceBtnTitle { get; set; } = "选择设备";
+
+
+    /// <summary>
+    /// 扫码结果回调方法/Scan result callback method
+    /// </summary>
+    [Parameter]
+    public EventCallback<string> ScanResult { get; set; }
+
+    /// <summary>
+    /// 关闭扫码框回调方法/Close scan code callback method
+    /// </summary>
+    [Parameter]
+    public EventCallback Close { get; set; }
+
+
+    /// <summary>
+    /// 扫码结果/Scan result
+    /// </summary>
+    [Parameter]
+    public string? Result { get; set; }
+
+    /// <summary>
+    /// 显示扫码框/Show scan box
+    /// </summary>
+    [Parameter]
+    public bool ShowScanBarcode { get; set; }
+
+    private IJSObjectReference? module;
+
+    // To prevent making JavaScript interop calls during prerendering
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        try
+        {
+            if (!firstRender) return;
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./lib/zxing/zxingjs.js");
+            await module.InvokeVoidAsync("init", true, DotNetObjectReference.Create(this), null);
+        }
+        catch (Exception e)
+        {
+            if (OnError != null) await OnError.Invoke(e.Message);
+        }
+
+    }
+
+    [JSInvokable("invokeFromJS")]
+    public async Task ChangeValue(string val)
+    {
+        Result = val;
+        StateHasChanged();
+        await ScanResult.InvokeAsync(val);
+    }
+
+    [JSInvokable("invokeFromJSClose")]
+    public async Task CloseScan()
+    {
+        await Close.InvokeAsync(null);
+    }
+
+    /// <summary>
+    /// 获得/设置 错误回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string, Task>? OnError { get; set; }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            //await module.InvokeVoidAsync("destroy", Options);
+            await module.DisposeAsync();
+        }
+    }
+
+}
+
+
+
