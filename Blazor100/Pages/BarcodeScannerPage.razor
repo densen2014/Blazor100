@@ -1,0 +1,47 @@
+﻿@page "/barcodescanner"
+
+<h3>条码扫描 BarcodeReader</h3>
+
+<h4>扫描条码/QR码。</h4>
+
+<button class="btn btn-primary"
+        type="button"
+        @onclick="(() => ShowScanBarcode = !ShowScanBarcode)">
+    扫码
+</button>
+<input type="text" class="form-control" style="min-width: 100px;"
+       @bind-value="BarCode"
+       placeholder="条码" />
+@if (ShowScanBarcode)
+{
+
+    <BarcodeScanner ScanResult="((e) => { BarCode=e; ShowScanBarcode = !ShowScanBarcode; })"
+                    ShowScanBarcode="ShowScanBarcode"
+                    Close="(()=>ShowScanBarcode=!ShowScanBarcode)" />
+
+}
+
+<p>@message</p>
+
+@code{
+
+    /// <summary>
+    /// 显示扫码界面
+    /// </summary>
+    bool ShowScanBarcode { get; set; } = false;
+
+    /// <summary>
+    /// 条码
+    /// </summary>
+    public string? BarCode { get; set; }
+
+    private string? message;
+
+    private Task OnError(string message)
+    {
+        this.message = message;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+} 
