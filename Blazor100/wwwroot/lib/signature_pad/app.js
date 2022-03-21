@@ -1,8 +1,8 @@
 import '/lib/signature_pad/signature_pad.umd.js';
 
-export function init(wrapperc, alertText) {
+export function init(wrapperc, element, alertText,) {
     //Code modify from https://github.com/szimek/signature_pad
-    var wrapper = document.getElementById("signature-pad");
+    var wrapper = element;//document.getElementById("signature-pad");
     var clearButton = wrapper.querySelector("[data-action=clear]");
     var changeColorButton = wrapper.querySelector("[data-action=change-color]");
     var undoButton = wrapper.querySelector("[data-action=undo]");

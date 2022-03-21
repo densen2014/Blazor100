@@ -3,7 +3,7 @@
 @inject IJSRuntime JS
 
 <div class="signature-pad-body">
-    <div id="signature-pad" class="signature-pad">
+    <div @ref="SignaturepadElement" class="signature-pad">
         <div class="signature-pad--body">
             <canvas width="614" style="touch-action: none; user-select: none;" height="242"></canvas>
         </div>
@@ -161,6 +161,11 @@
 
     private IJSObjectReference? module;
 
+    /// <summary>
+    ///
+    /// </summary>
+    protected ElementReference SignaturepadElement { get; set; }
+
     // To prevent making JavaScript interop calls during prerendering
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -168,7 +173,7 @@
         try
         {
             module = await JS.InvokeAsync<IJSObjectReference>("import", "./lib/signature_pad/app.js");
-            await module.InvokeVoidAsync("init", DotNetObjectReference.Create(this), EnableAlertJS ? SignatureAlertText : null);
+            await module.InvokeVoidAsync("init", DotNetObjectReference.Create(this), SignaturepadElement, EnableAlertJS ? SignatureAlertText : null);
         }
         catch (Exception e)
         {

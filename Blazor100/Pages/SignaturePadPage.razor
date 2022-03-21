@@ -1,9 +1,32 @@
 ﻿@page "/signaturepad"
-@attribute [TabItemOption(Text = "手写签名")]
 
 <h3>SignaturePad 签名</h3>
 
 <SignaturePad OnResult="((e) =>  Result=e)" />
+
+<pre>
+    <code style="color:gray">
+        &lt;SignaturePad OnResult="((e) =>  Result=e)" BtnCssClass="btn btn-outline-success" /&gt;
+    </code>
+</pre>
+<SignaturePad OnResult="((e) =>  Result=e)" BtnCssClass="btn btn-outline-success" />
+
+<pre>
+<code style="color:gray">
+        &lt;SignaturePad OnResult="((e) =>  Result=e)"
+                        SignAboveLabel="Sign above"
+                        UndoBtnTitle="Undo"
+                        SaveBase64BtnTitle="OK"
+                        ChangeColorBtnTitle="Change color"
+                        ClearBtnTitle="Clear" /&gt;
+    </code>
+</pre>
+<SignaturePad OnResult="((e) =>  Result=e)"
+              SignAboveLabel="Sign above"
+              UndoBtnTitle="Undo"
+              SaveBase64BtnTitle="OK"
+              ChangeColorBtnTitle="Change color"
+              ClearBtnTitle="Clear" />
 
 <p>签名Base64</p>
 <textarea type="text" class="form-control" style="min-width: 100px;max-width: 80%;" rows="6"
@@ -15,7 +38,7 @@
 </p>
 
 <pre>
-    <code style="color:gray">
+<code style="color:gray">
         builder.Services.AddServerSideBlazor(a =>
         {
             //异步调用JavaScript函数的最大等待时间
@@ -67,5 +90,5 @@
         new AttributeItem("EnableSavePNGBtn","启用保存为PNG按钮文本",  "false","bool") ,
         new AttributeItem("EnableSaveJPGBtn","启用保存为JPG按钮文本",  "false","bool") ,
         new AttributeItem("EnableSaveSVGBtn","启用保存为SVG按钮文本",  "false","bool") ,
-    };
+                                };
 }
