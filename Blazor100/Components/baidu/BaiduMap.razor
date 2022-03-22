@@ -1,19 +1,8 @@
 ﻿@implements IAsyncDisposable
 @inject IJSRuntime JS
 @namespace Blazor100.Components
-@inject IConfiguration config
-@*@CreateComponent()
+@inject IConfiguration config 
 
-    @code{
-        RenderFragment CreateComponent() => builder =>
-        {
-            builder.OpenElement(1, "script");
-            builder.AddAttribute(2, "type","text/javascript");
-            builder.AddAttribute(3, "src","//api.map.baidu.com/api?type=webgl&v=1.0&ak=TwsqPElMismgGDp8Qxcsc9nS1BLISPHL");
-            builder.CloseComponent();
-        };
-
-    }*@
 <div id="@ID" style="@Style"></div>
 <button class="btn btn-primary" type="button" onclick="@(async()=>await GetLocation())">Location</button>
 <button class="btn btn-primary" type="button" onclick="@(async()=>await ResetMaps())">Reset</button>
