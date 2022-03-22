@@ -13,7 +13,7 @@
             <div class="signature-pad--actions">
                 <div>
                     <button type="button" class="@BtnCssClass" data-action="clear">@ClearBtnTitle</button>
-                    @if (EnableChangeColorBtnTitle)
+                    @if (EnableChangeColorBtn)
                     {
                         <button type="button" class="@BtnCssClass" data-action="change-color">@ChangeColorBtnTitle</button>
                     }
@@ -121,7 +121,7 @@
     /// 启用换颜色按钮/Enable change color button
     /// </summary>
     [Parameter]
-    public bool EnableChangeColorBtnTitle { get; set; } = true;
+    public bool EnableChangeColorBtn { get; set; } = true;
 
     /// <summary>
     /// 启用JS错误弹窗/Enable Alert from JS

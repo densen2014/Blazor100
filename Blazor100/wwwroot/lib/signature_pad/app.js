@@ -80,12 +80,12 @@ export function init(wrapperc, element, alertText,) {
         return new Blob([uInt8Array], { type: contentType });
     }
 
-    clearButton.addEventListener("click", function (event) {
+    if (clearButton) clearButton.addEventListener("click", function (event) {
         signaturePad.clear();
         return wrapperc.invokeMethodAsync("signatureResult", null);
     });
 
-    undoButton.addEventListener("click", function (event) {
+    if (undoButton) undoButton.addEventListener("click", function (event) {
         var data = signaturePad.toData();
 
         if (data) {
@@ -94,7 +94,7 @@ export function init(wrapperc, element, alertText,) {
         }
     });
 
-    changeColorButton.addEventListener("click", function (event) {
+    if (changeColorButton) changeColorButton.addEventListener("click", function (event) {
         var r = Math.round(Math.random() * 255);
         var g = Math.round(Math.random() * 255);
         var b = Math.round(Math.random() * 255);
