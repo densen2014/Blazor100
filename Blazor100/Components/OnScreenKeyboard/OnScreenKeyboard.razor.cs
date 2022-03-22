@@ -5,7 +5,6 @@
 // **********************************
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 
 namespace Blazor100.Components;
@@ -70,8 +69,6 @@ public partial class OnScreenKeyboard : IAsyncDisposable
                 module = await JS!.InvokeAsync<IJSObjectReference>("import", "./lib/kioskboard/kioskboards.js");
                 InstanceWebApi = DotNetObjectReference.Create(this);
                 await module.InvokeVoidAsync("addScript", "./lib/kioskboard/kioskboard-aio-2.1.0.min.js");
-                //await Task.Delay(200);
-                Console.WriteLine("ClassName: " + ClassName);
                 Option??= new KeyboardOption();
                 if (KeyboardKeys != null) Option.KeyboardKeysType = KeyboardKeys!.Value;
                 try

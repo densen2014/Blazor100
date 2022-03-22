@@ -11,8 +11,7 @@
         }
     });
 
-    if (scriptsIncluded) { //Prevent adding JS scripts to page multiple times.
-        //if (window.KioskBoard)
+    if (scriptsIncluded) { 
         return true;
     }
 
