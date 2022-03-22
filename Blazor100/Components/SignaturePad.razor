@@ -1,0 +1,208 @@
+﻿@implements IAsyncDisposable
+@namespace Blazor100.Components
+@inject IJSRuntime JS
+
+<div class="signature-pad-body">
+    <div @ref="SignaturepadElement" class="signature-pad">
+        <div class="signature-pad--body">
+            <canvas width="614" style="touch-action: none; user-select: none;" height="242"></canvas>
+        </div>
+        <div class="signature-pad--footer">
+            <div class="description">@SignAboveLabel</div>
+
+            <div class="signature-pad--actions">
+                <div>
+                    <button type="button" class="@BtnCssClass" data-action="clear">@ClearBtnTitle</button>
+                    @if (EnableChangeColorBtn)
+                    {
+                        <button type="button" class="@BtnCssClass" data-action="change-color">@ChangeColorBtnTitle</button>
+                    }
+                    <button type="button" class="@BtnCssClass" data-action="undo">@UndoBtnTitle</button>
+
+                </div>
+                <div>
+                    @if (EnableSaveBase64Btn)
+                    {
+                        <button type="button" class="@BtnCssClass" data-action="save-base64">@SaveBase64BtnTitle</button>
+                    }
+                    @if (EnableSavePNGBtn)
+                    {
+                        <button type="button" class="@BtnCssClass" data-action="save-png">@SavePNGBtnTitle</button>
+                    }
+                    @if (EnableSaveJPGBtn)
+                    {
+                        <button type="button" class="@BtnCssClass" data-action="save-jpg">@SaveJPGBtnTitle</button>
+                    }
+                    @if (EnableSaveSVGBtn)
+                    {
+                        <button type="button" class="@BtnCssClass" data-action="save-svg">@SaveSVGBtnTitle</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    /// <summary>
+    /// 手写签名结果回调/SignaturePad result callback method
+    /// </summary>
+    [Parameter]
+    public EventCallback<string> OnResult { get; set; }
+
+    /// <summary>
+    /// 手写签名警告信息回调/SignaturePad alert callback method
+    /// </summary>
+    [Parameter]
+    public EventCallback<string> OnAlert { get; set; }
+
+    /// <summary>
+    /// 获得/设置 错误回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string, Task>? OnError { get; set; }
+
+    /// <summary>
+    /// 在框内签名标签文本/Sign above label
+    /// </summary>
+    [Parameter]
+    public string SignAboveLabel { get; set; } = "在框内签名";
+
+    /// <summary>
+    /// 清除按钮文本/Clear button title
+    /// </summary>
+    [Parameter]
+    public string ClearBtnTitle { get; set; } = "清除";
+
+    /// <summary>
+    /// 请先签名提示文本/'Please provide a signature first' alert text
+    /// </summary>
+    [Parameter]
+    public string SignatureAlertText { get; set; } = "请先签名";
+
+    /// <summary>
+    /// 换颜色按钮文本/Change color button title
+    /// </summary>
+    [Parameter]
+    public string ChangeColorBtnTitle { get; set; } = "换颜色";
+
+    /// <summary>
+    /// 撤消按钮文本/Undo button title
+    /// </summary>
+    [Parameter]
+    public string UndoBtnTitle { get; set; } = "撤消";
+
+    /// <summary>
+    /// 保存为base64按钮文本/Save as Base64 button title
+    /// </summary>
+    [Parameter]
+    public string SaveBase64BtnTitle { get; set; } = "确定";
+
+    /// <summary>
+    /// 保存为PNG按钮文本/Save as PNG button title
+    /// </summary>
+    [Parameter]
+    public string SavePNGBtnTitle { get; set; } = "PNG";
+
+    /// <summary>
+    /// 保存为JPG按钮文本/Save as JPG button title
+    /// </summary>
+    [Parameter]
+    public string SaveJPGBtnTitle { get; set; } = "JPG";
+
+    /// <summary>
+    /// 保存为SVG按钮文本/Save as SVG button title
+    /// </summary>
+    [Parameter]
+    public string SaveSVGBtnTitle { get; set; } = "SVG";
+
+    /// <summary>
+    /// 启用换颜色按钮/Enable change color button
+    /// </summary>
+    [Parameter]
+    public bool EnableChangeColorBtn { get; set; } = true;
+
+    /// <summary>
+    /// 启用JS错误弹窗/Enable Alert from JS
+    /// </summary>
+    [Parameter]
+    public bool EnableAlertJS { get; set; } = true;
+
+    /// <summary>
+    /// 启用保存为base64按钮/Enable save as Base64 button
+    /// </summary>
+    [Parameter]
+    public bool EnableSaveBase64Btn { get; set; } = true;
+
+    /// <summary>
+    /// 启用保存为PNG按钮文本/Enable save as PNG button
+    /// </summary>
+    [Parameter]
+    public bool EnableSavePNGBtn { get; set; } = false;
+
+    /// <summary>
+    /// 启用保存为JPG按钮文本/Enable save as JPG button
+    /// </summary>
+    [Parameter]
+    public bool EnableSaveJPGBtn { get; set; } = false;
+
+    /// <summary>
+    /// 启用保存为SVG按钮文本/Enable save as SVG button
+    /// </summary>
+    [Parameter]
+    public bool EnableSaveSVGBtn { get; set; } = false;
+
+    /// <summary>
+    /// 按钮CSS式样/Button css style
+    /// </summary>
+    [Parameter]
+    public string BtnCssClass { get; set; } = "btn btn-light";
+
+    private IJSObjectReference? module;
+
+    /// <summary>
+    ///
+    /// </summary>
+    protected ElementReference SignaturepadElement { get; set; }
+
+    // To prevent making JavaScript interop calls during prerendering
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        try
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./lib/signature_pad/app.js");
+            await module.InvokeVoidAsync("init", DotNetObjectReference.Create(this), SignaturepadElement, EnableAlertJS ? SignatureAlertText : null);
+        }
+        catch (Exception e)
+        {
+            if (OnError != null) await OnError.Invoke(e.Message);
+        }
+    }
+
+    [JSInvokable("signatureResult")]
+    public async Task SignatureResult(string val)
+    {
+        if (OnResult.HasDelegate) await OnResult.InvokeAsync(val);
+    }
+
+    [JSInvokable("signatureAlert")]
+    public async Task SignatureAlert()
+    {
+        if (OnResult.HasDelegate) await OnAlert.InvokeAsync(SignatureAlertText);
+    }
+
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            //await module.InvokeVoidAsync("destroy",null);
+            await module.DisposeAsync();
+        }
+    }
+}
+
+
+

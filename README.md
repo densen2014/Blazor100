@@ -7,7 +7,7 @@ Blazor入门100天
 
 [D3.使用JS隔离封装ZXing扫码](D3.BarcodeScanner.md)
 
-D4.使用JS隔离封装signature_pad签名组件
+[D4.使用JS隔离封装signature_pad签名组件](D4.SignaturePad.md)
 
 D5.使用JS隔离封装Google地图
 
