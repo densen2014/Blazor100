@@ -1,0 +1,124 @@
+﻿@implements IAsyncDisposable
+@inject IJSRuntime JS
+@namespace Blazor100.Components
+@inject IConfiguration config
+@*@CreateComponent()
+
+    @code{
+        RenderFragment CreateComponent() => builder =>
+        {
+            builder.OpenElement(1, "script");
+            builder.AddAttribute(2, "type","text/javascript");
+            builder.AddAttribute(3, "src","//api.map.baidu.com/api?type=webgl&v=1.0&ak=TwsqPElMismgGDp8Qxcsc9nS1BLISPHL");
+            builder.CloseComponent();
+        };
+
+    }*@
+<div id="@ID" style="@Style"></div>
+<button class="btn btn-primary" type="button" onclick="@(async()=>await GetLocation())">Location</button>
+<button class="btn btn-primary" type="button" onclick="@(async()=>await ResetMaps())">Reset</button>
+
+@code{
+
+    /// <summary>
+    /// 获得/设置 错误回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string, Task>? OnError { get; set; }
+
+    /// <summary>
+    /// 获得/设置 BaiduKey<para></para>
+    /// 为空则在 IConfiguration 服务获取 "BaiduKey" , 默认在 appsettings.json 文件配置
+    /// </summary>
+    [Parameter]
+    public string? Key { get; set; }
+
+    /// <summary>
+    /// 获得/设置 style
+    /// </summary>
+    [Parameter]
+    public string Style { get; set; } = "height:700px;width:100%;";
+
+    /// <summary>
+    /// 获得/设置 ID
+    /// </summary>
+    [Parameter]
+    public string ID { get; set; } = "container";
+
+    /// <summary>
+    /// 获得/设置 定位结果回调方法
+    /// </summary>
+    [Parameter]
+    public Func<BaiduItem, Task>? OnResult { get; set; }
+
+    private IJSObjectReference? module;
+    private DotNetObjectReference<BaiduMap>? InstanceGeo { get; set; }
+
+    private string key = String.Empty;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            key = Key ?? config["BaiduKey"];
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./lib/baidu/baidumap.js");
+            InstanceGeo = DotNetObjectReference.Create(this);
+            while (!(await Init()))
+            {
+                await Task.Delay(500);
+            }
+            //await module!.InvokeVoidAsync("initMaps");
+        }
+    }
+
+    public async Task<bool> Init() => await module!.InvokeAsync<bool>("addScript", new object?[] { key, ID, null, null, null });
+
+    public async Task OnOptionsChanged(ViewerOptions options) => await module!.InvokeVoidAsync("init", options);
+    public async Task ResetMaps() => await module!.InvokeVoidAsync("resetMaps", ID);
+
+    public async Task OnBtnClick(string btn) => await module!.InvokeVoidAsync(btn);
+
+    /// <summary>
+    /// 获取定位
+    /// </summary>
+    public virtual async Task GetLocation()
+    {
+        try
+        {
+            await module!.InvokeVoidAsync("geolocation", InstanceGeo);
+        }
+        catch (Exception e)
+        {
+            if (OnError != null) await OnError.Invoke(e.Message);
+        }
+    }
+
+
+    /// <summary>
+    /// 定位完成回调方法
+    /// </summary>
+    /// <param name="geolocations"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task GetResult(BaiduItem geolocations)
+    {
+        try
+        {
+            if (OnResult != null) await OnResult.Invoke(geolocations);
+        }
+        catch (Exception e)
+        {
+            if (OnError != null) await OnError.Invoke(e.Message);
+        }
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            //await module.InvokeVoidAsync("destroy", Options);
+            await module.DisposeAsync();
+        }
+    }
+}
+

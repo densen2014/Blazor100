@@ -1,0 +1,9 @@
+﻿@page "/maps"
+
+<h3>谷歌地图 Maps</h3>
+
+<p>@message</p>
+
+<Map OnError="@OnError" />
+
+<AttributeTable Items="@GetAttributes()" />

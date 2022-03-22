@@ -1,0 +1,64 @@
+﻿@implements IAsyncDisposable
+@inject IJSRuntime JS
+@namespace Blazor100.Components
+@inject IConfiguration config
+
+<div @ref="map" style="@Style">
+</div>
+<button class="btn btn-primary" type="button" onclick="@(async()=>await OnBtnClick())">Reset</button>
+
+@code{
+
+    /// <summary>
+    /// 获得/设置 错误回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string, Task>? OnError { get; set; }
+
+    /// <summary>
+    /// 获得/设置 GoogleKey<para></para>
+    /// 为空则在 IConfiguration 服务获取 "GoogleKey" , 默认在 appsettings.json 文件配置
+    /// </summary>
+    [Parameter]
+    public string? Key { get; set; }
+
+    /// <summary>
+    /// 获得/设置 style
+    /// </summary>
+    [Parameter]
+    public string Style { get; set; } = "height:700px;width:100%;";
+
+    ElementReference map { get; set; }
+
+    private IJSObjectReference? module;
+    private string key = String.Empty;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            key = Key ?? config["GoogleKey"];
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./lib/google/map.js");
+            while (!(await Init()))
+            {
+                await Task.Delay(500);
+            }
+        }
+    }
+
+
+    public async Task<bool> Init() => await module!.InvokeAsync<bool>("addScript", new object?[] { key, map, null, null, null });
+
+    public async Task OnBtnClick() => await module!.InvokeVoidAsync("addScript", new object?[] { key, map, null, null, null });
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            //await module.InvokeVoidAsync("destroy", Options);
+            await module.DisposeAsync();
+        }
+    }
+}
+
+

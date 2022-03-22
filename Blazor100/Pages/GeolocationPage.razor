@@ -1,0 +1,65 @@
+﻿@page "/geolocations"
+
+<h3>定位/持续定位 Geolocation</h3>
+
+<p>@message</p>
+
+<Blazor100.Components.Geolocation OnResult="@OnResult" OnUpdateStatus="@OnUpdateStatus" OnError="@OnError" />
+
+<p>@status</p>
+
+<div class="table-container">
+
+    <div class="table-toolbar">
+    </div>
+
+    <div class="table-wrapper">
+        <table class="table is-single table-demo">
+            <colgroup>
+                <col>
+                <col>
+                <col>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th><div class="table-cell"><span class="table-text">纬度</span></div></th>
+                    <th><div class="table-cell"><span class="table-text">经度</span></div></th>
+                    <th><div class="table-cell"><span class="table-text">准确度(米)</span></div></th>
+                    <th><div class="table-cell"><span class="table-text">时间戳</span></div></th>
+                    <th><div class="table-cell"><span class="table-text">时间</span></div></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><div class="table-cell">@geolocations?.Latitude</div></td>
+                    <td><div class="table-cell">@geolocations?.Longitude</div></td>
+                    <td><div class="table-cell">@geolocations?.Accuracy</div></td>
+                    <td><div class="table-cell">@geolocations?.Timestamp</div></td>
+                    <td><div class="table-cell">@geolocations?.LastUpdateTime</div></td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th><div class="table-cell"><span class="table-text">移动距离</span></div></th>
+                    <th><div class="table-cell"><span class="table-text">总移动距离</span></div></th>
+                    <th><div class="table-cell"><span class="table-text">最后一次获取到的纬度</span></div></th>
+                    <th><div class="table-cell"><span class="table-text">最后一次获取到的经度</span></div></th>
+                    <th><div class="table-cell"><span class="table-text">状态</span></div></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><div class="table-cell">@geolocations?.CurrentDistance</div></td>
+                    <td><div class="table-cell">@geolocations?.TotalDistance</div></td>
+                    <td><div class="table-cell">@geolocations?.LastLat</div></td>
+                    <td><div class="table-cell">@geolocations?.LastLong</div></td>
+                    <td><div class="table-cell">@geolocations?.Status</div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div> 
+
+
+
+<AttributeTable Items="@GetAttributes()" />

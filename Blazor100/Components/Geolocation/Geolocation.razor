@@ -1,0 +1,17 @@
+﻿@implements IAsyncDisposable
+@namespace Blazor100.Components
+
+
+<div @ref="GeolocationElement">
+    @if (ShowButtons)
+    {
+        if (WatchID == null)
+        {
+            <button class="btn btn-primary" type="button" onclick="@GetLocation">@GetLocationButtonText</button>
+            <button class="btn btn-primary" type="button" onclick="@WatchPosition">@WatchPositionButtonText</button>
+        }
+        else
+        {
+            <button class="btn btn-primary" type="button" onclick="@ClearWatch">@ClearWatchPositionButtonText</button>}
+    }
+</div>

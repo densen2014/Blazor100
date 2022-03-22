@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		D2.Handwritten.md = D2.Handwritten.md
 		D3.BarcodeScanner.md = D3.BarcodeScanner.md
 		D4.SignaturePad.md = D4.SignaturePad.md
+		D5.GoogleMap.md = D5.GoogleMap.md
+		D6.BaiduMap.md = D6.BaiduMap.md
+		D7.Geolocation.md = D7.Geolocation.md
+		D8.OnScreenKeyboard.md = D8.OnScreenKeyboard.md
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
