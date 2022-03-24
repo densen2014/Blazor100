@@ -19,7 +19,7 @@ Blazor入门100天
 
 [D8.使用JS隔离封装屏幕键盘kioskboard.js组件](D8.OnScreenKeyboard.md)
 
-[09:用20行代码实现文件上传,浏览目录功能 (Blazor server)](D9.BlazorFileUpload.md)
+[D9:用20行代码实现文件上传,浏览目录功能 (Blazor server)](D9.BlazorFileUpload.md)
 
 #### 项目源码 
 
