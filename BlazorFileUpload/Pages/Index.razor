@@ -1,0 +1,104 @@
+﻿@page "/"
+
+<PageTitle>BlazorFileUpload</PageTitle>
+
+
+<div>
+    上传文件(Max100)
+    <InputFile OnChange="OnChange" style="max-width:400px" class="form-control" multiple />
+</div>
+<div style="padding-top:20px">
+    上传图片
+    <InputFile OnChange="OnChange" style="max-width: 400px" class="form-control" multiple accept='image/*' />
+</div>
+<div style="padding-top:30px">
+    <a class="btn btn-primary" href="Upload">
+        <span class="oi oi-file" aria-hidden="true"></span> 浏览文件
+    </a>
+    <a class="btn btn-primary" href="@($"http://{ip}:{port}")" target="_blank">
+        <span class="oi oi-browser" aria-hidden="true"></span> 外部地址
+    </a>
+</div>
+
+<pre>
+    <code>
+        @uploadstatus
+    </code>
+</pre>
+
+<button class="btn btn-info" @onclick="(()=>help=!help)">说明</button>
+@if (help)
+{
+<pre>
+你的IP @ip
+<code>
+        配置:
+        appsettings.json 文件
+        自由修改监听ip和端口
+        "UseUrls": "@Config!["UseUrls"]" //默认 "http://localhost:8000;https://0.0.0.0:8000;"
+        
+        AlexChow
+<a href="博客园">https://www.cnblogs.com/densen2014/</a>
+<a href="Gitee">https://gitee.com/densen2014</a>
+<a href="Github">https://github.com/densen2014</a>
+</code>
+</pre>
+}
+
+
+@code{
+    [Inject] protected Microsoft.AspNetCore.Hosting.IWebHostEnvironment? HostEnvironment { get; set; }
+    [Inject] protected IConfiguration? Config { get; set; }
+
+    protected string UploadPath = "";
+
+    protected string? tempfilename = null;
+    protected bool displayProgress;
+    protected string? uploadstatus;
+    long maxFileSize = 1024 * 1024 * 15;
+    string? ip;
+    string? port;
+    bool help;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        UploadPath = Path.Combine(HostEnvironment!.WebRootPath, "Upload");
+        if (!Directory.Exists(UploadPath)) Directory.CreateDirectory(UploadPath);
+        ip = LocalIP.GetLocalIp();
+        try
+        {
+            port = Config!["UseUrls"].ToString().Split(';')[0].Split(':')[2];
+        }
+        catch
+        {
+            port = "8000";
+        }
+        StateHasChanged();
+    }
+
+    protected async Task OnChange(InputFileChangeEventArgs e)
+    {
+        int i = 0;
+        var selectedFiles = e.GetMultipleFiles(100);
+        foreach (var item in selectedFiles)
+        {
+            i++;
+            await OnSubmit(item);
+            uploadstatus += Environment.NewLine + $"[{i}]: " + item.Name;
+        }
+    }
+
+    protected async Task OnSubmit(IBrowserFile efile)
+    {
+        if (efile == null) return;
+        var tempfilename = Path.Combine(UploadPath, efile.Name);
+        await using FileStream fs = new(tempfilename, FileMode.Create);
+        using var stream = efile.OpenReadStream(maxFileSize);
+        displayProgress = true;
+        await stream.CopyToAsync(fs);
+        displayProgress = false;
+        StateHasChanged();
+    }
+
+}

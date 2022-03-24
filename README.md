@@ -19,4 +19,12 @@ Blazor入门100天
 
 [D8.使用JS隔离封装屏幕键盘kioskboard.js组件](D8.OnScreenKeyboard.md)
 
-##### 项目源码 [Github](https://github.com/densen2014/Blazor100) | [Gitee](https://gitee.com/densen2014/Blazor100)
+[09:用20行代码实现文件上传,浏览目录功能 (Blazor server)](D9.BlazorFileUpload.md)
+
+#### 项目源码 
+
+[Github](https://github.com/densen2014/Blazor100) | [Gitee](https://gitee.com/densen2014/Blazor100)
+
+#### AlexChow
+
+[今日头条](https://www.toutiao.com/c/user/token/MS4wLjABAAAAGMBzlmgJx0rytwH08AEEY8F0wIVXB2soJXXdUP3ohAE/?) | [博客园](https://www.cnblogs.com/densen2014) | [知乎](https://www.zhihu.com/people/alex-chow-54) | [Gitee](https://gitee.com/densen2014) | [GitHub](https://github.com/densen2014)
