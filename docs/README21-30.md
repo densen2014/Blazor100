@@ -19,16 +19,7 @@ Blazor入门100天
 
 ##### [8.使用JS隔离封装屏幕键盘kioskboard.js组件](D8.OnScreenKeyboard.md)
 
-##### [9.用20行代码实现文件上传,浏览目录功能 (Blazor server)](D9.BlazorFileUpload.md)
-
-##### [10.深入浅出上传组件](D10.FileUpload.md)
-
-##### [11-20.README.md](docs/README11-20.md)
-
-##### [21-30.README.md](docs/README21-30.md)
-
-##### [31-40.README.md](docs/README31-40.md)
-
+##### [9:用20行代码实现文件上传,浏览目录功能 (Blazor server)](D9.BlazorFileUpload.md)
 
 #### 项目源码 
 
