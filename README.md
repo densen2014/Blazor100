@@ -21,7 +21,7 @@ Blazor入门100天
 
 ##### [9.用20行代码实现文件上传,浏览目录功能 (Blazor server)](D9.BlazorFileUpload.md)
 
-##### [教程更多请看Wiki...](wiki)
+##### [教程更多请看Wiki...](../wiki)
 
 
 #### 项目源码 
