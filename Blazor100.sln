@@ -7,6 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor100", "Blazor100\Blaz
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5165E290-A44D-4042-A9C0-EB6415B425B5}"
 	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorFileUpload", "BlazorFileUpload\BlazorFileUpload.csproj", "{8471D8BA-7B2D-4796-9FD6-CFA71A35BD2F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{F23E72F9-2DE4-4A33-B632-DA88EEE1474B}"
+	ProjectSection(SolutionItems) = preProject
 		D1.Viewer.md = D1.Viewer.md
 		D2.Handwritten.md = D2.Handwritten.md
 		D3.BarcodeScanner.md = D3.BarcodeScanner.md
@@ -16,12 +24,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		D7.Geolocation.md = D7.Geolocation.md
 		D8.OnScreenKeyboard.md = D8.OnScreenKeyboard.md
 		D9.BlazorFileUpload.md = D9.BlazorFileUpload.md
-		LICENSE = LICENSE
 		README.md = README.md
-		模板.md = 模板.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorFileUpload", "BlazorFileUpload\BlazorFileUpload.csproj", "{8471D8BA-7B2D-4796-9FD6-CFA71A35BD2F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11-20", "11-20", "{808F29E6-F014-4FA4-A9E8-0C81EEC7969A}"
+	ProjectSection(SolutionItems) = preProject
+		docs\10.FileUpload.md = docs\10.FileUpload.md
+		docs\11..md = docs\11..md
+		docs\12..md = docs\12..md
+		docs\13..md = docs\13..md
+		docs\README11-20.md = docs\README11-20.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "21-30", "21-30", "{363393D5-F12C-4C1D-8831-2E380469A4AA}"
+	ProjectSection(SolutionItems) = preProject
+		docs\README21-30.md = docs\README21-30.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "31-40", "31-40", "{FEC17587-A711-48F7-9DDE-FF905FA54156}"
+	ProjectSection(SolutionItems) = preProject
+		docs\README31-40.md = docs\README31-40.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +63,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{808F29E6-F014-4FA4-A9E8-0C81EEC7969A} = {F23E72F9-2DE4-4A33-B632-DA88EEE1474B}
+		{363393D5-F12C-4C1D-8831-2E380469A4AA} = {F23E72F9-2DE4-4A33-B632-DA88EEE1474B}
+		{FEC17587-A711-48F7-9DDE-FF905FA54156} = {F23E72F9-2DE4-4A33-B632-DA88EEE1474B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5953555A-3C5E-405F-9785-92A3321DA588}
