@@ -8,7 +8,7 @@ namespace Blazor100.Pages;
 public sealed partial class MapsPage
 {
 
-    private string message;
+    private string? message;
 
 
     private Task OnError(string message)
@@ -17,7 +17,7 @@ public sealed partial class MapsPage
         StateHasChanged();
         return Task.CompletedTask;
     }
-     
+
 
 
     /// <summary>

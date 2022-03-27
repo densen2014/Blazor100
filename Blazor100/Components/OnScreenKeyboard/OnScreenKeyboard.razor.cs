@@ -65,11 +65,11 @@ public partial class OnScreenKeyboard : IAsyncDisposable
         try
         {
             if (firstRender)
-            { 
+            {
                 module = await JS!.InvokeAsync<IJSObjectReference>("import", "./lib/kioskboard/kioskboards.js");
                 InstanceWebApi = DotNetObjectReference.Create(this);
                 await module.InvokeVoidAsync("addScript", "./lib/kioskboard/kioskboard-aio-2.1.0.min.js");
-                Option??= new KeyboardOption();
+                Option ??= new KeyboardOption();
                 if (KeyboardKeys != null) Option.KeyboardKeysType = KeyboardKeys!.Value;
                 try
                 {
@@ -95,13 +95,13 @@ public partial class OnScreenKeyboard : IAsyncDisposable
             await module.DisposeAsync();
         }
     }
-     
+
 
     /// <summary>
     /// 获得/设置 错误回调方法
     /// </summary>
     [Parameter]
     public Func<string, Task>? OnError { get; set; }
-      
+
 
 }

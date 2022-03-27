@@ -16,8 +16,8 @@
 {
 
     <BarcodeScanner ScanResult="((e) => { BarCode=e; ShowScanBarcode = !ShowScanBarcode; })"
-                    ShowScanBarcode="ShowScanBarcode"
-                    Close="(()=>ShowScanBarcode=!ShowScanBarcode)" />
+                    Close="(()=>ShowScanBarcode=!ShowScanBarcode)"
+                    OnError="OnError"/>
 
 }
 
@@ -43,5 +43,6 @@
         StateHasChanged();
         return Task.CompletedTask;
     }
+
 
 } 

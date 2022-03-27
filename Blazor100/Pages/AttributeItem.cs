@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Blazor100.Components
+﻿namespace Blazor100.Components
 {
     public class AttributeItem
     {

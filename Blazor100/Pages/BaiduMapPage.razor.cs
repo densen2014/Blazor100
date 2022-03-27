@@ -25,7 +25,7 @@ public sealed partial class BaiduMapPage
         StateHasChanged();
         return Task.CompletedTask;
     }
-     
+
 
 
     /// <summary>

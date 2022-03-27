@@ -48,6 +48,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "31-40", "31-40", "{FEC17587
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b03sqlite", "b03sqlite\b03sqlite.csproj", "{0B103BC0-1759-4542-863E-B8C603BB4131}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b05tree", "b05tree\b05tree.csproj", "{9F70B74D-3E9A-487D-AC77-103D67A353D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,10 @@ Global
 		{0B103BC0-1759-4542-863E-B8C603BB4131}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B103BC0-1759-4542-863E-B8C603BB4131}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B103BC0-1759-4542-863E-B8C603BB4131}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F70B74D-3E9A-487D-AC77-103D67A353D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F70B74D-3E9A-487D-AC77-103D67A353D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F70B74D-3E9A-487D-AC77-103D67A353D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F70B74D-3E9A-487D-AC77-103D67A353D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
