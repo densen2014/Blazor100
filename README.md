@@ -21,18 +21,15 @@ Blazor入门100天
 
 ##### [9.用20行代码实现文件上传,浏览目录功能 (Blazor server)](D9.BlazorFileUpload.md)
 
-##### [10.深入浅出上传组件](D10.FileUpload.md)
+##### [教程更多请看Wiki...](https://github.com/densen2014/Blazor100/wiki)
 
-##### [11-20.README.md](docs/README11-20.md)
-
-##### [21-30.README.md](docs/README21-30.md)
-
-##### [31-40.README.md](docs/README31-40.md)
-
+<br/>
 
 #### 项目源码 
 
 [Github](https://github.com/densen2014/Blazor100) | [Gitee](https://gitee.com/densen2014/Blazor100)
+
+
 
 #### AlexChow
 
