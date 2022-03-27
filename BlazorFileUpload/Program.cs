@@ -31,7 +31,7 @@ var opt = new DirectoryBrowserOptions
     FileProvider = new PhysicalFileProvider(dir),
     Formatter = new AME.HtmlDirectoryFormatterChsSorted(HtmlEncoder.Default),
     RequestPath = new PathString("/Upload")
-}; 
+};
 app.UseDirectoryBrowser(opt);
 
 app.UseRouting();
@@ -39,4 +39,4 @@ app.UseRouting();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
-app.Run(); 
+app.Run();

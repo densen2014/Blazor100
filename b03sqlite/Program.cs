@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using b03sqlite.Data;
 using b03sqlite.Service;
 

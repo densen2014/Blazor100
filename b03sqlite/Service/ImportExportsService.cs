@@ -1,8 +1,8 @@
 ﻿using Magicodes.ExporterAndImporter.Core;
 using Magicodes.ExporterAndImporter.Excel;
 using Magicodes.ExporterAndImporter.Html;
-using Magicodes.ExporterAndImporter.Word;
 using Magicodes.ExporterAndImporter.Pdf;
+using Magicodes.ExporterAndImporter.Word;
 
 namespace b03sqlite.Service
 {
@@ -28,7 +28,7 @@ namespace b03sqlite.Service
                 case ExportType.Pdf:
                     var exporterPdf = new PdfExporter();
                     items = items ?? new List<T>();
-                    var resultPdf = await exporterPdf.ExportListByTemplate(filePath+ ".pdf", items);
+                    var resultPdf = await exporterPdf.ExportListByTemplate(filePath + ".pdf", items);
                     return resultPdf.FileName;
                 case ExportType.Word:
                     var exporterWord = new WordExporter();
