@@ -1,0 +1,26 @@
+using BootstrapBlazor.Components;
+using FreeSql.DataAnnotations;
+using System.ComponentModel;
+using Magicodes.ExporterAndImporter.Excel;
+using OfficeOpenXml.Table;
+
+namespace b03sqlite.Data;
+
+[ExcelImporter(IsLabelingError = true)]
+[ExcelExporter(Name = "导入商品中间表", TableStyle = TableStyles.Light10, AutoFitAllColumn = true)]
+[AutoGenerateClass(Searchable = true, Filterable = true, Sortable = true)]
+public class WeatherForecast
+{
+    [Column(IsIdentity = true)]
+    [DisplayName("序号")]
+    public int ID { get; set; }
+
+    [DisplayName("日期")]
+    public DateTime Date { get; set; }
+
+    public int TemperatureC { get; set; }
+
+    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+
+    public string? Summary { get; set; }
+}
