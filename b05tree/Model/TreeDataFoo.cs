@@ -45,8 +45,9 @@ class TreeDataFoo
             new TreeItem() { Text = "基础数据管理2", Id = "1210", ParentId = "1011" },
 
 
-            new TreeItem() { Text = "系统管理3", Id = "1012" },
-            new TreeItem() { Text = "基础数据管理3", Id = "1211", ParentId = "1012" },
+            new TreeItem() { Text = "系统管理3", Id = "1012" }, //_懒加载演示
+
+            new TreeItem() { Text = "系统管理4", Id = "1014" },//_懒加载延时演示 
 
         };
 

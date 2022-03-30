@@ -11,15 +11,16 @@ public sealed partial class Index
     private static List<TreeItem> GetLazyItems()
     {
         var ret = TreeDataFoo.GetTreeItems();
-        ret[0].Items[0].Items[0].Text += "_懒加载延时";
-        ret[0].Items[0].Items[0].HasChildNode = true;
-        ret[0].Items[0].Items[0].Key = "Delay";
-
-        ret[0].Items[0].Items[1].Text += "_懒加载";
-        ret[0].Items[0].Items[1].HasChildNode = true;
 
         ret[0].Items[0].Items[2].Text += "_默认打开";
         ret[0].Items[0].Items[2].IsCollapsed = false;
+
+        ret[2].Text += "_懒加载";
+        ret[2].HasChildNode = true;
+
+        ret[3].Text += "_懒加载延时";
+        ret[3].HasChildNode = true;
+        ret[3].Key = "Delay";
 
         for (int i = 0; i < ret[0].Items[0].Items[0].Items.Count; i++)
         {
@@ -61,7 +62,13 @@ public sealed partial class Index
                         Text = "懒加载子节点1",
                         HasChildNode = true
                     },
-                    new TreeItem() { Text = "懒加载子节点2" }
+                    new TreeItem()
+                    {
+                        Text = "懒加载延时子节点2",
+                        HasChildNode = true,
+                        Key = "Delay"
+                    },
+                    new TreeItem() { Text = "懒加载子节点3" }
             });
             item.ShowLoading = false;
         }
