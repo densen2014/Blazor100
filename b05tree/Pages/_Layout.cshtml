@@ -28,6 +28,25 @@
         <a class="dismiss">🗙</a>
     </div>
 
-    <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js" asp-append-version="true"></script>    <script src="_framework/blazor.server.js"></script>
+    <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js" asp-append-version="true"></script>
+    <script src="_framework/blazor.server.js"></script>
+    <script>
+        //Blazor-断开连接后重新加载浏览器
+        // 等待直到出现“重新加载”按钮
+        new MutationObserver((mutations, observer) => {
+            console.log('查看服务器');
+            if (document.querySelector('#components-reconnect-modal h5 a')) {
+                // 现在，每隔10秒，查看服务器是否返回，如果返回，则重新加载
+                async function attemptReload() {
+                    console.log('检查服务器是否真的返回');
+                    await fetch(''); // 检查服务器是否真的返回
+                    location.reload();
+                }
+                observer.disconnect();
+                attemptReload();
+                setInterval(attemptReload, 10000);
+            }
+        }).observe(document.body, { childList: true, subtree: true });
+    </script>
 </body>
 </html>
