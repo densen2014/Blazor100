@@ -8,4 +8,20 @@ Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 
- 
+<h6 style="color:lightskyblue;">@ver</h6>
+
+@code{
+    string? ver { get; set; }
+
+    Version? version { get; set; } = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        ver = File.GetLastWriteTime(Path.Combine(Directory.GetCurrentDirectory(), "Blazor100.dll")).ToLocalTime().ToString("yyyy-MM-dd HH:mm") + $" {version?.Major}.{version?.Minor}.{version?.Build}";
+
+    }
+
+
+}
