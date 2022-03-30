@@ -1,4 +1,5 @@
 ﻿using BootstrapBlazor.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace b05tree.Pages;
 
@@ -7,26 +8,31 @@ namespace b05tree.Pages;
 /// </summary>
 public sealed partial class TreeFsql
 {
+    [Inject] IFreeSql? fsql { get; set; } 
 
-    private static List<TreeItem> GetLazyItems()
+
+    private List<TreeItem> GetLazyItems()
     {
-        var ret = TreeDataFoo.GetTreeItems();
-        ret[0].Items[0].Items[0].Text += "_懒加载延时";
-        ret[0].Items[0].Items[0].HasChildNode = true;
-        ret[0].Items[0].Items[0].Key = "Delay";
 
-        ret[0].Items[0].Items[1].Text += "_懒加载";
-        ret[0].Items[0].Items[1].HasChildNode = true;
 
-        ret[0].Items[0].Items[2].Text += "_默认打开";
-        ret[0].Items[0].Items[2].IsCollapsed = false;
+        var ret = TreeDataFsqlFoo.GetTreeItems(fsql);
 
-        for (int i = 0; i < ret[0].Items[0].Items[0].Items.Count; i++)
-        {
-            ret[0].Items[0].Items[0].Items[i].Checked = true;
-            ret[0].Items[0].Items[1].Items[i].Checked = true;
-            ret[0].Items[0].Items[2].Items[i].Checked = true;
-        }
+        //ret[0].Items[0].Items[0].Text += "_懒加载延时";
+        //ret[0].Items[0].Items[0].HasChildNode = true;
+        //ret[0].Items[0].Items[0].Key = "Delay";
+
+        //ret[0].Items[0].Items[1].Text += "_懒加载";
+        //ret[0].Items[0].Items[1].HasChildNode = true;
+
+        //ret[0].Items[0].Items[2].Text += "_默认打开";
+        //ret[0].Items[0].Items[2].IsCollapsed = false;
+
+        //for (int i = 0; i < ret[0].Items[0].Items[0].Items.Count; i++)
+        //{
+        //    ret[0].Items[0].Items[0].Items[i].Checked = true;
+        //    ret[0].Items[0].Items[1].Items[i].Checked = true;
+        //    ret[0].Items[0].Items[2].Items[i].Checked = true;
+        //}
         return ret;
     }
 

@@ -2,8 +2,18 @@
 
 <h3>Tree 树形控件</h3>
 
+<p>
+    简单用法
+</p>
+
+<Tree ClickToggleNode="true" Items="@TreeDataFoo.GetTreeItems0()" />
+
+<br/>
+<br/>
+<br/>
+<br/>
 
 <p>
-    通过设置节点 <code>HasChildNode</code> 控制是否显示节点小箭头图片 。通过Tree的 <code>OnExpandNode</code> 委托添加节点
+    通过设置节点 <code>HasChildNode</code> 控制是否显示节点小箭头图片 。通过Tree的 <code>OnExpandNode</code> 委托添加节点 。通过Tree的 <code>Key</code> 委托添加节点
 </p>
 <Tree ClickToggleNode="true" Items="@GetLazyItems()" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" OnExpandNode="OnExpandNode" />
