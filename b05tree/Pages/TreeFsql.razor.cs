@@ -17,12 +17,12 @@ public sealed partial class TreeFsql
 
         var ret = TreeDataFsqlFoo.GetTreeItems(fsql);
 
-        ret[2].Text += "_懒加载";
-        ret[2].HasChildNode = true;
+        ret[1].Text += "_懒加载";
+        ret[1].HasChildNode = true;
 
-        ret[3].Text += "_懒加载延时";
-        ret[3].HasChildNode = true;
-        ret[3].Key = "Delay";
+        ret[2].Text += "_懒加载延时";
+        ret[2].HasChildNode = true;
+        ret[2].Key = "Delay";
 
         return ret;
     }

@@ -64,40 +64,26 @@ public class TreeDataFsqlFoo
                                 Name = "001_02_02_服务员"
                             }
                         })
-                    },
-                    new TreeDataFsqlFoo{
-                        Code = "001_03",
-                        Name = "001_03_懒加载演示",
-                        Childs = new List<TreeDataFsqlFoo>(new[] {
-                            new TreeDataFsqlFoo{
-                                Code = "001_03_01",
-                                Name = "001_03_01_子节点1"
-                            },
-                            new TreeDataFsqlFoo{
-                                Code = "001_03_02",
-                                Name = "001_03_02_子节点2"
-                            }
-                        })
-                    },
-                    new TreeDataFsqlFoo{
-                        Code = "001_04",
-                        Name = "001_04_懒加载延时演示",
-                        Childs = new List<TreeDataFsqlFoo>(new[] {
-                            new TreeDataFsqlFoo{
-                                Code = "001_04_01",
-                                Name = "001_04_01_子节点1"
-                            },
-                            new TreeDataFsqlFoo{
-                                Code = "001_04_02",
-                                Name = "001_04_02_子节点2"
-                            }
-                        })
                     }
                 })
             };
+            var lazyItems = new List<TreeDataFsqlFoo>(new[] {
+                districts,
+                    new TreeDataFsqlFoo
+                    {
+                        Code = "001_03",
+                        Name = "001_03_懒加载演示"
+                    },
+                    new TreeDataFsqlFoo
+                    {
+                        Code = "001_04",
+                        Name = "001_04_懒加载延时演示"
+                    }
+            });
+
             var repo = fsql.GetRepository<TreeDataFsqlFoo>();//仓库类
             repo.DbContextOptions.EnableAddOrUpdateNavigateList = true; //开启一对多，多对多级联保存功能
-            repo.Insert(districts);
+            repo.Insert(lazyItems);
         }
 
     }
