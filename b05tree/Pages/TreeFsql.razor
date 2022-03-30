@@ -1,4 +1,5 @@
 ﻿@page "/treefsql"
+@using b05tree.Data
 
 <h3>Tree 树形控件 + Freesql</h3>
 
@@ -7,3 +8,17 @@
     通过设置节点 <code>HasChildNode</code> 控制是否显示节点小箭头图片 。通过Tree的 <code>OnExpandNode</code> 委托添加节点
 </p>
 <Tree ClickToggleNode="true" Items="@GetLazyItems()" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" OnExpandNode="OnExpandNode" />
+
+
+<Table TItem="WeatherForecast"
+       IsPagination="true"
+       IsStriped="true"
+       IsBordered="true"
+       AutoGenerateColumns="true"
+       ShowSearch="true"
+       ShowToolbar="true"
+       ShowExtendButtons="true"
+       DoubleClickToEdit=true
+       ShowColumnList=true
+       ShowCardView=true>
+</Table>
