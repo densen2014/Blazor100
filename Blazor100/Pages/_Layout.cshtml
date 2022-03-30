@@ -28,5 +28,25 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
+    <script>
+        //auto reload
+        Blazor.defaultReconnectionHandler._reconnectCallback = function (d) {
+            document.location.reload();
+        },
+        Blazor.start({
+            reconnectionHandler: {
+                onConnectionDown: (options, error) => console.error(error),
+                onConnectionUp: () => console.log("Up, up, and away!")
+            },
+            reconnectionOptions: {
+                maxRetries: 3,
+                retryIntervalMilliseconds: 2000
+            }
+        });
+        window.addEventListener('pagehide', () => {
+            console.log("pagehide")
+            Blazor.disconnect();
+        });
+    </script>
 </body>
 </html>
