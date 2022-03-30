@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor100", "Blazor100\Blaz
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5165E290-A44D-4042-A9C0-EB6415B425B5}"
 	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
@@ -46,9 +48,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "31-40", "31-40", "{FEC17587
 		docs\README31-40.md = docs\README31-40.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b03sqlite", "b03sqlite\b03sqlite.csproj", "{0B103BC0-1759-4542-863E-B8C603BB4131}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b03sqlite", "b03sqlite\b03sqlite.csproj", "{0B103BC0-1759-4542-863E-B8C603BB4131}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b05tree", "b05tree\b05tree.csproj", "{9F70B74D-3E9A-487D-AC77-103D67A353D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b05tree", "b05tree\b05tree.csproj", "{9F70B74D-3E9A-487D-AC77-103D67A353D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

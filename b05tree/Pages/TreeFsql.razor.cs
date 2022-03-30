@@ -17,22 +17,13 @@ public sealed partial class TreeFsql
 
         var ret = TreeDataFsqlFoo.GetTreeItems(fsql);
 
-        //ret[0].Items[0].Items[0].Text += "_懒加载延时";
-        //ret[0].Items[0].Items[0].HasChildNode = true;
-        //ret[0].Items[0].Items[0].Key = "Delay";
+        ret[2].Text += "_懒加载";
+        ret[2].HasChildNode = true;
 
-        //ret[0].Items[0].Items[1].Text += "_懒加载";
-        //ret[0].Items[0].Items[1].HasChildNode = true;
+        ret[3].Text += "_懒加载延时";
+        ret[3].HasChildNode = true;
+        ret[3].Key = "Delay";
 
-        //ret[0].Items[0].Items[2].Text += "_默认打开";
-        //ret[0].Items[0].Items[2].IsCollapsed = false;
-
-        //for (int i = 0; i < ret[0].Items[0].Items[0].Items.Count; i++)
-        //{
-        //    ret[0].Items[0].Items[0].Items[i].Checked = true;
-        //    ret[0].Items[0].Items[1].Items[i].Checked = true;
-        //    ret[0].Items[0].Items[2].Items[i].Checked = true;
-        //}
         return ret;
     }
 
@@ -67,7 +58,13 @@ public sealed partial class TreeFsql
                         Text = "懒加载子节点1",
                         HasChildNode = true
                     },
-                    new TreeItem() { Text = "懒加载子节点2" }
+                    new TreeItem()
+                    {
+                        Text = "懒加载延时子节点2",
+                        HasChildNode = true,
+                        Key = "Delay"
+                    },
+                    new TreeItem() { Text = "懒加载子节点3" }
             });
             item.ShowLoading = false;
         }
