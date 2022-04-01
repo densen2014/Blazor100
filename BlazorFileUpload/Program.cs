@@ -7,10 +7,7 @@ builder.WebHost.UseUrls(builder.Configuration["UseUrls"]);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 //设置文件上传的大小限制 , 默认值128MB 
-builder.Services.Configure<FormOptions>(options =>
-{
-    options.MultipartBodyLengthLimit = long.MaxValue;
-});
+builder.Services.Configure<FormOptions>(o =>o.MultipartBodyLengthLimit = long.MaxValue);
 
 var app = builder.Build();
 

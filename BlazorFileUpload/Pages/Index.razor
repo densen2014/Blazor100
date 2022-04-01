@@ -44,7 +44,6 @@
 </code>
 </pre>
 }
-<button class="btn btn-info" @onclick="xx">xx</button>
 
 
 @code{
@@ -102,19 +101,4 @@
         StateHasChanged();
     }
 
-    //从 JavaScript 流式传输到 .NET
-    //https://docs.microsoft.com/zh-cn/aspnet/core/blazor/javascript-interoperability/call-dotnet-from-javascript?view=aspnetcore-6.0#stream-from-javascript-to-net
-    [Inject] IJSRuntime? JS { get; set; }
-
-    async Task xx()
-    {
-        var dataReference =
-        await JS!.InvokeAsync<IJSStreamReference>("streamToDotNet");
-        using var dataReferenceStream =
-            await dataReference.OpenReadStreamAsync(maxAllowedSize: 10_000_000);
-
-        var outputPath = Path.Combine(Path.GetTempPath(), "file.txt");
-        using var outputFileStream = File.OpenWrite(outputPath);
-        await dataReferenceStream.CopyToAsync(outputFileStream);
-    }
 }

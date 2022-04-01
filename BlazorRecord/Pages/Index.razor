@@ -1,0 +1,134 @@
+﻿@page "/"
+@implements IAsyncDisposable
+
+<PageTitle>Index</PageTitle>
+
+<button class="btn btn-info" @onclick="streamToDotNet">从 JavaScript 流式传输到.NET</button>
+<button class="btn btn-info" @onclick="streamToDotNet2">下载视频</button>
+<a href="Upload/@filename">@filename</a>
+
+<div>
+    @status
+    <button id="start">屏幕分享</button>
+    <button id="startcam">摄像头录制</button>
+    <button id="record">开始录制</button>
+    <button id="stop">结束录制</button>
+    <button id="download">下载视频</button>
+    <br/>
+    <video autoplay playsinline id="player"></video>
+</div>
+
+@code{
+    [Inject] IJSRuntime? JS { get; set; }
+    private IJSObjectReference? module;
+    private DotNetObjectReference<Index>? objRef;
+
+    /// <summary>
+    ///
+    /// </summary>
+    public ElementReference barcodeScannerElement { get; set; }
+
+    /// <summary>
+    /// 错误回调方法/Error callback method
+    /// </summary>
+    [Parameter]
+    public Func<string, Task>? OnError { get; set; }
+
+    // To prevent making JavaScript interop calls during prerendering
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        try
+        {
+            if (!firstRender) return;
+            UploadPath = Path.Combine(HostEnvironment!.WebRootPath, "Upload");
+            if (!Directory.Exists(UploadPath)) Directory.CreateDirectory(UploadPath);
+
+            objRef = DotNetObjectReference.Create(this);
+            module = await JS!.InvokeAsync<IJSObjectReference>("import", "./recorder.js");
+
+            await module.InvokeVoidAsync("init", objRef, barcodeScannerElement);
+        }
+        catch (Exception e)
+        {
+            if (OnError != null) await OnError.Invoke(e.Message);
+        }
+
+
+    }
+    public async Task<string> GetMediaFile<string>(  object[] inputs)
+    {
+        return await module.InvokeAsync<string>('InteropFunctions.GetMediaFile', inputs);
+    }
+
+    string status;
+    [JSInvokable]
+    public Task GetResult(string val)
+    {
+        status = val;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    async Task streamToDotNet2()
+    {
+        await module!.InvokeVoidAsync("streamToDotNet2", objRef);
+        //var dataReference =await module!.InvokeAsync<IJSStreamReference>("streamToDotNet2");
+    }
+
+
+    [JSInvokable]
+    public async Task GetResultblob(byte[] receivedBytes)
+    {
+        filename = $"{DateTime.Now.Ticks}.webm";
+        var outputPath = Path.Combine(UploadPath, filename);
+        await File.WriteAllBytesAsync(outputPath, receivedBytes);
+        StateHasChanged();
+    }
+
+    [JSInvokable]
+    public async Task<string> ReceiveByteArray(byte[] receivedBytes)
+    {
+        filename = $"{DateTime.Now.Ticks}.webm";
+        var outputPath = Path.Combine(UploadPath, filename);
+        await File.WriteAllBytesAsync(outputPath, receivedBytes);
+        StateHasChanged();
+        return System.Text.Encoding.UTF8.GetString(receivedBytes, 0, receivedBytes.Length);
+    }
+
+    [JSInvokable]
+    public async Task GetError(string err)
+    {
+
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            //await module.InvokeVoidAsync("destroy", barcodeScannerElement.Id);
+            await module.DisposeAsync();
+        }
+        objRef?.Dispose();
+    }
+
+    //从 JavaScript 流式传输到 .NET
+    //https://docs.microsoft.com/zh-cn/aspnet/core/blazor/javascript-interoperability/call-dotnet-from-javascript?view=aspnetcore-6.0#stream-from-javascript-to-net
+
+    [Inject] protected Microsoft.AspNetCore.Hosting.IWebHostEnvironment? HostEnvironment { get; set; }
+    [Inject] protected IConfiguration? Config { get; set; }
+    string filename;
+    protected string UploadPath = "";
+
+    async Task streamToDotNet()
+    {
+        var dataReference =
+        await module!.InvokeAsync<IJSStreamReference>("streamToDotNet");
+        using var dataReferenceStream =
+            await dataReference.OpenReadStreamAsync(maxAllowedSize: 10_000_000);
+
+        filename = $"{DateTime.Now.Ticks}.txt";
+        var outputPath = Path.Combine(UploadPath, filename);
+        using var outputFileStream = File.OpenWrite(outputPath);
+        await dataReferenceStream.CopyToAsync(outputFileStream);
+    }
+}
