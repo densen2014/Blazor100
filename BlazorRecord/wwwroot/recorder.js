@@ -6,7 +6,7 @@ export function streamToDotNet2(wrapperc) {
         0x6e, 0x67, 0x27, 0x73, 0x20, 0x73, 0x68, 0x69, 0x6e, 0x79, 0x2c,
         0x20, 0x43, 0x61, 0x70, 0x74, 0x69, 0x61, 0x6e, 0x2e, 0x20, 0x4e,
         0x6f, 0x74, 0x20, 0x74, 0x6f, 0x20, 0x66, 0x72, 0x65, 0x74, 0x2e]);
-    wrapperc.invokeMethodAsync('ReceiveByteArray', data)
+    wrapperc.invokeMethodAsync('ReceiveByteArray', new Uint8Array(64 * 1024 - 10))
         .then(str => {
             alert(str);
         });
@@ -95,7 +95,7 @@ export function init(wrapperc, element, alertText) {
     function sendNewChunks() {
         let start = 0;
         let iterationIndex = 0;
-        sendTimer = window.setInterval(() => {
+        sendTimer = window.setInterval(async () => {
             let allBlob = new Blob(allChunks);
             // 把增量视频的片段切下来
             let newBlob = allBlob.slice(start, allBlob.size);
@@ -105,15 +105,28 @@ export function init(wrapperc, element, alertText) {
                 iterationIndex++;
                 // 在这里Http post 发送newBlob对象
                 wrapperc.invokeMethodAsync("GetResult", "发送newBlob对象" + iterationIndex + " 长度 " + newBlob.size);
-                wrapperc.invokeMethodAsync("ReceiveByteArray", newBlob);
+                const response = new Blob(newBlob, { type: 'video/webm' });
+                const content = await (new Response(response).arrayBuffer());
+                const contentNums = new Uint8Array(content);
+                wrapperc.invokeMethodAsync("GetResultblob", contentNums, "Chunks" + iterationIndex);
             }
         }, 10000)
     }
 
-    document.querySelector('#download').onclick = function () {
+    document.querySelector('#download').onclick =async function () {
         if (mediaRecorder && mediaRecorder.state == "recording") mediaRecorder.stop();
         if (buf.length) {
-            return wrapperc.invokeMethodAsync("ReceiveByteArray", buf);
+            const response = new Blob(buf, { type: 'video/webm' });
+            const content = await (new Response(response).arrayBuffer());
+            const contentNums = new Uint8Array(content);
+            return wrapperc.invokeMethodAsync('ReceiveByteArray', contentNums)
+                .then(str => {
+                    alert(str);
+                });
+
+            return wrapperc.invokeMethodAsync("ReceiveByteArray", contentNums);
+            return wrapperc.invokeMethodAsync("ReceiveByteArray", Array.from(contentNums));
+            //return wrapperc.invokeMethodAsync("ReceiveByteArray", buf);
 
             const blob = new Blob(buf, { type: 'video/webm' });
             const url = window.URL.createObjectURL(blob);

@@ -55,10 +55,22 @@
 
 
     }
-    public async Task<string> GetMediaFile<string>(  object[] inputs)
+    public async Task<string> GetMediaFile(params object[] inputs)
     {
-        return await module.InvokeAsync<string>('InteropFunctions.GetMediaFile', inputs);
+        return await module.InvokeAsync<string>("InteropFunctions.GetMediaFile", inputs);
     }
+
+    //public async Task GetMediaFile2(object[] inputs)
+    //{
+    //    var source = await GetMediaFile(objRef, "audio-container");
+
+    //    if (string.IsNullOrEmpty(source) == false)
+    //    {
+    //        var audioBytes = System.Text.Encoder.GetBytes(source);
+
+    //        await File.WriteAllBytesAsync("audio.wav", audioBytes);
+    //    }
+    //}
 
     string status;
     [JSInvokable]
@@ -77,22 +89,22 @@
 
 
     [JSInvokable]
-    public async Task GetResultblob(byte[] receivedBytes)
+    public async Task GetResultblob(byte[] receivedBytes,string name)
     {
-        filename = $"{DateTime.Now.Ticks}.webm";
+        filename = (name ?? $"{DateTime.Now.Ticks}") + ".webm";
         var outputPath = Path.Combine(UploadPath, filename);
         await File.WriteAllBytesAsync(outputPath, receivedBytes);
         StateHasChanged();
     }
 
     [JSInvokable]
-    public async Task<string> ReceiveByteArray(byte[] receivedBytes)
+    public async Task<string> ReceiveByteArray(byte[] receivedBytes, string name)
     {
-        filename = $"{DateTime.Now.Ticks}.webm";
+        filename = (name ?? $"{DateTime.Now.Ticks}") + ".webm";
         var outputPath = Path.Combine(UploadPath, filename);
         await File.WriteAllBytesAsync(outputPath, receivedBytes);
         StateHasChanged();
-        return System.Text.Encoding.UTF8.GetString(receivedBytes, 0, receivedBytes.Length);
+        return filename;
     }
 
     [JSInvokable]
