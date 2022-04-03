@@ -1,0 +1,69 @@
+﻿@namespace b06chart
+
+@if (!IsHideSelectores)
+{
+    <span> @Year 年</span>
+    <span> @Month 月</span>
+    <span>
+        合计 : @(Total.ToString("N2"))
+        @TotalString2
+        @TotalString3
+    </span>
+}
+
+
+<div class="text-center mt-2 chart">
+    @if (!IsHideSelectores && UseDateTimeRangeValue)
+    {
+        <DateTimeRange @bind-Value="@DateTimeRangeValue1" OnConfirm="OnConfirm" OnClearValue="OnClear" />
+    }
+    <div class="btn-group">
+        @if (!IsHideSelectores)
+        {
+            for (int i = DateTime.Now.Year - 7; i <= DateTime.Now.Year; i++)
+            {
+                var year = i;
+                <Button Color="Color.Primary" IsOutline="@(Year!=year)" Text="@year.ToString()"
+                        OnClick="(()=>SetYear(year))" />
+            }
+        }
+        <Button Color="Color.Primary" IsOutline="true" OnClick="SwitchChart"><i class="fa @(IsLineChart?"fa-bar-chart":"fa-line-chart")"></i><span>切换</span></Button>
+        <Button Color="Color.Primary" IsOutline="true" OnClick="SwitchStacked"><i class="fa @(IsStacked?"fa-toggle-on":"fa-toggle-off")"></i><span>@(IsStacked? "合并" : "不合并")</span></Button>
+        <Button Color="Color.Primary" IsOutline="true" OnClick="e=>ReloadChart(true)"><i class="fa fa-refresh"></i><span>刷新</span></Button>
+    </div>
+</div>
+
+@if (!IsHideSelectores && IsShowMonthSelector)
+{
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
+            @{
+                for (int i = 1; i <= 12; i++)
+                {
+                    var month = i;
+                    <Button Color="Color.Primary" IsOutline="@(Month!=month)" Text="@month.ToString()"
+                            OnClick="(()=>SetMonth(month))" />
+                }
+            }
+            <Button Color="Color.Primary" IsOutline="true" OnClick="PreMonth"><i class="fa fa-calendar-minus-o"></i><span>上月</span></Button>
+            <Button Color="Color.Primary" IsOutline="true" OnClick="NextMonth"><i class="fa fa-calendar-plus-o"></i><span>下月</span></Button>
+            <Button Color="Color.Primary" IsOutline="true" OnClick="SetNow"><i class="fa fa-calendar-check-o"></i><span>本月</span></Button>
+        </div>
+    </div>
+}
+
+<div style="width: calc(80%);display: block;margin: 0 auto;">
+    @if (Show)
+    {
+        if (!IsLineChart)
+        {
+            <Chart ChartType="ChartType.Bar" OnInitAsync="OnInit" @ref="BarChart"  />
+        }
+        else
+        {
+            <Chart OnInitAsync="OnInit" @ref="LineChart"   />
+        }
+    }
+</div>
+
+ 

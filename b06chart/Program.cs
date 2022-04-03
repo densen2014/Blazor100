@@ -8,6 +8,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddFreeSql(option =>
+{
+    option.UseConnectionString(FreeSql.DataType.Sqlite, "Data Source=test.db;")  //也可以写到配置文件中
+#if DEBUG
+         //开发环境:自动同步实体
+         .UseAutoSyncStructure(true)
+         .UseNoneCommandParameter(true)
+         //调试sql语句输出
+         .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
+#endif
+    ;
+}); 
 builder.Services.AddBootstrapBlazor();
 
 var app = builder.Build();

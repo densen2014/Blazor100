@@ -1,0 +1,22 @@
+﻿@page "/TopSales"
+@namespace b06chart
+<p>日报表</p>
+
+<ChartsBase @ref="charts"
+            数据生成Callback="@((ds)=>数据生成(ds))"
+            Total="@Total" TotalString2="@TotalString2" />
+
+
+
+<Table TItem="Orders"
+       IsPagination="true"
+       IsStriped="true"
+       IsBordered="true"
+       AutoGenerateColumns="true"
+       ShowSearch="true"
+       ShowToolbar="true"
+       ShowExtendButtons="true"
+       DoubleClickToEdit=true
+       ShowColumnList=true
+       ShowCardView=true>
+</Table>
