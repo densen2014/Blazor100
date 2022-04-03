@@ -54,6 +54,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b05tree", "b05tree\b05tree.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRecord", "BlazorRecord\BlazorRecord.csproj", "{B356302D-73BF-4546-B9DD-71D9016D650B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b06chart", "b06chart\b06chart.csproj", "{4701FDAF-2E22-46CD-A03C-2A992247C3F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{B356302D-73BF-4546-B9DD-71D9016D650B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B356302D-73BF-4546-B9DD-71D9016D650B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B356302D-73BF-4546-B9DD-71D9016D650B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4701FDAF-2E22-46CD-A03C-2A992247C3F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4701FDAF-2E22-46CD-A03C-2A992247C3F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4701FDAF-2E22-46CD-A03C-2A992247C3F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4701FDAF-2E22-46CD-A03C-2A992247C3F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
