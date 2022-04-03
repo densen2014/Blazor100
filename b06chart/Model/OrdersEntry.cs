@@ -46,15 +46,15 @@ public partial class Orders
         if (res == 0)
         {
             var items = new List<Orders>();
-            for (int i = 1; i < 15; i++)
+            for (int i = 1; i < 100; i++)
             {
-                var demo = Enumerable.Range(1, 10).Select((j, index) =>
+                var demo = Enumerable.Range(1, Randomer.Next(5, 12)).Select((j, index) =>
                       new Orders
                       {
-                          OrderID = i,
-                          OrderDate = DateTime.Now.Date.AddDays(-(15 - i)),
-                          SubTotal = Randomer.Next(200, 370), 
-                          OrderDetailss = Enumerable.Range(5, 20).Select((j, index) => 
+                          //OrderID = i,
+                          OrderDate = DateTime.Now.Date.AddDays(-(100 - i)),
+                          SubTotal = Randomer.Next(3, 45), 
+                          OrderDetailss = Enumerable.Range(1, Randomer.Next(3, 10)).Select((j, index) => 
                                               new OrderDetails
                                               {
                                                   OrderID = i,
@@ -66,7 +66,7 @@ public partial class Orders
             } 
 
         var repo = fsql.GetRepository<Orders>();//仓库类
-        repo.DbContextOptions.EnableAddOrUpdateNavigateList = true; //开启一对多，多对多级联保存功能
+        repo.DbContextOptions.EnableAddOrUpdateNavigateList = true; //开启一对多，多对多级联保存功能 
         repo.Insert(items);
     }
 
@@ -93,5 +93,9 @@ public partial class OrderDetails
     [JsonProperty, Column(DbType = "numeric(18,3)")]
     [DisplayName("数量")]
     public decimal Quantity { get; set; }
+
+    [AutoGenerateColumn(Ignore = true)]
+    [Navigate(nameof(OrderID))]
+    public virtual Orders Orders { get; set; }
 
 }

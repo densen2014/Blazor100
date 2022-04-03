@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace b06chart
 {
-    public partial class DayReport
+    public partial class YearsCharts
     {
         [Inject]
         [NotNull]
@@ -19,16 +19,15 @@ namespace b06chart
         private Task 数据生成(ChartDataSource ds)
         {
              var orders = fsql.Select<Orders>()
-                                .Where(a => a.OrderDate.Month == charts!. Month &&
-                                            a.OrderDate.Year == charts.Year)
+                                .Where(a =>  a.OrderDate.Year == charts!.Year)
                                 .GroupBy(a => new
                                 {
-                                     a.OrderDate.Day
+                                     a.OrderDate.Month
                                 })
                                 .ToList(a => new
                                 {
                                     cou1 = a.Count(),
-                                    OrderDate = a.Key.Day,
+                                    OrderDate = a.Key.Month,
                                     Total = a.Sum(a.Value.SubTotal)
                                 });
 

@@ -1,0 +1,8 @@
+﻿@page "/YearsCharts"
+@namespace b06chart
+
+<ChartsBase @ref="charts" TitleCharts="年报表" XAxesText="月"
+            IsShowMonthSelector="false"
+            数据生成Callback="@((ds)=>数据生成(ds))"
+            Total="@Total"  />
+

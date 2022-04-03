@@ -1,22 +1,26 @@
-﻿@page "/TopSales"
+﻿@page "/DayReport"
 @namespace b06chart
-<p>日报表</p>
 
-<ChartsBase @ref="charts"
-            数据生成Callback="@((ds)=>数据生成(ds))"
-            Total="@Total" TotalString2="@TotalString2" />
+<Tab>
+    <TabItem Text="日报表">
+        <ChartsBase @ref="charts"
+                    TitleCharts="日报表"
+                    数据生成Callback="@((ds)=>数据生成(ds))"
+                    Total="@Total" TotalString2="@TotalString2" />
 
-
-
-<Table TItem="Orders"
-       IsPagination="true"
-       IsStriped="true"
-       IsBordered="true"
-       AutoGenerateColumns="true"
-       ShowSearch="true"
-       ShowToolbar="true"
-       ShowExtendButtons="true"
-       DoubleClickToEdit=true
-       ShowColumnList=true
-       ShowCardView=true>
-</Table>
+    </TabItem>
+    <TabItem Text="数据">
+        <Table TItem="Orders"
+               IsPagination="true"
+               IsStriped="true"
+               IsBordered="true"
+               AutoGenerateColumns="true"
+               ShowSearch="true"
+               ShowToolbar="true"
+               ShowExtendButtons="true"
+               DoubleClickToEdit=true
+               ShowColumnList=true
+               ShowCardView=true>
+        </Table>
+    </TabItem>
+</Tab>

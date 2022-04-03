@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor100", "Blazor100\Blaz
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5165E290-A44D-4042-A9C0-EB6415B425B5}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		LICENSE = LICENSE
@@ -52,9 +53,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b03sqlite", "b03sqlite\b03s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b05tree", "b05tree\b05tree.csproj", "{9F70B74D-3E9A-487D-AC77-103D67A353D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRecord", "BlazorRecord\BlazorRecord.csproj", "{B356302D-73BF-4546-B9DD-71D9016D650B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRecord", "BlazorRecord\BlazorRecord.csproj", "{B356302D-73BF-4546-B9DD-71D9016D650B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b06chart", "b06chart\b06chart.csproj", "{4701FDAF-2E22-46CD-A03C-2A992247C3F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b06chart", "b06chart\b06chart.csproj", "{4701FDAF-2E22-46CD-A03C-2A992247C3F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

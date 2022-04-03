@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components;
+ï»¿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using b06chart.Data;
 
@@ -10,13 +10,13 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddFreeSql(option =>
 {
-    option.UseConnectionString(FreeSql.DataType.Sqlite, "Data Source=test.db;")  //Ò²¿ÉÒÔÐ´µ½ÅäÖÃÎÄ¼þÖÐ
+    option.UseConnectionString(FreeSql.DataType.Sqlite, "Data Source=demo.db;")  //ä¹Ÿå¯ä»¥å†™åˆ°é…ç½®æ–‡ä»¶ä¸­
 #if DEBUG
-         //¿ª·¢»·¾³:×Ô¶¯Í¬²½ÊµÌå
+         //å¼€å‘çŽ¯å¢ƒ:è‡ªåŠ¨åŒæ­¥å®žä½“
          .UseAutoSyncStructure(true)
          .UseNoneCommandParameter(true)
-         //µ÷ÊÔsqlÓï¾äÊä³ö
-         .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
+         //è°ƒè¯•sqlè¯­å¥è¾“å‡º
+         //.UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
 #endif
     ;
 }); 

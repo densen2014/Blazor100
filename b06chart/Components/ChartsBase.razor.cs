@@ -6,8 +6,8 @@ namespace b06chart
 {
     public partial class ChartsBase
     {
-        [NotNull] private Chart? LineChart { get; set; }
-        [NotNull] private Chart? BarChart { get; set; }
+        private Chart? LineChart { get; set; }
+        private Chart? BarChart { get; set; }
 
         /// <summary>
         /// 设定当前年份
@@ -89,7 +89,7 @@ namespace b06chart
             起始日期 = value.Start.FirstSecond();
             结束日期 = value.End.Year == 1 ? value.Start.LastSecond() : value.End.LastSecond();
 
-            Chart chart = IsLineChart ? LineChart : BarChart;
+            Chart? chart = IsLineChart ? LineChart : BarChart;
             chart?.Update(ChartAction.Update);
             //StateHasChanged();
             return Task.CompletedTask;
@@ -98,7 +98,7 @@ namespace b06chart
         {
             起始日期 = DateTime.Today.FirstDay();
             结束日期 = DateTime.Today.LastDay();
-            Chart chart = IsLineChart ? LineChart : BarChart;
+            Chart? chart = IsLineChart ? LineChart : BarChart;
             chart?.Update(ChartAction.Update);
             //StateHasChanged();
             return Task.CompletedTask;
@@ -173,8 +173,15 @@ namespace b06chart
             else
                 数据生成Callback.InvokeAsync(ds);
 
-            ForceRefresh = LastCount < (ds.Labels?.Count()??0);
-            LastCount = ds.Labels?.Count()??0;
+            if (ds.Labels ==null || ds.Labels!.Count() == 0)
+            {
+                LastCount = 0;
+                Show = false;
+                return Task.FromResult(ds);
+            }
+            Show = true;
+            ForceRefresh = LastCount == 0 || LastCount < ds.Labels!.Count();
+            LastCount = ds.Labels!.Count();
 
             if (!FirstLoad && ForceRefresh)
             {
@@ -197,21 +204,21 @@ namespace b06chart
 
         private Task SetYear(int year)
         {
-            Chart chart = IsLineChart ? LineChart : BarChart;
+            Chart? chart = IsLineChart ? LineChart : BarChart;
             Year = year;
             chart?.Update(ChartAction.Update);
             return Task.CompletedTask;
         }
         private Task SetMonth(int month)
         {
-            Chart chart = IsLineChart ? LineChart : BarChart;
+            Chart? chart = IsLineChart ? LineChart : BarChart;
             Month = month;
             chart?.Update(ChartAction.Update);
             return Task.CompletedTask;
         }
         private Task PreMonth()
         {
-            Chart chart = IsLineChart ? LineChart : BarChart;
+            Chart? chart = IsLineChart ? LineChart : BarChart;
             Year = Month - 1 >= 1 ? Year : Year - 1;
             Month = Month - 1 >= 1 ? Month - 1 : 12;
             chart?.Update(ChartAction.Update);
@@ -219,7 +226,7 @@ namespace b06chart
         }
         private Task NextMonth()
         {
-            Chart chart = IsLineChart ? LineChart : BarChart;
+            Chart? chart = IsLineChart ? LineChart : BarChart;
             Year = Month + 1 <= 12 ? Year : Year + 1;
             Month = Month + 1 <= 12 ? Month + 1 : 1;
             chart?.Update(ChartAction.Update);
@@ -227,7 +234,7 @@ namespace b06chart
         }
         private Task SetNow()
         {
-            Chart chart = IsLineChart ? LineChart : BarChart;
+            Chart? chart = IsLineChart ? LineChart : BarChart;
             Year = DateTime.Now.Year;
             Month = DateTime.Now.Month;
             chart?.Update(ChartAction.Update);
@@ -236,7 +243,7 @@ namespace b06chart
 
         private Task RandomData()
         {
-            Chart chart = IsLineChart ? LineChart : BarChart;
+            Chart? chart = IsLineChart ? LineChart : BarChart;
             chart?.Update(ChartAction.Update);
             return Task.CompletedTask;
         }
@@ -260,7 +267,7 @@ namespace b06chart
         /// </summary>
         private async void ReloadChart(bool reloadData=false)
         {
-            Chart chart = IsLineChart ? LineChart : BarChart;
+            Chart? chart = IsLineChart ? LineChart : BarChart;
             if (reloadData) chart?.Update(ChartAction.Update);
             Show = false;
             await InvokeAsync(StateHasChanged);

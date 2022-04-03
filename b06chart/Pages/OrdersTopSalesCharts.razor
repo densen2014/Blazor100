@@ -1,20 +1,26 @@
 ﻿@page "/TopSales"
 @namespace b06chart
-    <p>销售排行榜</p>
 
-<ChartsBase @ref="charts" 
-            数据生成Callback="@((ds)=>数据生成(ds))"
-            Total="@Total" TotalString2="@TotalString2" />
+<Tab>
+    <TabItem Text="销售排行榜"> 
+        <ChartsBase @ref="charts"
+                    TitleCharts="销售排行榜"
+                    数据生成Callback="@((ds)=>数据生成(ds))"
+                    Total="@Total" />
+    </TabItem>
+    <TabItem Text="数据">
 
-<Table TItem="OrderDetails"
-       IsPagination="true"
-       IsStriped="true"
-       IsBordered="true"
-       AutoGenerateColumns="true"
-       ShowSearch="true"
-       ShowToolbar="true"
-       ShowExtendButtons="true"
-       DoubleClickToEdit=true
-       ShowColumnList=true
-       ShowCardView=true>
-</Table>
+        <Table TItem="OrderDetails"
+               IsPagination="true"
+               IsStriped="true"
+               IsBordered="true"
+               AutoGenerateColumns="true"
+               ShowSearch="true"
+               ShowToolbar="true"
+               ShowExtendButtons="true"
+               DoubleClickToEdit=true
+               ShowColumnList=true
+               ShowCardView=true>
+        </Table>
+    </TabItem>
+</Tab>

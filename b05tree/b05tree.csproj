@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="6.4.7" />
+    <PackageReference Include="BootstrapBlazor" Version="6.4.16" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="6.0.1" />
     <PackageReference Include="Densen.FreeSql.Extensions.BootstrapBlazor" Version="6.3.2" />
-    <PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.100" />
+    <PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.301" />
   </ItemGroup>
 
 </Project>
