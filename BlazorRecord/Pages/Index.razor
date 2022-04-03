@@ -8,14 +8,16 @@
 <a href="Upload/@filename">@filename</a>
 
 <div>
-    @status
     <button id="start">屏幕分享</button>
     <button id="startcam">摄像头录制</button>
     <button id="record">开始录制</button>
     <button id="stop">结束录制</button>
     <button id="download">下载视频</button>
-    <br/>
-    <video autoplay playsinline id="player"></video>
+    <button id="sent">上传视频</button>
+    <br />
+    <video autoplay playsinline id="player" height="400"></video>
+    <br />
+    @status
 </div>
 
 @code{

@@ -6,7 +6,7 @@ export function streamToDotNet2(wrapperc) {
         0x6e, 0x67, 0x27, 0x73, 0x20, 0x73, 0x68, 0x69, 0x6e, 0x79, 0x2c,
         0x20, 0x43, 0x61, 0x70, 0x74, 0x69, 0x61, 0x6e, 0x2e, 0x20, 0x4e,
         0x6f, 0x74, 0x20, 0x74, 0x6f, 0x20, 0x66, 0x72, 0x65, 0x74, 0x2e]);
-    wrapperc.invokeMethodAsync('ReceiveByteArray', new Uint8Array(64 * 1024 - 10))
+    wrapperc.invokeMethodAsync('ReceiveByteArray', new Uint8Array(64 * 1024 - 10),"txt.txt")
         .then(str => {
             alert(str);
         });
@@ -23,6 +23,7 @@ export function init(wrapperc, element, alertText) {
             }).then((stream) => {
                 allStream = stream;
                 document.querySelector('#player').srcObject = stream;
+                wrapperc.invokeMethodAsync("GetResult", "getDisplayMedia");
             }).catch((err) => {
                 console.error(err);
             })
@@ -40,6 +41,7 @@ export function init(wrapperc, element, alertText) {
             }).then((stream) => {
                 allStream = stream;
                 document.querySelector('#player').srcObject = stream;
+                wrapperc.invokeMethodAsync("GetResult", "getUserMedia");
             }).catch((err) => {
                 console.error(err);
             })
@@ -53,25 +55,38 @@ export function init(wrapperc, element, alertText) {
         if (mediaRecorder && mediaRecorder.state == "recording") {
             sendTimer=null;
             mediaRecorder.stop(); 
+            wrapperc.invokeMethodAsync("GetResult", "Stop");
         }
     }
 
-    let buf = [];
     let mediaRecorder;
-
     //录制到的数据数据
     let allChunks = [];
+    let state;
 
     document.querySelector('#record').onclick = function () {
         // 约束视频格式
-        const options = {
-            mimeType: 'video/webm;codecs=vp8'
+        let options = {
+            mimeType: 'video/webm;codecs=vp9,opus'
         }
+        //'video/webm;codecs=vp9,opus',
+        //'video/webm;codecs=vp8,opus',
+        //'video/webm;codecs=h264,opus',
+        //'video/mp4;codecs=h264,aac',
+ 
 
         // 判断是否是支持的mimeType格式
         if (!MediaRecorder.isTypeSupported(options.mimeType)) {
             console.error('不支持的视频格式');
-            return;
+            wrapperc.invokeMethodAsync("GetResult", "不支持的视频格式1");
+            options = {
+                mimeType: 'video/webm;codecs=h264,opus'
+            }
+            if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+                console.error('不支持的视频格式');
+                wrapperc.invokeMethodAsync("GetResult", "不支持的视频格式2");
+                return;
+            }
         }
         try {
             mediaRecorder = new MediaRecorder(allStream, options);
@@ -79,13 +94,17 @@ export function init(wrapperc, element, alertText) {
             mediaRecorder.ondataavailable = function (e) {
                 if (e && e.data && e.data.size > 0) {
                     // 存储到数组中
-                    buf.push(e.data);
                     allChunks.push(e.data);
+                    if (state !== 'recording') {
+                        wrapperc.invokeMethodAsync("GetResult", "recording...");
+                        state = 'recording';
+                    }
                 }
             };
             // 开始录制
             mediaRecorder.start(10);
             sendNewChunks();
+            wrapperc.invokeMethodAsync("GetResult", "Record start");
         } catch (e) {
             console.error(e);
         }
@@ -104,37 +123,40 @@ export function init(wrapperc, element, alertText) {
             if (newBlob.size > 0) {
                 iterationIndex++;
                 // 在这里Http post 发送newBlob对象
-                wrapperc.invokeMethodAsync("GetResult", "发送newBlob对象" + iterationIndex + " 长度 " + newBlob.size);
-                const response = new Blob(newBlob, { type: 'video/webm' });
-                const content = await (new Response(response).arrayBuffer());
+                wrapperc.invokeMethodAsync("GetResult", "发送切片" + iterationIndex + " 长度kb " + newBlob.size/1024 );
+                const content = await (new Response(newBlob).arrayBuffer());
                 const contentNums = new Uint8Array(content);
                 wrapperc.invokeMethodAsync("GetResultblob", contentNums, "Chunks" + iterationIndex);
             }
-        }, 10000)
+        }, 5000)
     }
 
     document.querySelector('#download').onclick =async function () {
         if (mediaRecorder && mediaRecorder.state == "recording") mediaRecorder.stop();
-        if (buf.length) {
-            const response = new Blob(buf, { type: 'video/webm' });
-            const content = await (new Response(response).arrayBuffer());
-            const contentNums = new Uint8Array(content);
-            return wrapperc.invokeMethodAsync('ReceiveByteArray', contentNums)
-                .then(str => {
-                    alert(str);
-                });
-
-            return wrapperc.invokeMethodAsync("ReceiveByteArray", contentNums);
-            return wrapperc.invokeMethodAsync("ReceiveByteArray", Array.from(contentNums));
-            //return wrapperc.invokeMethodAsync("ReceiveByteArray", buf);
-
-            const blob = new Blob(buf, { type: 'video/webm' });
+        if (allChunks.length) {
+            const blob = new Blob(allChunks, { type: 'video/webm' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
             a.style.display = 'none';
             a.download = 'aaa.webm';
             a.click();
+            wrapperc.invokeMethodAsync("GetResult", "前端下载文件");
+        } else {
+            alert('还没有录制任何内容');
+        }
+    }
+
+    document.querySelector('#sent').onclick =async function () {
+        if (mediaRecorder && mediaRecorder.state == "recording") mediaRecorder.stop();
+        if (allChunks.length) {
+            const response = new Blob(allChunks, { type: 'video/webm' });
+            const content = await (new Response(response).arrayBuffer());
+            const contentNums = new Uint8Array(content);
+            return wrapperc.invokeMethodAsync('ReceiveByteArray', contentNums,'all')
+                .then(str => {
+                    alert(str);
+                });
         } else {
             alert('还没有录制任何内容');
         }

@@ -362,4 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 b03sqlite/test.db
-b05tree/test.db
+*test.db
+*.webm
