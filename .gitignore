@@ -361,6 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-b03sqlite/test.db
 *test.db
 *.webm
+b03sqlite/wwwroot/Upload/

@@ -4,7 +4,7 @@ using Magicodes.ExporterAndImporter.Html;
 using Magicodes.ExporterAndImporter.Pdf;
 using Magicodes.ExporterAndImporter.Word;
 
-namespace b03sqlite.Service
+namespace Blazor100.Service
 {
     /// <summary>
     /// 通用导入导出服务类
@@ -19,10 +19,8 @@ namespace b03sqlite.Service
             Html
         }
 
-        public async Task<string> ExportToExcel<T>(string filePath, List<T> items = null, ExportType exportType = ExportType.Excel) where T : class, new()
+        public async Task<string> ExportToExcel<T>(string filePath, List<T>? items = null, ExportType exportType = ExportType.Excel) where T : class, new()
         {
-            filePath = filePath ?? Path.Combine("D:\\", $"模板_{typeof(T).Name}");
-
             switch (exportType)
             {
                 case ExportType.Pdf:
@@ -47,5 +45,17 @@ namespace b03sqlite.Service
                     return result.FileName;
             }
         }
+
+        public async Task<(IEnumerable<T>? items,string error)> ImportFormExcel<T>(string filePath) where T : class, new()
+        {
+            IExcelImporter Importer = new ExcelImporter();
+            var import = await Importer.Import<T>(filePath);
+            if (import.Data == null ) 
+            {
+                return (null, import.Exception.Message);
+            }
+            return (import.Data!.ToList(),""); 
+        }
+
     }
 }

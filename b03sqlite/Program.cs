@@ -1,5 +1,5 @@
-using b03sqlite.Data;
-using b03sqlite.Service;
+ï»¿using b03sqlite.Data;
+using Blazor100.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,18 +9,18 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddFreeSql(option =>
 {
-    option.UseConnectionString(FreeSql.DataType.Sqlite, "Data Source=test.db;")  //Ò²¿ÉÒÔÐ´µ½ÅäÖÃÎÄ¼þÖÐ
+    option.UseConnectionString(FreeSql.DataType.Sqlite, "Data Source=test.db;")  //ä¹Ÿå¯ä»¥å†™åˆ°é…ç½®æ–‡ä»¶ä¸­
 #if DEBUG
-         //¿ª·¢»·¾³:×Ô¶¯Í¬²½ÊµÌå
+         //å¼€å‘çŽ¯å¢ƒ:è‡ªåŠ¨åŒæ­¥å®žä½“
          .UseAutoSyncStructure(true)
          .UseNoneCommandParameter(true)
-         //µ÷ÊÔsqlÓï¾äÊä³ö
+         //è°ƒè¯•sqlè¯­å¥è¾“å‡º
          .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
 #endif
     ;
 });
-builder.Services.AddBootstrapBlazor();
 builder.Services.AddTransient<ImportExportsService>();
+builder.Services.AddDensenExtensions();
 
 var app = builder.Build();
 
