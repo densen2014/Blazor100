@@ -1,0 +1,14 @@
+﻿{
+  "Title": "Index",
+  "HelloWorld": "Hello,World!",
+  "Tip1": "How is Blazor working for you?",
+
+  "BarCode": "BarCode",
+  "UnitPrice": "Price",
+  "ProductName": "ProductName",
+  "Remark": "Remark",
+
+  "View": "View",
+  "Save": "Save",
+  "Edit": "Edit"
+}

@@ -1,0 +1,14 @@
+﻿{
+  "Title": "首页",
+  "HelloWorld": "世界你好!",
+  "Tip1": "Blazor 可以帮您干啥？",
+
+  "BarCode": "条码",
+  "UnitPrice": "价格",
+  "ProductName": "商品",
+  "Remark": "备注",
+
+  "View": "查看",
+  "Save": "保存",
+  "Edit": "编辑"
+}

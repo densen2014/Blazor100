@@ -1,0 +1,14 @@
+﻿{
+  "Title": "Índice",
+  "HelloWorld": "¡Hola Mundo!",
+  "Tip1": "¿Cómo funciona Blazor para ti?",
+
+  "BarCode": "Codigo",
+  "UnitPrice": "Precio",
+  "ProductName": "Producto",
+  "Remark": "Nota",
+
+  "View": "Vista",
+  "Save": "Guardar",
+  "Edit": "Editar"
+}

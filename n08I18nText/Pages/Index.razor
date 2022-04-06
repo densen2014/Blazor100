@@ -1,0 +1,59 @@
+﻿@page "/"
+@inject Toolbelt.Blazor.I18nText.I18nText I18nText
+
+<PageTitle>@MyText["Title"]</PageTitle>
+
+<h1>@MyText["HelloWorld"]</h1>
+
+<table>
+    <tr>
+        <th>@MyText["BarCode"]</th>
+        <th>@MyText["UnitPrice"]</th>
+        <th>@MyText["ProductName"]</th>
+        <th>@MyText["Remark"]</th>
+    </tr>
+    <tr>
+        <td>12345</td>
+        <td>1.22</td>
+        <td>Big ball</td>
+        <td>来之大山深处的原始</td>
+    </tr>
+    <tr>
+        <td>EA888</td>
+        <td>35.99</td>
+        <td>Francisco doll</td>
+        <td>巴拉巴拉巴拉</td>
+    </tr>
+</table>
+
+
+<SurveyPrompt Title="@MyText["Tip1"]" />
+
+<button class="btn btn-primary">@MyText["View"]</button>
+<button class="btn btn-secondary">@MyText["Save"]</button>
+<button class="btn btn-danger">@MyText["Edit"]</button>
+
+<br />
+<br />
+<br />
+<br />
+<hr />
+
+<button class="btn btn-primary" @onclick='(async ()=>await OnChangeCurrentLang("zh"))'>中文</button>
+<button class="btn btn-primary" @onclick='(async ()=>await OnChangeCurrentLang("en"))'>英文</button>
+<button class="btn btn-primary" @onclick='(async ()=>await OnChangeCurrentLang("es"))'>西班牙文</button>
+
+@code 
+{
+    I18nText.MyText MyText = new I18nText.MyText();
+    protected override async Task OnInitializedAsync()
+    {
+        MyText = await I18nText.GetTextTableAsync<I18nText.MyText>(this);
+    }
+
+    private async Task OnChangeCurrentLang(string lang)
+    {
+        //"en", "es", "zh"
+        await I18nText.SetCurrentLanguageAsync(lang);
+    }
+}
