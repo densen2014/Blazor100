@@ -1,0 +1,101 @@
+﻿@page "/"
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+
+<PageTitle>Index</PageTitle>
+
+<div @ref="UploadElement" style="padding: 20px; width: 200px; height: 200px; background-color: cornflowerblue; border: 2px dashed #0087F7; border-radius: 5px; ">
+    <p>拖放上传文件</p>
+     <InputFile OnChange="OnChange" class="form-control" multiple @ref="inputFile"/>
+</div>
+
+
+<pre>
+<code>
+        @uploadstatus
+</code>
+</pre>
+
+@code{
+    [Inject] protected Microsoft.AspNetCore.Hosting.IWebHostEnvironment? HostEnvironment { get; set; } //获取IWebHostEnvironment
+
+    protected ElementReference UploadElement { get; set; }
+    protected InputFile? inputFile { get; set; }
+
+    private DotNetObjectReference<Index>? wrapper;
+
+    private IJSObjectReference? module;
+    private IJSObjectReference? dropInstance;
+
+    protected string UploadPath = "";
+    protected string? uploadstatus;
+    long maxFileSize = 1024 * 1024 * 15;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        UploadPath = Path.Combine(HostEnvironment!.WebRootPath, "Upload"); //初始化上传路径
+        if (!Directory.Exists(UploadPath)) Directory.CreateDirectory(UploadPath); //不存在则新建目录
+    }
+
+    protected async Task OnChange(InputFileChangeEventArgs e)
+    {
+        int i = 0;
+        var selectedFiles = e.GetMultipleFiles(100);
+        foreach (var item in selectedFiles)
+        {
+            i++;
+            await OnSubmit(item);
+            uploadstatus += Environment.NewLine + $"[{i}]: " + item.Name;
+        }
+    }
+
+    protected async Task OnSubmit(IBrowserFile efile)
+    {
+        if (efile == null) return;
+        var tempfilename = Path.Combine(UploadPath, efile.Name);
+        await using FileStream fs = new(tempfilename, FileMode.Create);
+        using var stream = efile.OpenReadStream(maxFileSize);
+        await stream.CopyToAsync(fs);
+        StateHasChanged();
+    }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        module = await JS.InvokeAsync<IJSObjectReference>("import", "./lib/drag/app.js");
+        wrapper = DotNetObjectReference.Create(this);
+        dropInstance = await module.InvokeAsync<IJSObjectReference>("init", wrapper, UploadElement, inputFile!.Element);
+    }
+
+    [JSInvokable]
+    public void DropAlert(string msg)
+    {
+        uploadstatus  += Environment.NewLine + $"[!Alert!]: " + msg;
+        StateHasChanged();
+    }
+
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (dropInstance != null)
+        {
+            await dropInstance.InvokeVoidAsync("dispose");
+            await dropInstance.DisposeAsync();
+        }
+
+        if (wrapper != null)
+        {
+            wrapper.Dispose();
+        }
+
+        if (module != null)
+        {
+            await module.DisposeAsync();
+        }
+    }
+
+}
