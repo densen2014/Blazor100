@@ -57,13 +57,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRecord", "BlazorRecor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b06chart", "b06chart\b06chart.csproj", "{4701FDAF-2E22-46CD-A03C-2A992247C3F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "n08I18nText", "n08I18nText\n08I18nText.csproj", "{6CB49482-EFC3-48F9-B455-C1C94C870BA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "n08I18nText", "n08I18nText\n08I18nText.csproj", "{6CB49482-EFC3-48F9-B455-C1C94C870BA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "n01UserSecrets", "n01UserSecrets\n01UserSecrets.csproj", "{396450F1-B8A1-48BE-9787-6FF0642E9E77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "n01UserSecrets", "n01UserSecrets\n01UserSecrets.csproj", "{396450F1-B8A1-48BE-9787-6FF0642E9E77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "n01UserSecretsConsole", "n01UserSecretsConsole\n01UserSecretsConsole.csproj", "{B703E43C-C79B-4A6A-9132-0C597A1BC8D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "n01UserSecretsConsole", "n01UserSecretsConsole\n01UserSecretsConsole.csproj", "{B703E43C-C79B-4A6A-9132-0C597A1BC8D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "n02drag", "n02drag\n02drag.csproj", "{C58A656C-E4B3-467B-9370-0E6550743424}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "n02drag", "n02drag\n02drag.csproj", "{C58A656C-E4B3-467B-9370-0E6550743424}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "n04LocalStorage", "n04LocalStorage\n04LocalStorage.csproj", "{835B029D-458B-488F-9D9C-FCEABF3EA8C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "n04LocalStorage_wasm", "n04LocalStorage_wasm\n04LocalStorage_wasm.csproj", "{9F6A8655-1B7E-4A39-B34D-C8C5122A8F18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +115,14 @@ Global
 		{C58A656C-E4B3-467B-9370-0E6550743424}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C58A656C-E4B3-467B-9370-0E6550743424}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C58A656C-E4B3-467B-9370-0E6550743424}.Release|Any CPU.Build.0 = Release|Any CPU
+		{835B029D-458B-488F-9D9C-FCEABF3EA8C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{835B029D-458B-488F-9D9C-FCEABF3EA8C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{835B029D-458B-488F-9D9C-FCEABF3EA8C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{835B029D-458B-488F-9D9C-FCEABF3EA8C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F6A8655-1B7E-4A39-B34D-C8C5122A8F18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F6A8655-1B7E-4A39-B34D-C8C5122A8F18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F6A8655-1B7E-4A39-B34D-C8C5122A8F18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F6A8655-1B7E-4A39-B34D-C8C5122A8F18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

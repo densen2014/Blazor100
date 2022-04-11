@@ -1,0 +1,84 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+<textarea @bind="noteContent" />
+<br />
+<button @onclick="UpdateLocalStorage">Save</button>
+<button @onclick="ClearLocalStorage">Clear</button>
+
+<hr />
+
+<div style="background-color :lightblue">
+
+    <p>
+        日期
+        <input type="datetime-local" @bind-value="one!.Date" />
+    </p>
+    <p>
+        温度
+        <input type="number" @bind-value="one!.TemperatureC" />
+    </p>
+    <p>
+        <input @bind-value="one!.Summary" />
+    </p>
+    <p>
+        <input type="color" @bind-value="one!.SkyColor" />
+    </p> 
+    <button @onclick="Add" class="btn btn-primary">新添</button>
+</div>
+
+@if (forecasts == null)
+{
+    <p><em>无数据...</em></p>
+}
+else
+{
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+                <th>SkyColor</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>
+                        <input @bind-value="forecast.Date" />
+                    </td>
+                    <td>
+                        <input @bind-value="forecast.TemperatureC" />
+                    </td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>
+                        <input @bind-value="forecast.Summary" />
+                    </td>
+                    <td>
+                        <input type="color" @bind-value="forecast.SkyColor" />
+                    </td> 
+                    <td>
+                        <button @onclick="Edit" class="btn btn-primary">编辑</button>
+                    </td>
+                    <td>
+                        <button @onclick="(()=>Delete(forecast))" class="btn btn-warning">删除</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button @onclick="Clear" class="btn btn-danger">清空</button>
+
+}
+
