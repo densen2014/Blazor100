@@ -67,7 +67,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "n02drag", "n02drag\n02drag.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "n04LocalStorage", "n04LocalStorage\n04LocalStorage.csproj", "{835B029D-458B-488F-9D9C-FCEABF3EA8C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "n04LocalStorage_wasm", "n04LocalStorage_wasm\n04LocalStorage_wasm.csproj", "{9F6A8655-1B7E-4A39-B34D-C8C5122A8F18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "n04LocalStorage_wasm", "n04LocalStorage_wasm\n04LocalStorage_wasm.csproj", "{9F6A8655-1B7E-4A39-B34D-C8C5122A8F18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b07geo", "b07geo\b07geo.csproj", "{826AC934-6A64-4B15-A752-28C28521B1C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +125,10 @@ Global
 		{9F6A8655-1B7E-4A39-B34D-C8C5122A8F18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F6A8655-1B7E-4A39-B34D-C8C5122A8F18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F6A8655-1B7E-4A39-B34D-C8C5122A8F18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{826AC934-6A64-4B15-A752-28C28521B1C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{826AC934-6A64-4B15-A752-28C28521B1C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{826AC934-6A64-4B15-A752-28C28521B1C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{826AC934-6A64-4B15-A752-28C28521B1C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

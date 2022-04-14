@@ -1,0 +1,60 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h3>地理定位/移动距离追踪</h3>
+
+<div>
+    <p>单击按钮以获取地理位置坐标。</p>
+    @if (WatchID == 0)
+    {
+        <Button Text="获取位置" OnClick="GetLocation"></Button>
+        <Button Text="移动距离追踪" OnClick="WatchPosition"></Button>
+    }
+    else
+    {
+        <Button Text="停止追踪" OnClick="ClearWatchPosition"></Button>
+    }
+    @if (Model != null)
+    {
+        <div class="form-inline row g-3 mt-3">
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.Longitude" ShowLabel="true" DisplayText="经度" />
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.Latitude" ShowLabel="true" DisplayText="纬度" />
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.Accuracy" ShowLabel="true" DisplayText="位置精度" />
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.Altitude" ShowLabel="true" DisplayText="海拔" />
+            </div>
+            <div class="col-12 col-sm-4">
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.AltitudeAccuracy" ShowLabel="true" DisplayText="海拔精度" />
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.Heading" ShowLabel="true" DisplayText="方向" />
+            </div>
+            <div class="col-12 col-sm-4">
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.Speed" ShowLabel="true" DisplayText="速度" />
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.CurrentDistance" ShowLabel="true" DisplayText="移动距离" />
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.TotalDistance" ShowLabel="true" DisplayText="总移动距离" />
+            </div>
+            <div class="col-12 col-sm-4">
+                <Display Value="@Model.LastUpdateTime" ShowLabel="true" DisplayText="时间戳" />
+            </div>
+        </div>
+    }
+
+    @Trace
+
+</div> 
