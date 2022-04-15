@@ -20,6 +20,11 @@
     @status
 </div>
 
+<video autoplay playsinline width="800" height="600" controls>
+    <source src="Upload/all.webm" type="video/webm"> 
+    您的浏览器不支持Video标签。
+</video>
+
 @code{
     [Inject] IJSRuntime? JS { get; set; }
     private IJSObjectReference? module;
