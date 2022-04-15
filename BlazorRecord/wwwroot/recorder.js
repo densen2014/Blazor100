@@ -128,7 +128,7 @@ export function init(wrapperc, element, alertText) {
                 const contentNums = new Uint8Array(content);
                 wrapperc.invokeMethodAsync("GetResultblob", contentNums, "Chunks" + iterationIndex);
             }
-        }, 5000)
+        }, 10000)
     }
 
     document.querySelector('#download').onclick =async function () {
