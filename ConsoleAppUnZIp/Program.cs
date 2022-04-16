@@ -1,17 +1,20 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.IO.Compression;
 
+System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
 Console.WriteLine("Hello, World!");
 if (File.Exists("测试文件.zip")) File.Delete("测试文件.zip");
 if (Directory.Exists("unzip"))
 {
-    Directory.Delete("unzip");
+    Directory.Delete("unzip",true);
 }
 Directory.CreateDirectory("unzip");
 
 zipFolder("测试文件", "测试文件.zip");
 unzipFile("测试文件.zip", "unzip");
-
+unzipFile("ref.zip", "unzipref");
+    
 //zip a folder
 void zipFolder(string folderPath, string zipPath)
 {
@@ -25,13 +28,11 @@ void zipFolder(string folderPath, string zipPath)
 }
 
 //unzip a file
-void unzipFile(string zipPath, string folderPath)
+void unzipFile(string zip文件路径, string 解压路径)
 {
-    using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
+    if (!Directory.Exists(解压路径))
     {
-        foreach (ZipArchiveEntry entry in archive.Entries)
-        {
-            entry.ExtractToFile(Path.Combine(folderPath, entry.FullName));
-        }
+        Directory.CreateDirectory(解压路径);
     }
+    ZipFile.ExtractToDirectory(zip文件路径, 解压路径, System.Text.Encoding.GetEncoding("GB2312"), true);
 }
