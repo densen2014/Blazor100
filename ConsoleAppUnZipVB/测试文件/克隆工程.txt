@@ -1,0 +1,4 @@
+pp="CarsBlazor"
+
+sudo chown -R www:www $gitPath
+echo "End"

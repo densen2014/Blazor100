@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ConsoleAppUnZipVB</RootNamespace>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="测试文件\克隆工程.txt" />
+    <None Remove="测试文件\坐标.txt" />
+    <None Remove="测试文件\蓝牙研究.txt" />
+    <None Remove="测试文件\迁移服务器.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="测试文件\克隆工程.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="测试文件\坐标.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="测试文件\蓝牙研究.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="测试文件\迁移服务器.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

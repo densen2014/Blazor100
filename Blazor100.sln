@@ -71,7 +71,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "n04LocalStorage_wasm", "n04
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b07geo", "b07geo\b07geo.csproj", "{826AC934-6A64-4B15-A752-28C28521B1C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppUnZIp", "ConsoleAppUnZIp\ConsoleAppUnZIp.csproj", "{DDBE83BA-290D-44BE-982E-202881CFC6DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppUnZIp", "ConsoleAppUnZIp\ConsoleAppUnZIp.csproj", "{DDBE83BA-290D-44BE-982E-202881CFC6DC}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ConsoleAppUnZipVB", "ConsoleAppUnZipVB\ConsoleAppUnZipVB.vbproj", "{B60C5C18-DF02-4565-B0FC-36D45ECECC7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +137,10 @@ Global
 		{DDBE83BA-290D-44BE-982E-202881CFC6DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDBE83BA-290D-44BE-982E-202881CFC6DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDBE83BA-290D-44BE-982E-202881CFC6DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B60C5C18-DF02-4565-B0FC-36D45ECECC7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B60C5C18-DF02-4565-B0FC-36D45ECECC7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B60C5C18-DF02-4565-B0FC-36D45ECECC7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B60C5C18-DF02-4565-B0FC-36D45ECECC7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
