@@ -6,6 +6,15 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>1a303f06-e9ac-4fa5-9021-d6825f37be1a</UserSecretsId>
 	<Version>0.0.5</Version>
-  </PropertyGroup> 
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifierPlus" Version="5.0.0" />
+  </ItemGroup> 
+    
+<!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Condition="$(Configuration) == 'Debug'" Command="cd JS &amp;&amp; npm run snowpack-build" />
+    <Exec Condition="$(Configuration) == 'Release'" Command="cd JS &amp;&amp; npm run snowpack-build" />
+</Target>-->
 
 </Project>

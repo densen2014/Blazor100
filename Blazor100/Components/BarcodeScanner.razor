@@ -108,7 +108,7 @@
         {
             if (!firstRender) return;
             objRef = DotNetObjectReference.Create(this);
-            module = await JS.InvokeAsync<IJSObjectReference>("import", "./lib/zxing/zxingjs.js");
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./lib/zxing/zxingjs.min.js");
 
             await module.InvokeVoidAsync("init", true, objRef, barcodeScannerElement, barcodeScannerElement.Id);
         }

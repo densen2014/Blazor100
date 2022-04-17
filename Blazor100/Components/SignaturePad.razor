@@ -172,7 +172,7 @@
         if (!firstRender) return;
         try
         {
-            module = await JS.InvokeAsync<IJSObjectReference>("import", "./lib/signature_pad/app.js");
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./lib/signature_pad/app.min.js");
             await module.InvokeVoidAsync("init", DotNetObjectReference.Create(this), SignaturepadElement, EnableAlertJS ? SignatureAlertText : null);
         }
         catch (Exception e)

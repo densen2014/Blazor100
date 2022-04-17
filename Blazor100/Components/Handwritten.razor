@@ -46,7 +46,7 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        module = await JS.InvokeAsync<IJSObjectReference>("import", "./lib/handwritten/handwritten.js");
+        module = await JS.InvokeAsync<IJSObjectReference>("import", "./lib/handwritten/app.min.js");
         await module.InvokeVoidAsync("init", DotNetObjectReference.Create(this), null);
     }
 

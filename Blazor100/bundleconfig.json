@@ -1,0 +1,35 @@
+﻿[
+  {
+    "outputFileName": "wwwroot/lib/zxing/zxingjs.min.js",
+    "inputFiles": [
+      "wwwroot/lib/zxing/zxingjs.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/lib/signature_pad/app.min.js",
+    "inputFiles": [
+      "wwwroot/lib/signature_pad/app.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/lib/handwritten/app.min.js",
+    "inputFiles": [
+      "wwwroot/lib/handwritten/handwritten.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]      
