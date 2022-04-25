@@ -1,0 +1,22 @@
+﻿@page "/admins"
+@attribute [TabItemOption(Text = "菜单管理")]
+<PageTitle>菜单管理</PageTitle>
+
+<div class="table-users scroll">
+    <Table TItem="WebPages"
+           IsFixedHeader="true"
+           IsPagination="true"
+           IsStriped="true"
+           AutoGenerateColumns="true"
+           ShowSearch="true"
+           ShowToolbar="true"
+           ShowExtendButtons="true"
+           DoubleClickToEdit=true
+           ShowColumnList=true
+           ShowCardView=true>
+    </Table>
+</div>
+
+@code {
+
+}

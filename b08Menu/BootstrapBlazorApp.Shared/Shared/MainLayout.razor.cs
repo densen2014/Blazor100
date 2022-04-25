@@ -1,5 +1,8 @@
 ﻿using BootstrapBlazor.Components;
+using BootstrapBlazorApp.Shared.Data;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazorApp.Shared.Shared;
 
@@ -22,7 +25,11 @@ public sealed partial class MainLayout
 
     private bool ShowFooter { get; set; } = true;
 
-    private List<MenuItem>? Menus { get; set; }
+    private List<MenuItem>? Menus { get; set; } = new List<MenuItem>();
+
+    [Inject]
+    [NotNull]
+    IFreeSql? fsql { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -31,21 +38,44 @@ public sealed partial class MainLayout
     {
         base.OnInitialized();
 
-        Menus = GetIconSideMenuItems();
+        //Menus = GetIconSideMenuItems();
     }
 
-    private static List<MenuItem> GetIconSideMenuItems()
+    protected override void OnAfterRender(bool firstRender)
     {
-        var menus = new List<MenuItem>
+        if (firstRender)
+        {
+            if (fsql.Select<WebPages>().Count() == 0)
             {
-                new MenuItem() { Text = "返回组件库", Icon = "fa fa-fw fa-home", Url = "https://www.blazor.zone/components" },
-                new MenuItem() { Text = "Index", Icon = "fa fa-fw fa-fa", Url = "/" , Match = NavLinkMatch.All},
-                new MenuItem() { Text = "Counter", Icon = "fa fa-fw fa-check-square-o", Url = "/counter" },
-                new MenuItem() { Text = "FetchData", Icon = "fa fa-fw fa-database", Url = "fetchdata" },
-                new MenuItem() { Text = "Table", Icon = "fa fa-fw fa-table", Url = "table" },
-                new MenuItem() { Text = "花名册", Icon = "fa fa-fw fa-users", Url = "users" }
-            };
+                var pages = new List<WebPages>(){
+                    new WebPages("首页","/","fa fa-home","001") ,
+                    new WebPages("数据","","fa fa-fw fa-database","002",
+                        new List<WebPages>(new[] {
+                            new WebPages("FetchData","fetchdata","fa fa-fw fa-database","002_001") ,
+                            new WebPages( "Counter","counter","fa fa-fw fa-check-square-o","002_002")  ,
+                            new WebPages("后台管理","admins","fa fa-gears","002_003") ,
+                        })) ,
+                    new WebPages("Table","table","fa fa-fw fa-table","004")  ,
+                    new WebPages("花名册","users","fa fa-fw fa-users","005")
+                };
 
-        return menus;
+                var repo = fsql.GetRepository<WebPages>();//仓库类
+                repo.DbContextOptions.EnableAddOrUpdateNavigateList = true; //开启一对多，多对多级联保存功能
+                repo.Insert(pages); 
+            }
+            Menus =  fsql.Select<WebPages>().OrderBy(a => a.Code)
+                        .LeftJoin(d => d.ParentCode == d.Parent!.Code)
+                        .ToList(a => new MenuItem()
+                        {
+                            Text = a.PageName,
+                            Id = a.Code,
+                            Url = a.Url,
+                            ParentId = a.ParentCode,
+                            Icon = a.Icon
+                        }).CascadingMenu().ToList();
+            // 算法获取属性结构数据 .CascadingMenu().ToList()
+            StateHasChanged();
+        }
     }
+ 
 }

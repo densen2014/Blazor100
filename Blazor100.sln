@@ -73,15 +73,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b07geo", "b07geo\b07geo.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppUnZIp", "ConsoleAppUnZIp\ConsoleAppUnZIp.csproj", "{DDBE83BA-290D-44BE-982E-202881CFC6DC}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ConsoleAppUnZipVB", "ConsoleAppUnZipVB\ConsoleAppUnZipVB.vbproj", "{B60C5C18-DF02-4565-B0FC-36D45ECECC7D}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "ConsoleAppUnZipVB", "ConsoleAppUnZipVB\ConsoleAppUnZipVB.vbproj", "{B60C5C18-DF02-4565-B0FC-36D45ECECC7D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "b08Menu", "b08Menu", "{D64EA0D6-FD34-423C-B51F-DC89DD045CE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazorApp.Server", "b08Menu\BootstrapBlazorApp.Server\BootstrapBlazorApp.Server.csproj", "{1A0DE8E4-BDE5-4C6B-914E-ED9D6218B88F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazorApp.Server", "b08Menu\BootstrapBlazorApp.Server\BootstrapBlazorApp.Server.csproj", "{1A0DE8E4-BDE5-4C6B-914E-ED9D6218B88F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazorApp.Shared", "b08Menu\BootstrapBlazorApp.Shared\BootstrapBlazorApp.Shared.csproj", "{9CB7C92B-3794-4163-A0CC-F79E43423DB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazorApp.Shared", "b08Menu\BootstrapBlazorApp.Shared\BootstrapBlazorApp.Shared.csproj", "{9CB7C92B-3794-4163-A0CC-F79E43423DB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazorApp.WebAssembly", "b08Menu\BootstrapBlazorApp.WebAssembly\BootstrapBlazorApp.WebAssembly.csproj", "{57C99E0C-E881-4D70-872D-12CA96FB07DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazorApp.WebAssembly", "b08Menu\BootstrapBlazorApp.WebAssembly\BootstrapBlazorApp.WebAssembly.csproj", "{57C99E0C-E881-4D70-872D-12CA96FB07DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
