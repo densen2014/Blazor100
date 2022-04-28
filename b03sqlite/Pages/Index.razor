@@ -18,7 +18,16 @@
                DoubleClickToEdit=true
                ShowColumnList=true
                ShowCardView=true>
-        </Table>
+            <TableColumns>
+                <TableColumn @bind-Field="@context.Summary" Width="100" Align="Alignment.Right" Sortable="false">
+                    <EditTemplate Context="v">
+                        <ComponentChkbox Summary="@v.Summary" />
+                    </EditTemplate>
+                </TableColumn>
+
+            </TableColumns>
+
+</Table>
 
         @code{
             // 由于使用了FreeSql ORM 数据服务,可以直接取对象
@@ -40,7 +49,6 @@
                     }
                 }
             }
-
 
         }
 

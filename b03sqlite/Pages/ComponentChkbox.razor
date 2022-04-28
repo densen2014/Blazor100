@@ -1,0 +1,21 @@
+﻿<h7>@Summary</h7>
+<Checkbox DisplayText="测试" ShowLabel="true" @bind-Value="@Summary"
+          OnStateChanged="OnStateChanged" ></Checkbox>
+
+@code {
+    [Parameter]
+    public string Summary { get; set; }
+
+
+    private Task OnStateChanged(CheckboxState state, string value)
+    {
+        Summary = state== CheckboxState.Checked ? "小菜" : "大佬";
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+    private Task OnValueChanged(string state)
+    {
+        return Task.CompletedTask;
+    }
+
+}
