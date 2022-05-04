@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFrameworks>net6.0;net461</TargetFrameworks>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+
+</Project>
