@@ -76,7 +76,26 @@ public class WebPages
     /// 隐藏
     /// </summary>
     [DisplayName ("隐藏")]
-    public bool Hide { get; set; } 
+    public bool Hide { get; set; }
+
+
+    /// <summary>
+    /// Markdown内容
+    /// </summary>
+    [Required(ErrorMessage = "{0}不能为空")]
+    [AutoGenerateColumn(Visible = false)]
+    [DisplayName("Markdown内容")]
+    [Column(StringLength = -2)]
+    public string? Markdown { get; set; } = "";
+
+    /// <summary>
+    /// Html内容
+    /// </summary>
+    [Required(ErrorMessage = "{0}不能为空")]
+    [AutoGenerateColumn(Visible = false)]
+    [DisplayName("Html内容")]
+    [Column(StringLength = -2)]
+    public string? Html { get; set; } = "";
 
 }
 

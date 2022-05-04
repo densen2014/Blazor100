@@ -1,0 +1,12 @@
+﻿@page "/{PageName}"
+<PageTitle>@(TpvPage?.PageName??"Home")</PageTitle>
+<div style="background-color:white">
+    @if (TpvPage != null)
+    {
+        <Markdown Value="@TpvPage.Markdown" IsViewer="true" />        
+    }
+    else
+    {
+        <p>您访问的页面不存在</p>
+    }
+</div>

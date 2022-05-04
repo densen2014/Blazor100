@@ -54,28 +54,41 @@ public sealed partial class MainLayout
                             new WebPages("FetchData","fetchdata","fa fa-fw fa-database","002_001") ,
                             new WebPages( "Counter","counter","fa fa-fw fa-check-square-o","002_002")  ,
                             new WebPages("后台管理","admins","fa fa-gears","002_003") ,
+                            new WebPages("页面编辑","editpages","fa fa-gears","002_004") ,
                         })) ,
-                    new WebPages("Table","table","fa fa-fw fa-table","004")  ,
-                    new WebPages("花名册","users","fa fa-fw fa-users","005")
+                    new WebPages("Table","table","fa fa-fw fa-table","004") ,
+                    new WebPages("花名册","users","fa fa-fw fa-users","005"),
+                    new WebPages("关于我们", "AboutUs", "fa fa-gears", "006"),
+                    new WebPages("隐私政策", "PrivacyPolicy", "fa fa-gears", "007")
                 };
 
                 var repo = fsql.GetRepository<WebPages>();//仓库类
                 repo.DbContextOptions.EnableAddOrUpdateNavigateList = true; //开启一对多，多对多级联保存功能
-                repo.Insert(pages); 
+                repo.Insert(pages);
             }
-            Menus =  fsql.Select<WebPages>().OrderBy(a => a.Code)
-                        .LeftJoin(d => d.ParentCode == d.Parent!.Code)
-                        .ToList(a => new MenuItem()
-                        {
-                            Text = a.PageName,
-                            Id = a.Code,
-                            Url = a.Url,
-                            ParentId = a.ParentCode,
-                            Icon = a.Icon
-                        }).CascadingMenu().ToList();
+            //仅配合文章演示,未做版本控制代码
+            if (fsql.Select<WebPages>().Where(a => a.PageName == "页面编辑").Count() == 0)
+            {
+                fsql.Insert(new WebPages("页面编辑", "editpages", "fa fa-gears", "002_004")).ExecuteAffrows();
+            }
+            if (fsql.Select<WebPages>().Where(a => a.PageName == "关于我们").Count() == 0)
+            {
+                fsql.Insert(new WebPages("关于我们", "AboutUs", "fa fa-gears", "006")).ExecuteAffrows();
+                fsql.Insert(new WebPages("隐私政策", "PrivacyPolicy", "fa fa-gears", "007")).ExecuteAffrows();
+            }
+            Menus = fsql.Select<WebPages>().OrderBy(a => a.Code)
+                    .LeftJoin(d => d.ParentCode == d.Parent!.Code)
+                    .ToList(a => new MenuItem()
+                    {
+                        Text = a.PageName,
+                        Id = a.Code,
+                        Url = a.Url,
+                        ParentId = a.ParentCode,
+                        Icon = a.Icon
+                    }).CascadingMenu().ToList();
             // 算法获取属性结构数据 .CascadingMenu().ToList()
             StateHasChanged();
         }
     }
- 
+
 }
