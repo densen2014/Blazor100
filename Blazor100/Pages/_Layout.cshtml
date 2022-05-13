@@ -28,8 +28,7 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
-    <script>
-        //Blazor-断开连接后重新加载浏览器
+    <script>//Blazor-断开连接后重新加载浏览器
         // 等待直到出现“重新加载”按钮
         new MutationObserver((mutations, observer) => {
             console.log('查看服务器');
@@ -45,6 +44,14 @@
                 setInterval(attemptReload, 10000);
             }
         }).observe(document.body, { childList: true, subtree: true });
+    </script>
+
+    <script>
+        window.CookieFunction = {
+            acceptMessage: function (cookieString) {
+                document.cookie = cookieString;
+            }
+        };
     </script>
 </body>
 </html>

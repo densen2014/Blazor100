@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Http
+
+@inject IHttpContextAccessor Http
+@inject IJSRuntime JSRuntime
+
+
+@if (showBanner)
+{
+<div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
+    <h4>隐私政策</h4>
+    <p>我们将根据法律规定，对我们网站收集的个人数据进行保密。我们的公司政策对数据保护和信息安全有着严格规定。 收集和处理个人数据除非您自愿为了特定的目的...</p>
+    <button type="button" class="accept-policy close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString" @onclick="AcceptMessage">
+        接受 cookie
+    </button>
+</div>
+}
+@code {
+    ITrackingConsentFeature consentFeature;
+    bool showBanner;
+    string cookieString;
+
+    protected override void OnInitialized()
+    {
+        consentFeature = Http.HttpContext.Features.Get<ITrackingConsentFeature>();
+        showBanner = !consentFeature?.CanTrack ?? false;
+        cookieString = consentFeature?.CreateConsentCookie();
+    }
+
+    private void AcceptMessage()
+    {
+        // JsInterop call to store the consent cookies.
+        JSRuntime.InvokeVoidAsync("CookieFunction.acceptMessage", cookieString);
+        showBanner = false;
+    }
+}
