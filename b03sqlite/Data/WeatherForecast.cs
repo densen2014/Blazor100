@@ -1,4 +1,4 @@
-using BootstrapBlazor.Components;
+ï»¿using BootstrapBlazor.Components;
 using FreeSql.DataAnnotations;
 using Magicodes.ExporterAndImporter.Excel;
 using OfficeOpenXml.Table;
@@ -7,20 +7,28 @@ using System.ComponentModel;
 namespace b03sqlite.Data;
 
 [ExcelImporter(IsLabelingError = true)]
-[ExcelExporter(Name = "µ¼ÈëÉÌÆ·ÖĞ¼ä±í", TableStyle = TableStyles.Light10, AutoFitAllColumn = true)]
+[ExcelExporter(Name = "å¯¼å…¥å•†å“ä¸­é—´è¡¨", TableStyle = TableStyles.Light10, AutoFitAllColumn = true)]
 [AutoGenerateClass(Searchable = true, Filterable = true, Sortable = true)]
-public class WeatherForecast
+public class WeatherForecast: WeatherForecast1
+{
+    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    [AutoGenerateColumn(Visible =false )]
+    public int TemperatureC { get; set; }
+}
+public class WeatherForecast1: WeatherForecast0
+{
+    [AutoGenerateColumn(Visible =false )]
+    public string? Summary { get; set; }
+}
+public class WeatherForecast0
 {
     [Column(IsIdentity = true)]
-    [DisplayName("ĞòºÅ")]
+    [DisplayName("åºå·")]
     public int ID { get; set; }
 
-    [DisplayName("ÈÕÆÚ")]
+    [DisplayName("æ—¥æœŸ")]
     public DateTime Date { get; set; }
 
-    public int TemperatureC { get; set; }
 
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 
-    public string? Summary { get; set; }
 }
