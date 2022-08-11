@@ -6,4 +6,10 @@
         <Nullable>disable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <None Remove="protobuf-net" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="protobuf-net" Version="3.1.4" />
+    </ItemGroup>
 </Project>

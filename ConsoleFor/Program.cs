@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ProtoBuf;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,117 +13,98 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-
-
-            Stopwatch Watch1 = new Stopwatch();
-            Watch1.Start();
-            List<entityA> source = new List<entityA>();
-            for (int i = 0; i < 10000000; i++)
+            var person = new Person
             {
-                source.Add(new entityA
-                {
-                    name = "悟空" + i,
-                    sex = i % 2 == 0 ? "男" : "女",
-                    age = i
-                });
-            }
-            Watch1.Stop();
-
-            Console.WriteLine("list循环插入耗时：" + Watch1.ElapsedMilliseconds);
-            Stopwatch Watch2 = new Stopwatch();
-            Watch2.Start();
-            loop1(source);
-            Watch2.Stop();
-            Console.WriteLine("一般for循环耗时：" + Watch2.ElapsedMilliseconds);
-
-            Stopwatch Watch3 = new Stopwatch();
-            Watch3.Start();
-            loop2(source);
-            Watch3.Stop();
-            Console.WriteLine("一般foreach循环耗时：" + Watch3.ElapsedMilliseconds);
-
-
-            Stopwatch Watch4 = new Stopwatch();
-            Watch4.Start();
-            loop3(source);
-            Watch4.Stop();
-            Console.WriteLine("并行for循环耗时：" + Watch4.ElapsedMilliseconds);
-
-            Stopwatch Watch5 = new Stopwatch();
-            Watch5.Start();
-            loop4(source);
-            Watch5.Stop();
-            Console.WriteLine("并行foreach循环耗时：" + Watch5.ElapsedMilliseconds);
-
-            Stopwatch Watch6 = new Stopwatch();
-            Watch6.Start();
-            loop5(source);
-            Watch6.Stop();
-            Console.WriteLine("并行foreach循环2耗时：" + Watch6.ElapsedMilliseconds);
+                Id = 12345,
+                Name = "Fred",
+                Address = new List<List<Address>>(){
+                        new List<Address>(){
+                            new Address
+                            {
+                                Line1 = "Flat 1",
+                                Line2 = "The Meadows"
+                            }
+                            ,new Address
+                            {
+                                Line1 = "Flat 2",
+                                Line2 = "The Meadows"
+                            }
+                            ,new Address
+                            {
+                                Line1 = "Flat 3",
+                                Line2 = "The Meadows"
+                            }
+                            ,new Address
+                            {
+                                Line1 = "Flat 4",
+                                Line2 = "The Meadows"
+                            }
+                        },
+                        new List<Address>(){
+                            new Address
+                            {
+                                Line1 = "Flat 1",
+                                Line2 = "The Meadows"
+                            }
+                            ,new Address
+                            {
+                                Line1 = "Flat 2",
+                                Line2 = "The Meadows"
+                            }
+                            ,new Address
+                            {
+                                Line1 = "Flat 3",
+                                Line2 = "The Meadows"
+                            }
+                            ,new Address
+                            {
+                                Line1 = "Flat 4",
+                                Line2 = "The Meadows"
+                            }
+                        }
+                }
+            };
+            var txt = SerializeToString_PB(person);
+            Console.WriteLine(txt);
             Console.ReadLine();
         }
 
-        //普通的for循环
-        static void loop1(List<entityA> source)
+        /// <summary>
+        /// 将对象实例序列化为字符串（Base64编码格式）——ProtoBuf
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="obj">对象实例</param>
+        /// <returns>字符串（Base64编码格式）</returns>
+        public static string SerializeToString_PB<T>( T obj)
         {
-            int count = source.Count();
-            for (int i = 0; i < count; i++)
+            using (MemoryStream ms = new MemoryStream())
             {
-                source[0].age = +10;
-                //System.Threading.Thread.Sleep(10);
+                ProtoBuf.Serializer.Serialize(ms, obj);
+                return Convert.ToBase64String(ms.GetBuffer(), 0, (int)ms.Length);
             }
         }
 
-        //普通的foreach循环
-        static void loop2(List<entityA> source)
+        [ProtoContract]
+        class Person
         {
-            foreach (entityA item in source)
-            {
-                item.age = +10;
-                //System.Threading.Thread.Sleep(10);
-            }
+            [ProtoMember(1)]
+            public int Id { get; set; }
+            [ProtoMember(2)]
+            public string Name { get; set; }
+
+            [ProtoMember(3)]
+            public List<List<Address>> Address { get; set; }
         }
 
-        //并行的for循环
-        static void loop3(List<entityA> source)
+        [ProtoContract]
+        class Address
         {
-            int count = source.Count();
-            Parallel.For(0, count, item =>
-            {
-                source[item].age = source[item].age + 10;
-                //System.Threading.Thread.Sleep(10);
-            });
+            [ProtoMember(1)]
+            public string Line1 { get; set; }
+            [ProtoMember(2)]
+            public string Line2 { get; set; }
         }
 
-        //并行的foreach循环
-        static void loop4(List<entityA> source)
-        {
-            Parallel.ForEach(source, item =>
-            {
-                item.age = item.age + 10;
-                //System.Threading.Thread.Sleep(10);
-            });
-        }
-
-        //并行的foreach循环2
-        static void loop5(List<entityA> source)
-        {
-            source.ForEach(item =>
-          {
-              item.age = item.age + 10;
-              //System.Threading.Thread.Sleep(10);
-          });
-        }
-
-
-
-        //简单的实体
-        class entityA
-        {
-            public string name { set; get; }
-            public string sex { set; get; }
-            public int age { set; get; }
-        }
 
 
 
