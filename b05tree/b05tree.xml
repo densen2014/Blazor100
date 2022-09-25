@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>b05tree</name>
+    </assembly>
+    <members>
+        <member name="M:b05tree.Utility.CascadingTree(System.Collections.Generic.IEnumerable{BootstrapBlazor.Components.TreeItem},System.String)">
+            <summary>
+            树状组件数据层次化方法
+            </summary>
+            <param name="items">数据集合</param>
+            <param name="parentId">父级节点</param>
+        </member>
+        <member name="M:b05tree.TreeDataFoo.GetTreeItems0">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:b05tree.TreeDataFoo.GetTreeItems(System.Int32)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:b05tree.TreeDataFsqlFoo">
+            <summary>
+            无限级分类（父子）是一种比较常用的表设计,表设计中只有 parent_id 字段
+            </summary>
+        </member>
+        <member name="T:b05tree.Pages.Index">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:b05tree.Pages.TreeFsql">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

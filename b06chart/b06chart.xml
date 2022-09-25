@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>b06chart</name>
+    </assembly>
+    <members>
+        <member name="P:b06chart.ChartsBase.Year">
+            <summary>
+            设定当前年份
+            </summary>
+        </member>
+        <member name="P:b06chart.ChartsBase.Month">
+            <summary>
+            设定当前月份
+            </summary>
+        </member>
+        <member name="P:b06chart.ChartsBase.TitleCharts">
+            <summary>
+            设定图表抬头
+            </summary>
+        </member>
+        <member name="P:b06chart.ChartsBase.XAxesText">
+            <summary>
+            设定X轴文本
+            </summary>
+        </member>
+        <member name="P:b06chart.ChartsBase.YAxesText">
+            <summary>
+            设定Y轴文本
+            </summary>
+        </member>
+        <member name="P:b06chart.ChartsBase.IsLineChart">
+            <summary>
+            图表类型:是=LineChart,否=BarChart
+            </summary>
+        </member>
+        <member name="P:b06chart.ChartsBase.IsDemo">
+            <summary>
+            使用默认数据
+            </summary>
+        </member>
+        <member name="P:b06chart.ChartsBase.IsShowMonthSelector">
+            <summary>
+            显示月份选择器
+            </summary>
+        </member>
+        <member name="P:b06chart.ChartsBase.IsHideSelectores">
+            <summary>
+            隐藏选择器
+            </summary>
+        </member>
+        <member name="P:b06chart.ChartsBase.UseDateTimeRangeValue">
+            <summary>
+            使用/初始化日期选择控件日期
+            </summary>
+        </member>
+        <member name="P:b06chart.ChartsBase.IsStacked">
+            <summary>
+            是否合并Bar显示 默认false
+            </summary>
+        </member>
+        <member name="P:b06chart.ChartsBase.Show">
+            <summary>
+            强刷显示控件控制,Hack一下
+            </summary>
+        </member>
+        <member name="M:b06chart.ChartsBase.SetDates(System.DateTime,System.DateTime)">
+            <summary>
+            设置日期选择控件日期
+            </summary>
+            <param name="_起始日期"></param>
+            <param name="_结束日期"></param>
+            <returns></returns>
+        </member>
+        <member name="M:b06chart.ChartsBase.OnInit">
+            <summary>
+            初始化 ChartDataSource
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:b06chart.ChartsBase.数据生成(BootstrapBlazor.Components.ChartDataSource)">
+            <summary>
+            数据生成,添加Labels和ChartDataset
+            </summary>
+            <param name="ds"></param>
+        </member>
+        <member name="M:b06chart.ChartsBase.SwitchStacked">
+            <summary>
+            切换合并显示
+            </summary>
+        </member>
+        <member name="M:b06chart.ChartsBase.ReloadChart(System.Boolean)">
+            <summary>
+            强刷控件,重新初始化控件外观
+            </summary>
+        </member>
+        <member name="T:b06chart.UtilityChart">
+            <summary>
+            Chart 工具类
+            </summary>
+        </member>
+        <member name="M:b06chart.UtilityChart.RandomData(BootstrapBlazor.Components.Chart)">
+            <summary>
+            
+            </summary>
+            <param name="chart"></param>
+        </member>
+        <member name="M:b06chart.UtilityChart.AddDataSet(BootstrapBlazor.Components.Chart,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="chart"></param>
+            <param name="dsCount"></param>
+        </member>
+        <member name="M:b06chart.UtilityChart.RemoveDataSet(BootstrapBlazor.Components.Chart,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="chart"></param>
+            <param name="dsCount"></param>
+        </member>
+        <member name="M:b06chart.UtilityChart.AddData(BootstrapBlazor.Components.Chart,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="chart"></param>
+            <param name="daCount"></param>
+        </member>
+        <member name="M:b06chart.UtilityChart.RemoveData(BootstrapBlazor.Components.Chart,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="chart"></param>
+            <param name="daCount"></param>
+        </member>
+        <member name="P:Blazor100.Data.Orders.OrderID">
+            <summary>
+            流水号
+            </summary>
+        </member>
+        <member name="P:Blazor100.Data.Orders.OrderDate">
+            <summary>
+            单据日期
+            </summary>
+        </member>
+        <member name="P:Blazor100.Data.Orders.SubTotal">
+            <summary>
+            合计金额
+            </summary>
+        </member>
+        <member name="T:Blazor100.Data.OrderDetails">
+            <summary>
+            订单详单
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,27 @@
+﻿@page "/printers"
+
+<h3>蓝牙打印机 BT Printer</h3>
+
+<h4>打印标签/条码/QR码。</h4>
+
+<p>@message</p>
+<Printer OnError="OnError" OnUpdateStatus="OnError" />
+
+@code{
+
+    /// <summary>
+    /// 显示扫码界面
+    /// </summary>
+    bool ShowScanBarcode { get; set; } = false;
+
+    private string? message;
+
+    private Task OnError(string message)
+    {
+        this.message = message;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+
+} 

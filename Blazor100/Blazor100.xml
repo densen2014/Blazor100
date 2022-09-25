@@ -1,0 +1,879 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Blazor100</name>
+    </assembly>
+    <members>
+        <member name="T:Blazor100.Components.BaiduItem">
+            <summary>
+            Baidu定位数据类
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.BaiduItem.Status">
+            <summary>
+            状态
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Blazor100.Components.BaiduItem.Latitude">
+            <summary>
+            纬度
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Blazor100.Components.BaiduItem.Longitude">
+            <summary>
+            经度
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Blazor100.Components.Geolocation">
+            <summary>
+            Geolocation 组件基类
+            <para></para>
+            扩展阅读:Chrome中模拟定位信息，清除定位信息<para></para>
+            https://blog.csdn.net/u010844189/article/details/81163438
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Geolocation.GeolocationInfo">
+            <summary>
+            获得/设置 定位
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Geolocation.GetLocationButtonText">
+            <summary>
+            获得/设置 获取位置按钮文字 默认为 获取位置
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Geolocation.WatchID">
+            <summary>
+            获得/设置 获取持续定位监听器ID
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Geolocation.WatchPositionButtonText">
+            <summary>
+            获得/设置 获取移动距离追踪按钮文字 默认为 移动距离追踪
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Geolocation.ClearWatchPositionButtonText">
+            <summary>
+            获得/设置 获取停止追踪按钮文字 默认为 停止追踪
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Geolocation.ShowButtons">
+            <summary>
+            获得/设置 是否显示默认按钮界面
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Geolocation.GeolocationElement">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Geolocation.OnResult">
+            <summary>
+            获得/设置 定位结果回调方法
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Geolocation.OnUpdateStatus">
+            <summary>
+            获得/设置 状态更新回调方法
+            </summary>
+        </member>
+        <member name="M:Blazor100.Components.Geolocation.GetLocation">
+            <summary>
+            获取定位
+            </summary>
+        </member>
+        <member name="M:Blazor100.Components.Geolocation.WatchPosition">
+            <summary>
+            持续定位
+            </summary>
+        </member>
+        <member name="M:Blazor100.Components.Geolocation.ClearWatch">
+            <summary>
+            持续定位
+            </summary>
+        </member>
+        <member name="M:Blazor100.Components.Geolocation.GetResult(Blazor100.Components.Geolocationitem)">
+            <summary>
+            定位完成回调方法
+            </summary>
+            <param name="geolocations"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Blazor100.Components.Geolocation.OnError">
+            <summary>
+            获得/设置 错误回调方法
+            </summary>
+        </member>
+        <member name="M:Blazor100.Components.Geolocation.UpdateStatus(System.String)">
+            <summary>
+            状态更新回调方法
+            </summary>
+            <param name="status"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Blazor100.Components.Geolocation.UpdateWatchID(System.Int64)">
+            <summary>
+            监听器ID回调方法
+            </summary>
+            <param name="watchID"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Blazor100.Components.Geolocationitem">
+            <summary>
+            定位数据类
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Geolocationitem.Status">
+            <summary>
+            状态
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Blazor100.Components.Geolocationitem.Latitude">
+            <summary>
+            纬度
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Blazor100.Components.Geolocationitem.Longitude">
+            <summary>
+            经度
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Blazor100.Components.Geolocationitem.Accuracy">
+            <summary>
+            准确度(米)<para></para>
+            将以m指定维度和经度值与实际位置的差距，置信度为95%.
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Geolocationitem.Timestamp">
+            <summary>
+            时间戳
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Geolocationitem.LastUpdateTime">
+            <summary>
+            时间
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Geolocationitem.CurrentDistance">
+            <summary>
+            移动距离
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Geolocationitem.TotalDistance">
+            <summary>
+            总移动距离
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Geolocationitem.LastLat">
+            <summary>
+            最后一次获取到的纬度
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Geolocationitem.LastLong">
+            <summary>
+            最后一次获取到的经度
+            </summary>
+        </member>
+        <member name="M:Blazor100.Components.Geolocationitem.UnixTimeStampToDateTime(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="unixTimeStamp"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Blazor100.Components.KeyboardKeysType">
+            <summary>
+            键盘语言布局
+            </summary>
+        </member>
+        <member name="T:Blazor100.Components.KeyboardType">
+            <summary>
+            键盘类型,全键盘 || 字母 || 小数字键盘
+            </summary>
+        </member>
+        <member name="T:Blazor100.Components.KeyboardPlacement">
+            <summary>
+            对齐, 顶端 || 底部
+            </summary>
+        </member>
+        <member name="T:Blazor100.Components.KeyboardSpecialcharacters">
+            <summary>
+            特殊符号键盘类型, 默认 || 欧洲 || 自定义
+            </summary>
+        </member>
+        <member name="T:Blazor100.Components.KeyboardTheme">
+            <summary>
+            键盘主题
+            </summary>
+        </member>
+        <member name="T:Blazor100.Components.KeyboardCssAnimationsStyle">
+            <summary>
+            打开或关闭键盘的 CSS 动画样式
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.keysArrayOfObjects">
+            <summary>
+            必需:必须为自定义键定义一个对象数组。<para></para>
+            提示：每个对象在键盘上创建一个行元素 (HTML)。<para></para>
+            例如 [{"key":"value"}, {"key":"value"}] => [{"0":"A","1":"B","2":"C" }, {"0":"D","1":"E","2":"F"}] 
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.KeyboardKeysType">
+            <summary>
+            键盘类型 <para></para>
+            arabic || english || french || german || hungarian || persian || russian || spanish || turkish
+            <para></para>仅当“keysArrayOfObjects”为“null”时才需要设置
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.keysJsonUrl">
+            <summary>
+            仅当“keysArrayOfObjects”为“null”时才需要。<para></para>
+            “kioskboard-keys-${langugage}.json”文件的路径必须设置为“keysJsonUrl”选项。（XMLHttpRequest 从 JSON 文件中获取密钥。）<para></para>
+            例如 '/Content/Plugins/KioskBoard/dist/kioskboard-keys-english.json' 
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.KeyboardSpecialcharacters">
+            <summary>
+            特殊符号键盘类型, 默认 || 欧洲 || 自定义
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.CustomerKeyboardSpecialcharacters">
+            <summary>
+            自定义特殊符号键盘 , 字符串数组覆盖内置的特殊字符。<para></para>
+            例如 ["#", "€", "%", "+", "-", "*"] 
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.keysSpecialCharsArrayOfStrings">
+            <summary> 
+            可选：自定义特殊符号键盘
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.keysNumpadArrayOfNumbers">
+            <summary> 
+            可选：可以设置一个数字数组来覆盖内置的小键盘键。（从 0 到 9，顺序不限。）
+            例如 [1, 2, 3, 4, 5, 6, 7, 8, 9, 0] 
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.language">
+             <summary> 
+            可选：自定义键的语言代码 (ISO 639-1)（用于语言支持）
+            <para></para> 例如 "de" || "en" || "fr" || "hu" || "tr" 等...
+             </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.Theme">
+            <summary> 
+            键盘主题  <para></para>  "light" || "dark" || "flat" || "material" || "oldschool"
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.capsLockActive">
+            <summary> 
+            大写或小写锁定。默认false小写 
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.allowRealKeyboard">
+            <summary> 
+            允许或阻止真实/物理键盘的使用。“false”时被阻止<para></para>
+            此外，如果想要使用真实/物理键盘，“allowMobileKeyboard”选项也必须为“true”。
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.allowMobileKeyboard">
+            <summary>
+            允许或阻止使用移动键盘。当 "false" 
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.cssAnimations">
+            <summary>
+            打开或关闭键盘的 CSS 动画
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.cssAnimationsDuration">
+            <summary>
+            CSS 动画持续时间为毫秒
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.CssAnimationsStyle">
+            <summary>
+            打开或关闭键盘的 CSS 动画样式 => "slide" || "fade" 
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.keysAllowSpacebar">
+            <summary>
+            启用或禁用键盘上的空格键功能。
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.keysSpacebarText">
+            <summary>
+            空格键（空格键）的文本。不设置显示为" "
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.keysFontFamily">
+            <summary>
+            键的字体系列
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.keysFontSize">
+            <summary>
+            按键的字体大小
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.keysFontWeight">
+            <summary>
+            按键的字体粗细
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.keysIconSize">
+            <summary>
+            图标键的大小
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.KeyboardOption.autoScroll">
+            <summary>
+            将文档滚动到 input/textarea 元素的顶部或底部（通过放置选项）
+            </summary>
+        </member>
+        <member name="T:Blazor100.Components.OnScreenKeyboard">
+            <summary>
+            屏幕键盘 OnScreenKeyboard 组件基类
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.OnScreenKeyboard.ClassName">
+            <summary>
+            获得/设置 组件class名称
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.OnScreenKeyboard.KeyboardKeys">
+            <summary>
+            获得/设置 键盘语言布局
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.OnScreenKeyboard.Keyboard">
+            <summary>
+            获得/设置 键盘类型
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.OnScreenKeyboard.Placement">
+            <summary>
+            获得/设置 对齐
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.OnScreenKeyboard.Placeholder">
+            <summary>
+            获得/设置 对齐
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.OnScreenKeyboard.Specialcharacters">
+            <summary>
+            获得/设置 对齐
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.OnScreenKeyboard.Option">
+            <summary>
+            获得/设置 配置
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.OnScreenKeyboard.OnError">
+            <summary>
+            获得/设置 错误回调方法
+            </summary>
+        </member>
+        <member name="T:Blazor100.Components.ViewerOptions">
+            <summary>
+            图片浏览器选项类
+            </summary>
+        </member>
+        <member name="M:Blazor100.Components.ViewerOptions.#ctor(System.String,System.Boolean)">
+            <summary>
+            图片浏览器选项
+            </summary>
+            <param name="id"></param>
+            <param name="fullscreen"></param>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.toolbarlite">
+            <summary>
+            简化版工具条
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.backdrop">
+            <summary>
+            背景遮罩
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.button">
+            <summary>
+            右上角的关闭按钮
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.fullscreen">
+            <summary>
+            全屏
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.inline">
+            <summary>
+            内联/模态模式
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.interval">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.keyboard">
+            <summary>
+            键盘导航快捷键
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.loading">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.loop">
+            <summary>
+            循环播放
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.maxZoomRatio">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.minHeight">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.minWidth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.minZoomRatio">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.movable">
+            <summary>
+            可移动
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.navbar">
+            <summary>
+            导航
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.rotatable">
+            <summary>
+            可旋转
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.scalable">
+            <summary>
+            可缩放
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.slideOnTouch">
+            <summary>
+            滑动触摸
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.toggleOnDblclick">
+            <summary>
+            双击切换
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.toolbar">
+            <summary>
+            工具栏
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.tooltip">
+            <summary>
+            工具提示
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.transition">
+            <summary>
+            过渡效果
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.zoomOnTouch">
+            <summary>
+            触摸缩放
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.zoomOnWheel">
+            <summary>
+            滚轮缩放
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.zoomRatio">
+            <summary>
+            缩放率
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.ViewerOptions.zoomable">
+            <summary>
+            可缩放
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.BaiduMap.OnError">
+            <summary>
+            获得/设置 错误回调方法
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.BaiduMap.Key">
+            <summary>
+            获得/设置 BaiduKey<para></para>
+            为空则在 IConfiguration 服务获取 "BaiduKey" , 默认在 appsettings.json 文件配置
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.BaiduMap.Style">
+            <summary>
+            获得/设置 style
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.BaiduMap.ID">
+            <summary>
+            获得/设置 ID
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.BaiduMap.OnResult">
+            <summary>
+            获得/设置 定位结果回调方法
+            </summary>
+        </member>
+        <member name="M:Blazor100.Components.BaiduMap.GetLocation">
+            <summary>
+            获取定位
+            </summary>
+        </member>
+        <member name="M:Blazor100.Components.BaiduMap.GetResult(Blazor100.Components.BaiduItem)">
+            <summary>
+            定位完成回调方法
+            </summary>
+            <param name="geolocations"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Blazor100.Components.BarcodeScanner.ScanBtnTitle">
+            <summary>
+            扫码按钮文本/Scan button title
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.BarcodeScanner.ResetBtnTitle">
+            <summary>
+            复位按钮文本/Reset button title
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.BarcodeScanner.CloseBtnTitle">
+            <summary>
+            关闭按钮文本/Close button title
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.BarcodeScanner.SelectDeviceBtnTitle">
+            <summary>
+            选择设备按钮文本/Select device button title
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.BarcodeScanner.ScanResult">
+            <summary>
+            扫码结果回调方法/Scan result callback method
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.BarcodeScanner.Close">
+            <summary>
+            关闭扫码框回调方法/Close scan code callback method
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.BarcodeScanner.OnError">
+            <summary>
+            错误回调方法/Error callback method
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.BarcodeScanner.Result">
+            <summary>
+            扫码结果/Scan result
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.BarcodeScanner.UseBuiltinDiv">
+            <summary>
+            使用内置DIV/Use builtin Div
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.BarcodeScanner.ShowScanBarcode">
+            <summary>
+            显示扫码框/Show scan box
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.BarcodeScanner.barcodeScannerElement">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:Blazor100.Components.Map.OnError">
+            <summary>
+            获得/设置 错误回调方法
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Map.Key">
+            <summary>
+            获得/设置 GoogleKey<para></para>
+            为空则在 IConfiguration 服务获取 "GoogleKey" , 默认在 appsettings.json 文件配置
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Map.Style">
+            <summary>
+            获得/设置 style
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Handwritten.HandwrittenBase64">
+            <summary>
+            Handwritten 手写签名
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Handwritten.Close">
+            <summary>
+            关闭扫码框回调方法
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Handwritten.Result">
+            <summary>
+            扫码结果
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.OnResult">
+            <summary>
+            手写签名结果回调/SignaturePad result callback method
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.OnAlert">
+            <summary>
+            手写签名警告信息回调/SignaturePad alert callback method
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.OnError">
+            <summary>
+            获得/设置 错误回调方法
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.SignAboveLabel">
+            <summary>
+            在框内签名标签文本/Sign above label
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.ClearBtnTitle">
+            <summary>
+            清除按钮文本/Clear button title
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.SignatureAlertText">
+            <summary>
+            请先签名提示文本/'Please provide a signature first' alert text
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.ChangeColorBtnTitle">
+            <summary>
+            换颜色按钮文本/Change color button title
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.UndoBtnTitle">
+            <summary>
+            撤消按钮文本/Undo button title
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.SaveBase64BtnTitle">
+            <summary>
+            保存为base64按钮文本/Save as Base64 button title
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.SavePNGBtnTitle">
+            <summary>
+            保存为PNG按钮文本/Save as PNG button title
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.SaveJPGBtnTitle">
+            <summary>
+            保存为JPG按钮文本/Save as JPG button title
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.SaveSVGBtnTitle">
+            <summary>
+            保存为SVG按钮文本/Save as SVG button title
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.EnableChangeColorBtn">
+            <summary>
+            启用换颜色按钮/Enable change color button
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.EnableAlertJS">
+            <summary>
+            启用JS错误弹窗/Enable Alert from JS
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.EnableSaveBase64Btn">
+            <summary>
+            启用保存为base64按钮/Enable save as Base64 button
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.EnableSavePNGBtn">
+            <summary>
+            启用保存为PNG按钮文本/Enable save as PNG button
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.EnableSaveJPGBtn">
+            <summary>
+            启用保存为JPG按钮文本/Enable save as JPG button
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.EnableSaveSVGBtn">
+            <summary>
+            启用保存为SVG按钮文本/Enable save as SVG button
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.BtnCssClass">
+            <summary>
+            按钮CSS式样/Button css style
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.SignaturePad.SignaturepadElement">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:Blazor100.Components.Viewerjs.UseBuiltinImageDiv">
+            <summary>
+            使用内置图片DIV
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Viewerjs.Images">
+            <summary>
+            图片列表
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Viewerjs.Src">
+            <summary>
+            单图片
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Viewerjs.Alts">
+            <summary>
+            图片名称列表
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Viewerjs.Options">
+            <summary>
+            组件初始化参数
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Viewerjs.toolbarlite">
+            <summary>
+            简化版工具条
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Viewerjs.Height">
+            <summary>
+            高
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Viewerjs.Width">
+            <summary>
+            宽
+            </summary>
+        </member>
+        <member name="P:Blazor100.Components.Viewerjs.ID">
+            <summary>
+            组件ID
+            </summary>
+        </member>
+        <member name="T:Blazor100.Pages.BaiduMapPage">
+            <summary>
+            百度地图 BaiduMap
+            </summary>
+        </member>
+        <member name="M:Blazor100.Pages.BaiduMapPage.GetAttributes">
+            <summary>
+            获得属性方法
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Blazor100.Pages.GeolocationPage">
+            <summary>
+            Geolocation 地理定位/移动距离追踪
+            <para></para>
+            扩展阅读:Chrome中模拟定位信息，清除定位信息<para></para>
+            https://blog.csdn.net/u010844189/article/details/81163438
+            </summary>
+        </member>
+        <member name="M:Blazor100.Pages.GeolocationPage.GetAttributes">
+            <summary>
+            获得属性方法
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Blazor100.Pages.MapsPage">
+            <summary>
+            谷歌地图 Maps
+            </summary>
+        </member>
+        <member name="M:Blazor100.Pages.MapsPage.GetAttributes">
+            <summary>
+            获得属性方法
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Blazor100.Pages.AttributeTable.Items">
+            <summary>
+            获得/设置 项目
+            </summary>
+        </member>
+        <member name="P:Blazor100.Pages.BarcodeScannerPage.ShowScanBarcode">
+            <summary>
+            显示扫码界面
+            </summary>
+        </member>
+        <member name="P:Blazor100.Pages.BarcodeScannerPage.BarCode">
+            <summary>
+            条码
+            </summary>
+        </member>
+        <member name="P:Blazor100.Pages.HandwrittenPage.ShowHandwritten">
+            <summary>
+            显示签名界面
+            </summary>
+        </member>
+        <member name="P:Blazor100.Pages.HandwrittenPage.DrawBase64">
+            <summary>
+            签名Base64
+            </summary>
+        </member>
+        <member name="P:Blazor100.Pages.PrinterPage.ShowScanBarcode">
+            <summary>
+            显示扫码界面
+            </summary>
+        </member>
+        <member name="P:Blazor100.Pages.SignaturePadPage.Result">
+            <summary>
+            签名Base64
+            </summary>
+        </member>
+        <member name="M:Blazor100.Pages.SignaturePadPage.GetAttributes">
+            <summary>
+            获得属性方法
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

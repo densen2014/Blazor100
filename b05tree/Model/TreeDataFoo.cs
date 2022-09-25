@@ -1,7 +1,19 @@
 ﻿using BootstrapBlazor.Components;
 
 namespace b05tree;
-
+public static class Utility
+{
+    /// <summary>
+    /// 树状组件数据层次化方法
+    /// </summary>
+    /// <param name="items">数据集合</param>
+    /// <param name="parentId">父级节点</param>
+    public static IEnumerable<TreeItem> CascadingTree(this IEnumerable<TreeItem> items, string? parentId = null) => items.Where(i => i.ParentId == parentId).Select(i =>
+    {
+        i.Items = CascadingTree(items, i.Id).ToList();
+        return i;
+    });
+}
 class TreeDataFoo
 {
     /// <summary>
