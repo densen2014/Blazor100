@@ -7,11 +7,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BootstrapBlazor" Version="6.10.7" />
+		<PackageReference Include="BootstrapBlazor" Version="6.10.10" />
 		<PackageReference Include="BootstrapBlazor.Chart" Version="6.0.0" />
 		<PackageReference Include="BootstrapBlazor.FontAwesome" Version="6.2.0" />
 		<PackageReference Include="Densen.FreeSql.Extensions.BootstrapBlazor" Version="6.8.0" />
-		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.670" />
+		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.680" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	</ItemGroup>
 

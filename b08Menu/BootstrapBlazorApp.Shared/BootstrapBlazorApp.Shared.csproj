@@ -16,10 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="6.10.7" />
+    <PackageReference Include="BootstrapBlazor" Version="6.10.10" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="6.1.7" />
     <PackageReference Include="Densen.FreeSql.Extensions.BootstrapBlazor" Version="6.8.0" />
-    <PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.670" />
+    <PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.680" />
   </ItemGroup>
 
 </Project>
