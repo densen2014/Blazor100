@@ -32,47 +32,47 @@
 #### Blazor 组件
 
 [条码扫描 ZXingBlazor](https://www.nuget.org/packages/ZXingBlazor#readme-body-tab)
-[![nuget](https://img.shields.io/nuget/v/ZXingBlazor.svg?)](https://www.nuget.org/packages/ZXingBlazor) 
-[![stats](https://img.shields.io/nuget/dt/ZXingBlazor.svg?style=flat-square)](https://www.nuget.org/stats/packages/ZXingBlazor?groupby=Version)
+[![nuget](https://img.shields.io/nuget/v/ZXingBlazor.svg?style=social&logo=appveyor)](https://www.nuget.org/packages/ZXingBlazor) 
+[![stats](https://img.shields.io/nuget/dt/ZXingBlazor.svg?style=social&logo=appveyor)](https://www.nuget.org/stats/packages/ZXingBlazor?groupby=Version)
 
 [图片浏览器 Viewer](https://www.nuget.org/packages/BootstrapBlazor.Viewer#readme-body-tab)
 [![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.Viewer.svg?style=social&logo=appveyor)](https://www.nuget.org/packages/BootstrapBlazor.Viewer) 
   
 [条码扫描 BarcodeScanner](Densen.Component.Blazor/BarcodeScanner.md)
-[![nuget](https://img.shields.io/nuget/v/Densen.Component.Blazor.svg?style=flat-square)](https://www.nuget.org/packages/Densen.Component.Blazor) 
+[![nuget](https://img.shields.io/nuget/v/Densen.Component.Blazor.svg?style=social&logo=appveyor)](https://www.nuget.org/packages/Densen.Component.Blazor) 
    
 [手写签名 Handwritten](Densen.Component.Blazor/Handwritten.md)
-[![nuget](https://img.shields.io/nuget/v/Densen.Component.Blazor.svg?style=flat-square)](https://www.nuget.org/packages/Densen.Component.Blazor) 
+[![nuget](https://img.shields.io/nuget/v/Densen.Component.Blazor.svg?style=social&logo=appveyor)](https://www.nuget.org/packages/Densen.Component.Blazor) 
 
 [手写签名 SignaturePad](https://www.nuget.org/packages/BootstrapBlazor.SignaturePad#readme-body-tab)
-[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.SignaturePad.svg?style=flat-square)](https://www.nuget.org/packages/BootstrapBlazor.SignaturePad) 
+[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.SignaturePad.svg?style=social&logo=appveyor)](https://www.nuget.org/packages/BootstrapBlazor.SignaturePad) 
 
 [定位/持续定位 Geolocation](https://www.nuget.org/packages/BootstrapBlazor.Geolocation#readme-body-tab)
-[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.Geolocation.svg?style=flat-square)](https://www.nuget.org/packages/Geolocation.Geolocation) 
+[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.Geolocation.svg?style=social&logo=appveyor)](https://www.nuget.org/packages/Geolocation.Geolocation) 
 
 [屏幕键盘 OnScreenKeyboard](https://www.nuget.org/packages/BootstrapBlazor.OnScreenKeyboard#readme-body-tab)
-[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.OnScreenKeyboard.svg?style=flat-square)](https://www.nuget.org/packages/BootstrapBlazor.OnScreenKeyboard) 
+[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.OnScreenKeyboard.svg?style=social&logo=appveyor)](https://www.nuget.org/packages/BootstrapBlazor.OnScreenKeyboard) 
 
 [百度地图 BaiduMap](https://www.nuget.org/packages/BootstrapBlazor.BaiduMap#readme-body-tab)
-[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.BaiduMap.svg?style=flat-square)](https://www.nuget.org/packages/BootstrapBlazor.BaiduMap) 
+[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.BaiduMap.svg?style=social&logo=appveyor)](https://www.nuget.org/packages/BootstrapBlazor.BaiduMap) 
 
 [谷歌地图 GoogleMap](https://www.nuget.org/packages/BootstrapBlazor.Maps#readme-body-tab)
-[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.Maps.svg?style=flat-square)](https://www.nuget.org/packages/BootstrapBlazor.Maps) 
+[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.Maps.svg?style=social&logo=appveyor)](https://www.nuget.org/packages/BootstrapBlazor.Maps) 
 
 [蓝牙和打印 Bluetooth](https://www.nuget.org/packages/BootstrapBlazor.Bluetooth#readme-body-tab)
-[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.Bluetooth.svg?style=flat-square)](https://www.nuget.org/packages/BootstrapBlazor.Bluetooth) 
+[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.Bluetooth.svg?style=social&logo=appveyor)](https://www.nuget.org/packages/BootstrapBlazor.Bluetooth) 
 
 [PDF阅读器 PdfReader](https://www.nuget.org/packages/BootstrapBlazor.PdfReader#readme-body-tab)
-[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.PdfReader.svg?style=flat-square)](https://www.nuget.org/packages/BootstrapBlazor.PdfReader) 
+[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.PdfReader.svg?style=social&logo=appveyor)](https://www.nuget.org/packages/BootstrapBlazor.PdfReader) 
 
 [文件系统访问 FileSystem](https://www.nuget.org/packages/BootstrapBlazor.FileSystem#readme-body-tab)
-[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.FileSystem.svg?style=flat-square)](https://www.nuget.org/packages/BootstrapBlazor.FileSystem) 
+[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.FileSystem.svg?style=social&logo=appveyor)](https://www.nuget.org/packages/BootstrapBlazor.FileSystem) 
 
 [光学字符识别 OCR](https://www.nuget.org/packages/BootstrapBlazor.OCR#readme-body-tab)
-[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.OCR.svg?style=flat-square)](https://www.nuget.org/packages/BootstrapBlazor.OCR) 
+[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.OCR.svg?style=social&logo=appveyor)](https://www.nuget.org/packages/BootstrapBlazor.OCR) 
 
 [电池信息/网络信息 WebAPI](https://www.nuget.org/packages/BootstrapBlazor.WebAPI#readme-body-tab)
-[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.WebAPI.svg?style=flat-square)](https://www.nuget.org/packages/BootstrapBlazor.WebAPI) 
+[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.WebAPI.svg?style=social&logo=appveyor)](https://www.nuget.org/packages/BootstrapBlazor.WebAPI) 
 
 #### AlexChow
 
