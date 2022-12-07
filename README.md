@@ -32,11 +32,14 @@
 #### Blazor 组件
 
 [条码扫描 ZXingBlazor](https://www.nuget.org/packages/ZXingBlazor#readme-body-tab)
-[![nuget](https://img.shields.io/nuget/v/ZXingBlazor.svg?style=flat-square)](https://www.nuget.org/packages/ZXingBlazor) 
+[![nuget](https://img.shields.io/nuget/v/ZXingBlazor.svg?
+
+
+)](https://www.nuget.org/packages/ZXingBlazor) 
 [![stats](https://img.shields.io/nuget/dt/ZXingBlazor.svg?style=flat-square)](https://www.nuget.org/stats/packages/ZXingBlazor?groupby=Version)
 
 [图片浏览器 Viewer](https://www.nuget.org/packages/BootstrapBlazor.Viewer#readme-body-tab)
-[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.Viewer.svg?style=flat-square)](https://www.nuget.org/packages/BootstrapBlazor.Viewer) 
+[![nuget](https://img.shields.io/nuget/v/BootstrapBlazor.Viewer.svg?social&logo=appveyor)](https://www.nuget.org/packages/BootstrapBlazor.Viewer) 
   
 [条码扫描 BarcodeScanner](Densen.Component.Blazor/BarcodeScanner.md)
 [![nuget](https://img.shields.io/nuget/v/Densen.Component.Blazor.svg?style=flat-square)](https://www.nuget.org/packages/Densen.Component.Blazor) 
