@@ -85,7 +85,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazorApp.WebAssem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleFor", "ConsoleFor\ConsoleFor.csproj", "{35F699FA-3527-4E53-9A04-167EC006FB5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b13video", "b13video\b13video.csproj", "{FF3CDF14-D68F-40C9-8774-04BD4AC7CDB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b13video", "b13video\b13video.csproj", "{FF3CDF14-D68F-40C9-8774-04BD4AC7CDB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b13wasm", "b13wasm\b13wasm.csproj", "{0452D494-454D-452C-87CA-08D80553B978}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b13pwa", "b13pwa\b13pwa.csproj", "{8C75FE3A-D515-4357-8160-C3138AECB343}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -173,6 +177,14 @@ Global
 		{FF3CDF14-D68F-40C9-8774-04BD4AC7CDB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF3CDF14-D68F-40C9-8774-04BD4AC7CDB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF3CDF14-D68F-40C9-8774-04BD4AC7CDB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0452D494-454D-452C-87CA-08D80553B978}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0452D494-454D-452C-87CA-08D80553B978}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0452D494-454D-452C-87CA-08D80553B978}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0452D494-454D-452C-87CA-08D80553B978}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C75FE3A-D515-4357-8160-C3138AECB343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C75FE3A-D515-4357-8160-C3138AECB343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C75FE3A-D515-4357-8160-C3138AECB343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C75FE3A-D515-4357-8160-C3138AECB343}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
