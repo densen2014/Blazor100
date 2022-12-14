@@ -1,41 +1,26 @@
 ﻿@inject IJSRuntime jsRuntime
+@namespace Blazor100.Components
 
-<video id="my-player"
-       class="video-js"
-       muted>
-    <p class="vjs-no-js">
-        To view this video please enable JavaScript, and consider upgrading to a
-        web browser that
-        <a href="https://videojs.com/html5-video-support/" target="_blank">
-            supports HTML5 video
-        </a>
-    </p>
-</video>
-
-@code{
-
-    [Parameter]
-    public string? SourcesType { get; set; }
-
-    [Parameter]
-    public string? SourcesUrl { get; set; }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+<div @ref="element">
+    <video id="video_@Id"
+           class="video-js"
+           muted
+           webkit-playsinline
+           playsinline
+           x-webkit-airplay="allow"
+           x5-video-player-type="h5"
+           x5-video-player-fullscreen="true"
+           x5-video-orientation="portraint">
+        <p class="vjs-no-js">
+            To view this video please enable JavaScript, and consider upgrading to a
+            web browser that
+            <a href="https://videojs.com/html5-video-support/" target="_blank">
+                supports HTML5 video
+            </a>
+        </p>
+    </video>
+    @if (Debug)
     {
-        if (firstRender)
-        {
-            var option = new VideoPlayerOption()
-            {
-                Width = 600,
-                Height = 300,
-                Controls = true,
-                Autoplay = true,
-                Preload = "auto",
-                Poster = "//vjs.zencdn.net/v/oceans.png"
-            };
-            option.Sources.Add(new VideoSources( "application/x-mpegURL",   "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8"));
-            await jsRuntime.InvokeVoidAsync("loadPlayer", "my-player", option);
-        }
+        <pre>@info</pre>
     }
-
-}
+</div>

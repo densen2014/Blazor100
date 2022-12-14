@@ -11,10 +11,10 @@ namespace b13video.Pages
     public class VideoPlayerOption
     {
         [JsonPropertyName("width")]
-        public int Width { get; set; } = 600;
+        public int Width { get; set; } = 300;
 
         [JsonPropertyName("height")]
-        public int Height { get; set; } = 300;
+        public int Height { get; set; } = 200;
 
         [JsonPropertyName("controls")]
         public bool Controls { get; set; } = true;
@@ -25,33 +25,52 @@ namespace b13video.Pages
         [JsonPropertyName("preload")]
         public string Preload { get; set; } = "auto";
 
-        [JsonPropertyName("poster")]
-        public string Poster { get; set; } = "//vjs.zencdn.net/v/oceans.png";
-
+        /// <summary>
+        /// 播放资源
+        /// </summary>
         [JsonPropertyName("sources")]
         public List<VideoSources> Sources { get; set; } = new List<VideoSources>();
 
+        /// <summary>
+        /// 设置封面
+        /// </summary>
+        [JsonPropertyName("poster")]
+        public string? Poster { get; set; } 
+
+        //[JsonPropertyName("enableSourceset")]
+        //public bool EnableSourceset { get; set; }
+
+        //[JsonPropertyName("techOrder")]
+        //public string? TechOrder { get; set; } = "['html5', 'flash']";
+
+
     }
 
+
+    /// <summary>
+    /// 播放资源
+    /// </summary>
     public class VideoSources
     {
         public VideoSources() { }
 
-        public VideoSources(string type, string src)
+        public VideoSources(string? type, string? src)
         {
-            this.type = type ?? throw new ArgumentNullException(nameof(type));
-            this.src = src ?? throw new ArgumentNullException(nameof(src));
+            this.Type = type ?? throw new ArgumentNullException(nameof(type));
+            this.Src = src ?? throw new ArgumentNullException(nameof(src));
         }
 
         /// <summary>
-        /// video/mp4,application/x-mpegURL
+        /// 资源类型<para></para>video/mp4<para></para>application/x-mpegURL<para></para>video/youtube
         /// </summary>
-        public string type { get; set; } = "application/x-mpegURL";
+        [JsonPropertyName("type")]
+        public string Type { get; set; } = "application/x-mpegURL";
 
         /// <summary>
-        /// application/x-mpegURL,video/mp4
+        /// 资源地址
         /// </summary>
-        public string src { get; set; } = "application/x-mpegURL";
+        [JsonPropertyName("src")]
+        public string Src { get; set; } = "application/x-mpegURL";
     }
 
 }
