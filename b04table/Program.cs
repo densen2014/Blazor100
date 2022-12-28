@@ -8,6 +8,7 @@ using b14table.Data;
 using Blazor100.Service;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,26 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+
+if (Directory.Exists(Path.Combine(builder.Environment.WebRootPath, "uploads")) == false) Directory.CreateDirectory(Path.Combine(builder.Environment.WebRootPath, "uploads"));
+IFileProvider fileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.WebRootPath, "uploads"));
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = fileProvider,
+    RequestPath = new PathString("/uploads"),
+    OnPrepareResponse = ctx =>
+    {
+        const int durationInSeconds = 60 * 5;//5分钟 
+        ctx.Context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.CacheControl] =
+           "public,max-age=" + durationInSeconds; 
+    }
+});
+
+app.UseDirectoryBrowser(new DirectoryBrowserOptions()
+{
+    FileProvider = fileProvider,
+    RequestPath = new PathString("/uploads")
+}); 
 
 app.UseRouting();
 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
@@ -12,11 +12,13 @@
         <PackageReference Include="Densen.Extensions.BootstrapBlazor" Version="7.1.0" />
         <PackageReference Include="Densen.FreeSql.Extensions.BootstrapBlazor" Version="7.0.0" />
         <PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.685" />
-        <PackageReference Include="Magicodes.IE.Core" Version="2.7.3" />
-        <PackageReference Include="Magicodes.IE.Excel" Version="2.7.3" />
-        <PackageReference Include="Magicodes.IE.Html" Version="2.7.3" />
-        <PackageReference Include="Magicodes.IE.Pdf" Version="2.7.3" />
-        <PackageReference Include="Magicodes.IE.Word" Version="2.7.3" />
+        <PackageReference Include="Magicodes.IE.Core" Version="2.7.1" />
+        <PackageReference Include="Magicodes.IE.Excel" Version="2.7.1" />
+        <PackageReference Include="Magicodes.IE.Html" Version="2.7.1" />
+        <PackageReference Include="Magicodes.IE.Pdf" Version="2.7.1" />
+        <PackageReference Include="Magicodes.IE.Word" Version="2.7.1" />
+        <PackageReference Include="HtmlToOpenXml.dll" Version="2.3.0" />
+        <PackageReference Include="Haukcode.WkHtmlToPdfDotNet" Version="1.5.86" />
     </ItemGroup>
 
     <ItemGroup>

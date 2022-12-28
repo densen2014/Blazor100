@@ -1,4 +1,5 @@
-﻿using Magicodes.ExporterAndImporter.Core;
+﻿using BootstrapBlazor.Components;
+using Magicodes.ExporterAndImporter.Core;
 using Magicodes.ExporterAndImporter.Excel;
 using Magicodes.ExporterAndImporter.Html;
 using Magicodes.ExporterAndImporter.Pdf;
@@ -19,7 +20,7 @@ namespace Blazor100.Service
             Html
         }
 
-        public async Task<string> ExportToExcel<T>(string filePath, List<T>? items = null, ExportType exportType = ExportType.Excel) where T : class, new()
+        public async Task<string> Export<T>(string filePath, List<T>? items = null, ExportType exportType = ExportType.Excel) where T : class, new()
         {
             switch (exportType)
             {
@@ -56,6 +57,6 @@ namespace Blazor100.Service
             }
             return (import.Data!.ToList(),""); 
         }
-
+ 
     }
 }

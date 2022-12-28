@@ -1,8 +1,8 @@
-﻿@page "/impexp"
+﻿@page "/impexpii"
 @using b14table.Data
 @using static Blazor100.Service.ImportExportsService
 
-<PageTitle>导入导出</PageTitle>
+<PageTitle>导入导出II</PageTitle>
 
 <InputFile OnChange="OnChange" style="max-width:400px" class="form-control"  />
 <br/>
@@ -16,50 +16,90 @@
        ShowSearch="true"
        ShowToolbar="true"
        ShowExtendButtons="true"
-       DataService="LazyHeroDataService" 
-	   OnSaveAsync="LazyHeroDataService!.SaveAsync"
-	   OnDeleteAsync="LazyHeroDataService.DeleteAsync"
+       DataService="LazyHeroDataService"
+       OnSaveAsync="LazyHeroDataService!.SaveAsync"
+       OnDeleteAsync="LazyHeroDataService.DeleteAsync"
        DoubleClickToEdit="@DoubleClickToEdit"
        IsExcel="@IsExcel"
        ScrollingDialogContent="true"
        EditDialogIsDraggable="true"
        EditDialogSize="Size.ExtraLarge"
-       EditDialogShowMaximizeButton="true">
+       EditDialogShowMaximizeButton="true"
+       ShowExportButton
+       OnExportAsync="ExportAsync"
+       PageItemsSource="new int[] {5, 20, 50, 100, 200, 500, 1000 }">
 
     <TableToolbarTemplate>
         <TableToolbarButton TItem="WeatherForecast" Color="Color.Primary" Text="自由编辑" OnClick="@IsExcelToggle" />
         <TableToolbarButton TItem="WeatherForecast" Color="Color.Warning" Text="随机数据" IsAsync OnClick="@GetDatasAsync" />
         <TableToolbarButton TItem="WeatherForecast" Color="Color.Secondary" Text="导入" IsAsync OnClick="@ImportExcel" />
-        <TableToolbarButton TItem="WeatherForecast" Color="Color.Info" Text="导出 Excel" IsAsync OnClickCallback="ExportExcelAsync" />
-        <TableToolbarButton TItem="WeatherForecast" Color="Color.Info" Text="导出 Word" IsAsync OnClickCallback="ExportWordAsync" />
-        <TableToolbarButton TItem="WeatherForecast" Color="Color.Info" Text="导出 Html" IsAsync OnClickCallback="ExportHtmlAsync" />
-        <TableToolbarButton TItem="WeatherForecast" Color="Color.Info" Text="导出 PDF" IsAsync OnClickCallback="ExportPDFAsync" />
         <TableToolbarButton TItem="WeatherForecast" Color="Color.Danger" Text="清空" IsAsync OnClick="EmptyAll" />
         <TableToolbarButton TItem="WeatherForecast" Color="Color.Success" Text="模板" IsAsync OnClick="Export模板Async" />
     </TableToolbarTemplate>
 
+    <ExportButtonDropdownTemplate>
+        <h6 class="dropdown-header">当前页数据</h6>
+        <div class="dropdown-item" @onclick="_=>ExportExcelAsync(list1.Rows)">
+            <i class="fas fa-file-excel"></i>
+            <span>Excel</span>
+        </div>
+        <div class="dropdown-item" @onclick="_=>ExportWordAsync(list1.Rows)">
+            <i class="fas fa-file-word"></i>
+            <span>Word</span>
+        </div>
+        <div class="dropdown-item" @onclick="_=>ExportHtmlAsync(list1.Rows)">
+            <i class="fa-brands fa-html5"></i>
+            <span>Html</span>
+        </div>
+        <div class="dropdown-item" @onclick="_=>ExportPDFAsync(list1.Rows)">
+            <i class="fas fa-file-pdf"></i>
+            <span>PDF</span>
+        </div>
+        <div class="dropdown-divider"></div>
+        <h6 class="dropdown-header">全部数据</h6>
+        <div class="dropdown-item" @onclick="_=>ExportExcelAsync(LazyHeroDataService!.Items)">
+            <i class="fas fa-file-excel"></i>
+            <span>Excel</span>
+        </div>
+        <div class="dropdown-item" @onclick="_=>ExportWordAsync(LazyHeroDataService!.Items)">
+            <i class="fas fa-file-word"></i>
+            <span>Word</span>
+        </div>
+        <div class="dropdown-item" @onclick="_=>ExportHtmlAsync(LazyHeroDataService!.Items)">
+            <i class="fa-brands fa-html5"></i>
+            <span>Html</span>
+        </div>
+        <div class="dropdown-item" @onclick="_=>ExportPDFAsync(LazyHeroDataService!.Items)">
+            <i class="fas fa-file-pdf"></i>
+            <span>PDF</span>
+        </div>
+    </ExportButtonDropdownTemplate>
 </Table>
 
 @code{
     [Inject]
     Microsoft.AspNetCore.Hosting.IWebHostEnvironment? HostEnvironment { get; set; }
 
-    [Inject][System.Diagnostics.CodeAnalysis.NotNull]
+    [Inject]
+    [NotNull]
     NavigationManager? NavigationManager { get; set; }
 
-    [Inject][NotNull]
+    [Inject]
+    [NotNull]
     ImportExportsService? ImportExportsService { get; set; }
 
-    [Inject][System.Diagnostics.CodeAnalysis.NotNull]
+    [Inject]
+    [NotNull]
     ToastService? ToastService { get; set; }
 
     [Inject]
     WeatherForecastService? ForecastService { get; set; }
 
     [Inject]
-    [System.Diagnostics.CodeAnalysis.NotNull]
+    [NotNull]
     LazyHeroDataService<WeatherForecast>? LazyHeroDataService { get; set; }
 
+    [NotNull]
     Table<WeatherForecast>? list1 { get; set; }
 
     public bool IsExcel { get; set; }
@@ -69,7 +109,7 @@
     long maxFileSize = 1024 * 1024 * 15;
     string? tempfilename;
 
- 
+
     protected async Task GetDatasAsync()
     {
         LazyHeroDataService!.Items = (await ForecastService!.GetForecastAsync(DateTime.Now)).ToList();
@@ -98,7 +138,7 @@
     {
         await Export();
         return true;
-    }
+    } 
 
     private async Task<bool> ExportExcelAsync(IEnumerable<WeatherForecast> items) => await ExportAutoAsync(items, ExportType.Excel);
     private async Task<bool> ExportPDFAsync(IEnumerable<WeatherForecast> items) => await ExportAutoAsync(items, ExportType.Pdf);
@@ -241,6 +281,19 @@
         //正式工程此处是回调,简化版必须InvokeAsync一下,自由发挥
         _ = Task.Run(async () => await InvokeAsync(async () => await ImportExcel()));
 
+    }
+
+    /// <summary>
+    /// 导出数据方法
+    /// </summary>
+    /// <param name="Items"></param>
+    /// <param name="opt"></param>
+    /// <returns></returns>
+    protected async Task<bool> ExportAsync(IEnumerable<WeatherForecast> Items, QueryPageOptions opt)
+    {
+        var ret = false;
+        ret = await ExportExcelAsync(Items);
+        return ret;
     }
 
 
