@@ -1,0 +1,144 @@
+﻿@page "/impexpiii"
+@using b14table.Data 
+@using static Blazor100.Service.ImportExportsService
+
+<PageTitle>综合演示</PageTitle>
+
+<InputFile OnChange="OnChange" style="max-width:400px" class="form-control" />
+<br />
+
+<Table @ref="list1"
+       TItem="SalesChannels"
+       IsPagination="true"
+       IsStriped="true"
+       IsBordered="true"
+       IsDetails="true"
+       AutoGenerateColumns="true"
+       ShowSearch="true"
+       ShowEmpty="true" 
+       SearchMode="SearchMode.Top"
+       ShowToolbar="true"
+       ShowExtendButtons="true"
+       DataService="DataService"
+       OnQueryAsync="DataService.QueryAsync"
+       OnSaveAsync="DataService.SaveAsync"
+       OnDeleteAsync="DataService.DeleteAsync"
+       DoubleClickToEdit="@DoubleClickToEdit"
+       IsMultipleSelect="true"
+       ShowLineNo="true"
+       IsExcel="@IsExcel"
+       ShowDetailRow="_ => true"
+       ShowCardView="true"
+       ShowColumnList="true"
+       ShowFooter="true"
+       ScrollingDialogContent="true"
+       EditDialogIsDraggable="true"
+       EditDialogSize="Size.ExtraLarge"
+       EditDialogShowMaximizeButton="true"
+       ShowExportButton
+       OnExportAsync="ExportAsync"
+       PageItemsSource="new int[] {10, 20, 50, 100, 200, 500, 1000 }">
+
+    <SearchTemplate>
+        <GroupBox Title="搜索">
+            <div class="row g-3 form-inline">
+                <div class="col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Name" maxlength="50" ShowLabel="true" />
+                </div>
+                <div class="col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Date" maxlength="500" ShowLabel="true" />
+                </div>
+            </div>
+        </GroupBox>
+    </SearchTemplate>
+     
+
+    <DetailRowTemplate>
+        <div>备注: @context.Remark </div>
+    </DetailRowTemplate>
+
+    <TableFooter Context="context1">
+
+        <TableFooterCell Text="当前页小计:" colspan="4" />
+        <TableFooterCell Text="总价值" colspan="3" />
+        <TableFooterCell Aggregate="@Aggregate" Field="@nameof(SalesChannels.Total)" />
+
+        <TableFooterCell Text="应收款" colspan="3" />
+        <TableFooterCell Aggregate="@Aggregate" Field="@nameof(SalesChannels.Receivables)" />
+
+        <TableFooterCell Text="已收款" colspan="3" />
+        <TableFooterCell Aggregate="@Aggregate" Field="@nameof(SalesChannels.Received)" />
+
+    </TableFooter>
+
+    <TableToolbarTemplate>
+        <TableToolbarButton TItem="SalesChannels" Color="Color.Primary" Text="自由编辑" OnClick="@IsExcelToggle" />
+        <TableToolbarButton TItem="SalesChannels" Color="Color.Warning" Text="随机数据" IsAsync OnClick="@GetDatasAsync" />
+        <TableToolbarButton TItem="SalesChannels" Color="Color.Secondary" Text="导入" IsAsync OnClick="@ImportExcel" />
+        <TableToolbarButton TItem="SalesChannels" Color="Color.Danger" Text="清空" IsAsync OnClick="EmptyAll" />
+        <TableToolbarButton TItem="SalesChannels" Color="Color.Success" Text="模板" IsAsync OnClick="Export模板Async" />
+        <TableToolbarButton TItem="SalesChannels" Color="Color.Success" Text="打印" IsAsync OnClickCallback="@PrintPreview" />
+        <TableToolbarButton TItem="SalesChannels" Color="Color.Secondary" Text="新窗口打开" IsAsync OnClick="@新窗口打开" />
+        <TableToolbarButton TItem="SalesChannels" Color="Color.Secondary" Text="批量审批" IsAsync OnClickCallback="@批量审批" />
+    </TableToolbarTemplate>
+
+    <ExportButtonDropdownTemplate>
+        <h6 class="dropdown-header">当前页数据</h6>
+        <div class="dropdown-item" @onclick="_=>ExportExcelAsync(list1.Rows)">
+            <i class="fas fa-file-excel"></i>
+            <span>Excel</span>
+        </div>
+        <div class="dropdown-item" @onclick="_=>ExportWordAsync(list1.Rows)">
+            <i class="fas fa-file-word"></i>
+            <span>Word</span>
+        </div>
+        <div class="dropdown-item" @onclick="_=>ExportHtmlAsync(list1.Rows)">
+            <i class="fa-brands fa-html5"></i>
+            <span>Html</span>
+        </div>
+        <div class="dropdown-item" @onclick="_=>ExportPDFAsync(list1.Rows)">
+            <i class="fas fa-file-pdf"></i>
+            <span>PDF</span>
+        </div>
+        <div class="dropdown-divider"></div>
+        <h6 class="dropdown-header">全部数据</h6>
+        <div class="dropdown-item" @onclick="_=>ExportExcelAsync(DataService.GetAllItems())">
+            <i class="fas fa-file-excel"></i>
+            <span>Excel</span>
+        </div>
+        <div class="dropdown-item" @onclick="_=>ExportWordAsync(DataService.GetAllItems())">
+            <i class="fas fa-file-word"></i>
+            <span>Word</span>
+        </div>
+        <div class="dropdown-item" @onclick="_=>ExportHtmlAsync(DataService.GetAllItems())">
+            <i class="fa-brands fa-html5"></i>
+            <span>Html</span>
+        </div>
+        <div class="dropdown-item" @onclick="_=>ExportPDFAsync(DataService.GetAllItems())">
+            <i class="fas fa-file-pdf"></i>
+            <span>PDF</span>
+        </div>
+    </ExportButtonDropdownTemplate>
+</Table>
+
+<pre>
+知识点:
+
+1.导入导出 
+2.分页功能 
+3.增删改查
+4.批量删除 
+5.批量编辑(审核) 
+6.列排序与列搜索
+7.顶部搜索实现所有列搜索 
+8.高级搜索实现多条件搜索 
+9.顶部与刷新与视图列
+10.实现文本类型明细行
+11.列的统计
+12.隐藏列,时间日期列格式化
+13.新窗口打开
+14.随机数据
+15.自由编辑
+16.清空数据
+17.模板下载
+</pre>
