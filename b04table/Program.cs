@@ -6,8 +6,7 @@
 
 using b14table.Data;
 using Blazor100.Service;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using Densen.DataAcces.FreeSql;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,13 +22,20 @@ builder.Services.AddFreeSql(option =>
          //开发环境:自动同步实体
          .UseAutoSyncStructure(true)
          .UseNoneCommandParameter(true)
-         //调试sql语句输出
+    //调试sql语句输出
          .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
 #endif
     ;
 });
+builder.Services.AddSingleton(typeof(FreeSqlDataService<>));
+
 builder.Services.AddTransient<ImportExportsService>();
 builder.Services.AddDensenExtensions();
+builder.Services.ConfigureJsonLocalizationOptions(op =>
+{
+    // 忽略文化信息丢失日志
+    op.IgnoreLocalizerMissing = true;
+});
 
 var app = builder.Build();
 
