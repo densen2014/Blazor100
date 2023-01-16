@@ -15,7 +15,7 @@
        IsDetails="true"
        AutoGenerateColumns="true"
        ShowSearch="true"
-       ShowEmpty="true" 
+       ShowEmpty="true"
        SearchMode="SearchMode.Top"
        ShowToolbar="true"
        ShowExtendButtons="true"
@@ -51,11 +51,22 @@
             </div>
         </GroupBox>
     </SearchTemplate>
-     
+
 
     <DetailRowTemplate>
         <div>备注: @context.Remark </div>
     </DetailRowTemplate>
+    
+    <MultiHeaderTemplate>
+        <tr>
+            <th rowspan="2" class="table-header-group-th1"><div class="table-cell">个人信息</div></th>
+            <th colspan="2" class="table-header-group-th2"><div class="table-cell">个人信息2</div></th>
+        </tr>
+        <tr>
+            <th><div class="table-cell">个人信息3</div></th>
+            <th><div class="table-cell">个人信息4</div></th>
+        </tr>
+    </MultiHeaderTemplate>
 
     <TableFooter Context="context1">
 
