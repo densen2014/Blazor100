@@ -19,12 +19,6 @@
         <PackageReference Include="Magicodes.IE.Word" Version="2.7.1" />
         <PackageReference Include="HtmlToOpenXml.dll" Version="2.3.0" />
         <PackageReference Include="Haukcode.WkHtmlToPdfDotNet" Version="1.5.86" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Update="Pages\Index.razor">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      </Content>
-    </ItemGroup>
+    </ItemGroup> 
 
 </Project>

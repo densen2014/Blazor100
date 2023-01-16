@@ -7,9 +7,24 @@
 using b14table.Data;
 using Blazor100.Service;
 using Densen.DataAcces.FreeSql;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.FileProviders;
+using System.IO.Compression;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddResponseCompression(options =>
+{
+    options.Providers.Add<BrotliCompressionProvider>();
+    options.Providers.Add<GzipCompressionProvider>();
+    options.MimeTypes =
+    ResponseCompressionDefaults.MimeTypes.Concat(
+                    new[] { "image/svg+xml" });
+});
+builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
+{
+    options.Level = CompressionLevel.SmallestSize;
+});
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -39,13 +54,17 @@ builder.Services.ConfigureJsonLocalizationOptions(op =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseResponseCompression();
 
 app.UseHttpsRedirection();
 
