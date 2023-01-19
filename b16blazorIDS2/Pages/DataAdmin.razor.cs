@@ -4,54 +4,34 @@
 // e-mail:zhouchuanglin@gmail.com 
 // **********************************
 
-using AmeBlazor.Components; 
+using b16blazorIDS2.Models;
 using Blazor100.Service;
 using BootstrapBlazor.Components;
-using Densen.DataAcces.FreeSql;
-using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Identity;
 using System.Diagnostics.CodeAnalysis;
-using static Blazor100.Service.ImportExportsService;
+using static b16blazorIDS2.Pages.Index;
 
 namespace b16blazorIDS2.Pages
 {
     public partial class DataAdmin
     {
-
         [Inject]
-        IWebHostEnvironment? HostEnvironment { get; set; }
+        [NotNull]
+        protected UserManager<WebAppIdentityUser>? UserManager { get; set; }
 
         [Inject]
         [NotNull]
-        NavigationManager? NavigationManager { get; set; }
+        protected RoleManager<IdentityRole>? RoleManager { get; set; }
 
         [Inject]
         [NotNull]
-        ImportExportsService? ImportExportsService { get; set; }
-
-        [Inject]
-        [NotNull]
-        ToastService? ToastService { get; set; } 
- 
-        // 由于使用了FreeSql ORM 数据服务,可以直接取对象
-        [Inject]
-        [NotNull]
-        IFreeSql? fsql { get; set; }
-
-        [Inject] ToastService? toastService { get; set; }
-        [Inject] SwalService? SwalService { get; set; }
+        ToastService? ToastService { get; set; }
 
 
         public bool IsExcel { get; set; }
         public bool DoubleClickToEdit { get; set; } = true;
-        protected string UploadPath = "";
-        protected string? uploadstatus;
-        long maxFileSize = 1024 * 1024 * 15;
-        string? tempfilename;
-         
-
+ 
         private Task IsExcelToggle()
         {
             IsExcel = !IsExcel;
@@ -59,8 +39,49 @@ namespace b16blazorIDS2.Pages
             StateHasChanged();
             return Task.CompletedTask;
         }
- 
 
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (!firstRender) return;
+
+            var RoleResult = await RoleManager.FindByNameAsync(AuthorizeRoles.Admin.ToString());
+            if (RoleResult == null)
+            {
+                await RoleManager.CreateAsync(new IdentityRole(AuthorizeRoles.Admin.ToString()));
+                await ToastService.Information("Admin Role Created");
+            }
+
+            var user = await UserManager.FindByNameAsync("test@app.com");
+            if (user != null)
+            {
+                var UserResult = await UserManager.IsInRoleAsync(user, AuthorizeRoles.Admin.ToString());
+                if (!UserResult)
+                {
+                    await UserManager.AddToRoleAsync(user, AuthorizeRoles.Admin.ToString());
+                    await ToastService.Information("Admin Role Added to test@app.com");
+                }
+            }
+
+            var chekRole = RoleManager.RoleExistsAsync(AuthorizeRoles.Admin.ToString());
+            if (chekRole.Result == false)
+            {
+                await RoleManager.CreateAsync(new IdentityRole(AuthorizeRoles.Admin.ToString()));
+                await ToastService.Information("Admin Role Created");
+            }
+
+            chekRole = RoleManager.RoleExistsAsync(AuthorizeRoles.Superuser.ToString());
+            if (chekRole.Result == false)
+            {
+                await RoleManager.CreateAsync(new IdentityRole(AuthorizeRoles.Superuser.ToString()));
+                await ToastService.Information("Superuser Role Created");
+
+            }
+
+
+        }
 
     }
 }

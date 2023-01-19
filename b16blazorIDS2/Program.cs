@@ -7,17 +7,14 @@
 using b16blazorIDS2.Areas.Identity;
 using b16blazorIDS2.Data;
 using b16blazorIDS2.Models;
-using Microsoft.AspNetCore.Components;
+using Blazor100.Service;
+using Densen.DataAcces.FreeSql;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
-using System.IO.Compression;
-using Densen.DataAcces.FreeSql;
-using Blazor100.Service;
 using Microsoft.Extensions.FileProviders;
+using System.IO.Compression;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,15 +45,16 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 //注入Identity依赖   WebAppIdentityUser => WebAppIdentityUser
 builder.Services.AddDefaultIdentity<WebAppIdentityUser>(o =>
- {   // Password settings.
-     o.Password.RequireDigit = false;
-     o.Password.RequireLowercase = false;
-     o.Password.RequireNonAlphanumeric = false;
-     o.Password.RequireUppercase = false;
-     o.Password.RequiredLength = 4;
-     o.Password.RequiredUniqueChars = 1;
- }
-)
+     {   // Password settings.
+         o.Password.RequireDigit = false;
+         o.Password.RequireLowercase = false;
+         o.Password.RequireNonAlphanumeric = false;
+         o.Password.RequireUppercase = false;
+         o.Password.RequiredLength = 4;
+         o.Password.RequiredUniqueChars = 1;
+     }
+    )
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddRazorPages();

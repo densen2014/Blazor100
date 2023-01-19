@@ -4,62 +4,138 @@
 
 <PageTitle>管理</PageTitle>
 
- <Tab IsLazyLoadTabItem="true">
-     <TabItem Text="Users">
-         <Table TItem="AspNetUsers"
-                IsPagination="true"
-                IsStriped="true"
-                IsBordered="true"
-                AutoGenerateColumns="true"
-                ShowSearch="true"
-                ShowToolbar="true"
-                ShowExtendButtons="true"
-                DoubleClickToEdit=true
-                ShowColumnList=true
-                ShowCardView=true>
+<Tab IsLazyLoadTabItem="true">
+    <TabItem Text="Users">
+        <Table TItem="AspNetUsers"
+               IsPagination="true"
+               IsStriped="true"
+               IsBordered="true"
+               AutoGenerateColumns="true"
+               ShowSearch="true"
+               ShowToolbar="true"
+               ShowExtendButtons="true"
+               DoubleClickToEdit=true
+               ShowColumnList=true
+               ShowCardView=true >
 
-             <TableToolbarTemplate>
-                 <TableToolbarButton TItem="AspNetUsers" Color="Color.Primary" Text="自由编辑" OnClick="@IsExcelToggle" />
-             </TableToolbarTemplate>
+            <TableToolbarTemplate>
+                <TableToolbarButton TItem="AspNetUsers" Color="Color.Primary" Text="自由编辑" OnClick="@IsExcelToggle" />
+            </TableToolbarTemplate>
 
-         </Table>
-     </TabItem>
-     <TabItem Text="Roles">
-         <Table TItem="AspNetRoles"
-                IsPagination="true"
-                IsStriped="true"
-                IsBordered="true"
-                AutoGenerateColumns="true"
-                ShowSearch="true"
-                ShowToolbar="true"
-                ShowExtendButtons="true"
-                DoubleClickToEdit=true
-                ShowColumnList=true
-                ShowCardView=true>
+        </Table>
+    </TabItem>
+    <TabItem Text="Roles">
+        <Table TItem="AspNetRoles"
+               IsPagination="true"
+               IsStriped="true"
+               IsBordered="true"
+               AutoGenerateColumns="true"
+               ShowSearch="true"
+               ShowToolbar="true"
+               ShowExtendButtons="true"
+               DoubleClickToEdit=true
+               ShowColumnList=true
+               ShowCardView=true>
 
-             <TableToolbarTemplate>
-                 <TableToolbarButton TItem="AspNetRoles" Color="Color.Primary" Text="自由编辑" OnClick="@IsExcelToggle" />
-             </TableToolbarTemplate>
+            <TableToolbarTemplate>
+                <TableToolbarButton TItem="AspNetRoles" Color="Color.Primary" Text="自由编辑" OnClick="@IsExcelToggle" />
+            </TableToolbarTemplate>
 
-         </Table>
-     </TabItem>
-     <TabItem Text="Logins">
-         <Table TItem="AspNetUserLogins"
-                IsPagination="true"
-                IsStriped="true"
-                IsBordered="true"
-                AutoGenerateColumns="true"
-                ShowSearch="true"
-                ShowToolbar="true"
-                ShowExtendButtons="true"
-                DoubleClickToEdit=true
-                ShowColumnList=true
-                ShowCardView=true>
+        </Table>
+    </TabItem>
+    <TabItem Text="UserRoles">
+        <Table TItem="AspNetUserRoles"
+               IsPagination="true"
+               IsStriped="true"
+               IsBordered="true"
+               AutoGenerateColumns="true"
+               ShowSearch="true"
+               ShowToolbar="true"
+               ShowExtendButtons="true"
+               DoubleClickToEdit=true
+               ShowColumnList=true
+               ShowCardView=true>
 
-             <TableToolbarTemplate>
-                 <TableToolbarButton TItem="AspNetUserLogins" Color="Color.Primary" Text="自由编辑" OnClick="@IsExcelToggle" />
-             </TableToolbarTemplate>
+            <TableToolbarTemplate>
+                <TableToolbarButton TItem="AspNetUserRoles" Color="Color.Primary" Text="自由编辑" OnClick="@IsExcelToggle" />
+            </TableToolbarTemplate>
 
-         </Table>
-     </TabItem>
- </Tab>
+        </Table>
+    </TabItem>
+    <TabItem Text="Logins">
+        <Table TItem="AspNetUserLogins"
+               IsPagination="true"
+               IsStriped="true"
+               IsBordered="true"
+               AutoGenerateColumns="true"
+               ShowSearch="true"
+               ShowToolbar="true"
+               ShowExtendButtons="true"
+               DoubleClickToEdit=true
+               ShowColumnList=true
+               ShowCardView=true>
+
+            <TableToolbarTemplate>
+                <TableToolbarButton TItem="AspNetUserLogins" Color="Color.Primary" Text="自由编辑" OnClick="@IsExcelToggle" />
+            </TableToolbarTemplate>
+
+        </Table>
+    </TabItem>
+    <TabItem Text="UserTokens">
+        <Table TItem="AspNetUserTokens"
+               IsPagination="true"
+               IsStriped="true"
+               IsBordered="true"
+               AutoGenerateColumns="true"
+               ShowSearch="true"
+               ShowToolbar="true"
+               ShowExtendButtons="true"
+               DoubleClickToEdit=true
+               ShowColumnList=true
+               ShowCardView=true>
+
+            <TableToolbarTemplate>
+                <TableToolbarButton TItem="AspNetUserTokens" Color="Color.Primary" Text="自由编辑" OnClick="@IsExcelToggle" />
+            </TableToolbarTemplate>
+
+        </Table>
+    </TabItem>
+    <TabItem Text="RoleClaims">
+        <Table TItem="AspNetRoleClaims"
+               IsPagination="true"
+               IsStriped="true"
+               IsBordered="true"
+               AutoGenerateColumns="true"
+               ShowSearch="true"
+               ShowToolbar="true"
+               ShowExtendButtons="true"
+               DoubleClickToEdit=true
+               ShowColumnList=true
+               ShowCardView=true>
+
+            <TableToolbarTemplate>
+                <TableToolbarButton TItem="AspNetRoleClaims" Color="Color.Primary" Text="自由编辑" OnClick="@IsExcelToggle" />
+            </TableToolbarTemplate>
+
+        </Table>
+    </TabItem>
+    <TabItem Text="UserClaims">
+        <Table TItem="AspNetUserClaims"
+               IsPagination="true"
+               IsStriped="true"
+               IsBordered="true"
+               AutoGenerateColumns="true"
+               ShowSearch="true"
+               ShowToolbar="true"
+               ShowExtendButtons="true"
+               DoubleClickToEdit=true
+               ShowColumnList=true
+               ShowCardView=true>
+
+            <TableToolbarTemplate>
+                <TableToolbarButton TItem="AspNetUserClaims" Color="Color.Primary" Text="自由编辑" OnClick="@IsExcelToggle" />
+            </TableToolbarTemplate>
+
+        </Table>
+    </TabItem>
+</Tab>
