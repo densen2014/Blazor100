@@ -7,3 +7,40 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+<AuthorizeView>
+    <Authorized>
+        
+        你好, @context.User.Identity?.Name
+
+        @if (@context.User.IsInRole(AuthorizeRoles.Administrators.ToString()))
+        {
+            <span>管理员</span>
+        }
+        else if (@context.User.IsInRole(AuthorizeRoles.Superuser.ToString()))
+        {
+            <span>超级用户</span>
+        }
+        else
+        {
+            <span>能力者</span>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <span>看起来你还没登录</span>
+    </NotAuthorized>
+
+</AuthorizeView>
+
+@code{
+    public enum AuthorizeRoles
+    {
+        Superuser,
+        Administrators,
+        R110,
+        R120,
+        R130,
+        R140,
+    }
+
+}
