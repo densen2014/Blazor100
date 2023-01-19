@@ -8,30 +8,29 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using b16blazorIDS2.Models;
 
-namespace b16blazorIDS2.Areas.Identity.Pages.Account.Manage
+namespace b16blazorIDS2.Areas.Identity.Pages.Account.Manage;
+
+public class PersonalDataModel : PageModel
 {
-    public class PersonalDataModel : PageModel
+    private readonly UserManager<WebAppIdentityUser> _userManager;
+    private readonly ILogger<PersonalDataModel> _logger;
+
+    public PersonalDataModel(
+        UserManager<WebAppIdentityUser> userManager,
+        ILogger<PersonalDataModel> logger)
     {
-        private readonly UserManager<WebAppIdentityUser> _userManager;
-        private readonly ILogger<PersonalDataModel> _logger;
+        _userManager = userManager;
+        _logger = logger;
+    }
 
-        public PersonalDataModel(
-            UserManager<WebAppIdentityUser> userManager,
-            ILogger<PersonalDataModel> logger)
+    public async Task<IActionResult> OnGet()
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null)
         {
-            _userManager = userManager;
-            _logger = logger;
+            return NotFound($"无法加载具有 ID 的用户 '{_userManager.GetUserId(User)}'.");
         }
 
-        public async Task<IActionResult> OnGet()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"无法加载具有 ID 的用户 '{_userManager.GetUserId(User)}'.");
-            }
-
-            return Page();
-        }
+        return Page();
     }
 }
