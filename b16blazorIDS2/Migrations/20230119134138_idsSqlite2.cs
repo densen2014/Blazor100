@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace b16blazorIDS2.Migrations
 {
     /// <inheritdoc />
-    public partial class idsSqlite : Migration
+    public partial class idsSqlite2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,6 +30,18 @@ namespace b16blazorIDS2.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    DOB = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    UUID = table.Column<string>(type: "TEXT", nullable: true),
+                    provider = table.Column<string>(type: "TEXT", nullable: true),
+                    TaxNumber = table.Column<string>(type: "TEXT", nullable: true),
+                    Street = table.Column<string>(type: "TEXT", nullable: true),
+                    Zip = table.Column<string>(type: "TEXT", nullable: true),
+                    County = table.Column<string>(type: "TEXT", nullable: true),
+                    City = table.Column<string>(type: "TEXT", nullable: true),
+                    Province = table.Column<string>(type: "TEXT", nullable: true),
+                    Country = table.Column<string>(type: "TEXT", nullable: true),
+                    UserRole = table.Column<string>(type: "TEXT", nullable: true),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),

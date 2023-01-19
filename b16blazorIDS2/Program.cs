@@ -6,6 +6,7 @@
 
 using b16blazorIDS2.Areas.Identity;
 using b16blazorIDS2.Data;
+using b16blazorIDS2.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
@@ -27,7 +28,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(o => o.UseSqlite(builder.Con
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(o =>
+//注入Identity依赖   WebAppIdentityUser => WebAppIdentityUser
+builder.Services.AddDefaultIdentity<WebAppIdentityUser>(o =>
  {   // Password settings.
      o.Password.RequireDigit = false;
      o.Password.RequireLowercase = false;
@@ -41,7 +43,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(o =>
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<WebAppIdentityUser>>();
 builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
