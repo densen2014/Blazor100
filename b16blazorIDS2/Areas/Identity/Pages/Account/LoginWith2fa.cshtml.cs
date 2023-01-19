@@ -32,45 +32,45 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account
         }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+        /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
         /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+        /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
         /// </summary>
         public bool RememberMe { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+        /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
         /// </summary>
         public string ReturnUrl { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+        /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
         /// </summary>
         public class InputModel
         {
             /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
+            /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+            /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
             /// </summary>
             [Required]
-            [StringLength(7, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(7, ErrorMessage = "{0} 的长度必须至少为 {2}，最多为 {1} 个字符.", MinimumLength = 6)]
             [DataType(DataType.Text)]
-            [Display(Name = "Authenticator code")]
+            [Display(Name = "验证码")]
             public string TwoFactorCode { get; set; }
 
             /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
+            /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+            /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
             /// </summary>
-            [Display(Name = "Remember this machine")]
+            [Display(Name = "记住这台机器")]
             public bool RememberMachine { get; set; }
         }
 
@@ -81,7 +81,7 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account
 
             if (user == null)
             {
-                throw new InvalidOperationException($"Unable to load two-factor authentication user.");
+                throw new InvalidOperationException($"无法加载双因素身份验证用户.");
             }
 
             ReturnUrl = returnUrl;
@@ -102,7 +102,7 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                throw new InvalidOperationException($"Unable to load two-factor authentication user.");
+                throw new InvalidOperationException($"无法加载双因素身份验证用户.");
             }
 
             var authenticatorCode = Input.TwoFactorCode.Replace(" ", string.Empty).Replace("-", string.Empty);
@@ -113,18 +113,18 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account
 
             if (result.Succeeded)
             {
-                _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.Id);
+                _logger.LogInformation("ID 为'{UserId}'的用户使用 2fa 登录.", user.Id);
                 return LocalRedirect(returnUrl);
             }
             else if (result.IsLockedOut)
             {
-                _logger.LogWarning("User with ID '{UserId}' account locked out.", user.Id);
+                _logger.LogWarning("ID 为'{UserId}'的用户帐户被锁定.", user.Id);
                 return RedirectToPage("./Lockout");
             }
             else
             {
-                _logger.LogWarning("Invalid authenticator code entered for user with ID '{UserId}'.", user.Id);
-                ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
+                _logger.LogWarning("为 ID 为'{UserId}'的用户输入的验证码无效.", user.Id);
+                ModelState.AddModelError(string.Empty, "验证码无效.");
                 return Page();
             }
         }

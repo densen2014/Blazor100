@@ -29,21 +29,21 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account
         }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+        /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
         /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+        /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
         /// </summary>
         public class InputModel
         {
             /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
+            /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+            /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
             /// </summary>
             [Required]
             [EmailAddress]
@@ -57,12 +57,12 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account
                 var user = await _userManager.FindByEmailAsync(Input.Email);
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
+                    // 不要透露用户不存在或未确认
                     return RedirectToPage("./ForgotPasswordConfirmation");
                 }
 
-                // For more information on how to enable account confirmation and password reset please
-                // visit https://go.microsoft.com/fwlink/?LinkID=532713
+                // 有关如何启用帐户确认和密码重置的更多信息，请
+                // 访问 https://go.microsoft.com/fwlink/?Link ID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                 var callbackUrl = Url.Page(
@@ -73,8 +73,8 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    "重设密码",
+                    $"请通过以下方式重置您的密码 <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>点击这里</a>.");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

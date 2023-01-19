@@ -30,21 +30,21 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account
         }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+        /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
         /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+        /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
         /// </summary>
         public class InputModel
         {
             /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
+            /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+            /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
             /// </summary>
             [Required]
             [EmailAddress]
@@ -65,7 +65,7 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account
             var user = await _userManager.FindByEmailAsync(Input.Email);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
+                ModelState.AddModelError(string.Empty, "已发送验证邮件。请检查您的电子邮件.");
                 return Page();
             }
 
@@ -79,10 +79,10 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account
                 protocol: Request.Scheme);
             await _emailSender.SendEmailAsync(
                 Input.Email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                "确认您的电子邮件",
+                $"请通过以下方式确认您的帐户 <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>点击这里</a>.");
 
-            ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
+            ModelState.AddModelError(string.Empty, "已发送验证邮件。请检查您的电子邮件.");
             return Page();
         }
     }

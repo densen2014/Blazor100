@@ -33,44 +33,45 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account.Manage
         }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+        /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
         /// </summary>
+        [Display(Name = "邮箱")]
         public string Email { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+        /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
         /// </summary>
         public bool IsEmailConfirmed { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+        /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
         /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+        /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
         /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+        /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
         /// </summary>
         public class InputModel
         {
             /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
+            /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+            /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
             /// </summary>
             [Required]
             [EmailAddress]
-            [Display(Name = "New email")]
+            [Display(Name = "新邮箱")]
             public string NewEmail { get; set; }
         }
 
@@ -92,7 +93,7 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"无法加载具有 ID 的用户 '{_userManager.GetUserId(User)}'.");
             }
 
             await LoadAsync(user);
@@ -104,7 +105,7 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"无法加载具有 ID 的用户 '{_userManager.GetUserId(User)}'.");
             }
 
             if (!ModelState.IsValid)
@@ -127,7 +128,7 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account.Manage
                 await _emailSender.SendEmailAsync(
                     Input.NewEmail,
                     "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    $"请通过以下方式确认您的帐户 <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>点击这里</a>.");
 
                 StatusMessage = "Confirmation link to change email sent. Please check your email.";
                 return RedirectToPage();
@@ -142,7 +143,7 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"无法加载具有 ID 的用户 '{_userManager.GetUserId(User)}'.");
             }
 
             if (!ModelState.IsValid)
@@ -163,7 +164,7 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account.Manage
             await _emailSender.SendEmailAsync(
                 email,
                 "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                $"请通过以下方式确认您的帐户 <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>点击这里</a>.");
 
             StatusMessage = "Verification email sent. Please check your email.";
             return RedirectToPage();

@@ -25,47 +25,47 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account
         }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+        /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
         /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+        /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
         /// </summary>
         public class InputModel
         {
             /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
+            /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+            /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
             /// </summary>
             [Required]
             [EmailAddress]
             public string Email { get; set; }
 
             /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
+            /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+            /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
             /// </summary>
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "{0} 的长度必须至少为 {2}，最多为 {1} 个字符.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
             /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
+            /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+            /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "确认密码")]
+            [Compare("Password", ErrorMessage = "密码和确认密码不匹配.")]
             public string ConfirmPassword { get; set; }
 
             /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
+            /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+            /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
             /// </summary>
             [Required]
             public string Code { get; set; }
@@ -76,7 +76,7 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account
         {
             if (code == null)
             {
-                return BadRequest("A code must be supplied for password reset.");
+                return BadRequest("必须提供代码才能重置密码.");
             }
             else
             {
@@ -98,7 +98,7 @@ namespace b16blazorIDS2.Areas.Identity.Pages.Account
             var user = await _userManager.FindByEmailAsync(Input.Email);
             if (user == null)
             {
-                // Don't reveal that the user does not exist
+                // 不要透露用户不存在
                 return RedirectToPage("./ResetPasswordConfirmation");
             }
 

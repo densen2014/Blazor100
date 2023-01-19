@@ -8,15 +8,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace b16blazorIDS2.Areas.Identity.Pages.Account
 {
     /// <summary>
-    ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-    ///     directly from your code. This API may change or be removed in future releases.
+    /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+    /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
     /// </summary>
     [AllowAnonymous]
     public class ResetPasswordConfirmationModel : PageModel
     {
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+        /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
         /// </summary>
         public void OnGet()
         {
