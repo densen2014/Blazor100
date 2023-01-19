@@ -17,7 +17,13 @@ namespace b16blazorIDS2.Models.ids {
 
 		[JsonProperty, Column(StringLength = -2, IsNullable = false)]
 		public string RoleId { get; set; }
+        
+        [Navigate(nameof(RoleId))]
+        public virtual AspNetRoles AspNetRoles { get; set; }
 
-	}
+        [Navigate(nameof(UserId))]
+        public virtual AspNetUsers AspNetUsers { get; set; }
+
+    }
 
 }

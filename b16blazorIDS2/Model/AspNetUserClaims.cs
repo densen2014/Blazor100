@@ -24,6 +24,12 @@ namespace b16blazorIDS2.Models.ids {
 		[JsonProperty, Column(StringLength = -2)]
 		public string ClaimValue { get; set; }
 
-	}
+        /// <summary>
+        /// 用户
+        /// </summary>
+        [Navigate(nameof(UserId))]
+        public virtual AspNetUsers AspNetUsers { get; set; }
+
+    }
 
 }

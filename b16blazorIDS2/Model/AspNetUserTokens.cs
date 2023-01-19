@@ -24,6 +24,9 @@ namespace b16blazorIDS2.Models.ids {
 		[JsonProperty, Column(StringLength = -2)]
 		public string Value { get; set; }
 
-	}
+        [Navigate(nameof(UserId))]
+        public virtual AspNetUsers AspNetUsers { get; set; }
+
+    }
 
 }

@@ -6,24 +6,36 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using FreeSql.DataAnnotations;
+using System.ComponentModel;
 
 namespace b16blazorIDS2.Models.ids {
 
 	[JsonObject(MemberSerialization.OptIn), Table(DisableSyncStructure = true)]
 	public partial class AspNetUserLogins {
 
-		[JsonProperty, Column(StringLength = -2, IsPrimary = true, IsNullable = false)]
+        [DisplayName("外联登录")]
+        [JsonProperty, Column(StringLength = -2, IsPrimary = true, IsNullable = false)]
 		public string LoginProvider { get; set; }
 
-		[JsonProperty, Column(StringLength = -2, IsNullable = false)]
+        [DisplayName("用户ID")]
+        [JsonProperty, Column(StringLength = -2, IsNullable = false)]
 		public string UserId { get; set; }
 
-		[JsonProperty, Column(StringLength = -2, IsNullable = false)]
+        [DisplayName("外联Key")]
+        [JsonProperty, Column(StringLength = -2, IsNullable = false)]
 		public string ProviderKey { get; set; }
 
-		[JsonProperty, Column(StringLength = -2)]
+        [DisplayName("外联名称")]
+        [JsonProperty, Column(StringLength = -2)]
 		public string ProviderDisplayName { get; set; }
 
-	}
+        /// <summary>
+        /// 用户
+        /// </summary>
+        [Navigate(nameof(UserId))]
+
+        public virtual AspNetUsers AspNetUsers { get; set; }
+
+    }
 
 }

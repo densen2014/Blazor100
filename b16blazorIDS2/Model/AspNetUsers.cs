@@ -6,6 +6,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using FreeSql.DataAnnotations;
+using BootstrapBlazor.Components;
+using DocumentFormat.OpenXml.Vml.Spreadsheet;
+using System.ComponentModel;
 
 namespace b16blazorIDS2.Models.ids {
 
@@ -24,7 +27,8 @@ namespace b16blazorIDS2.Models.ids {
 		[JsonProperty]
 		public int PhoneNumberConfirmed { get; set; }
 
-		[JsonProperty, Column(StringLength = -2)]
+        [DisplayName("电话")]
+        [JsonProperty, Column(StringLength = -2)]
 		public string PhoneNumber { get; set; }
 
 		[JsonProperty, Column(StringLength = -2)]
@@ -45,7 +49,8 @@ namespace b16blazorIDS2.Models.ids {
 		[JsonProperty, Column(StringLength = -2)]
 		public string Email { get; set; }
 
-		[JsonProperty, Column(StringLength = -2)]
+        [DisplayName("标准化用户名")]
+        [JsonProperty, Column(StringLength = -2)]
 		public string NormalizedUserName { get; set; }
 
 		[JsonProperty]
@@ -87,12 +92,28 @@ namespace b16blazorIDS2.Models.ids {
 		[JsonProperty, Column(StringLength = -2)]
 		public string Name { get; set; }
 
-		[JsonProperty, Column(StringLength = -2)]
+        [DisplayName("用户组")]
+        [JsonProperty, Column(StringLength = -2)]
 		public string UserRole { get; set; }
 
 		[JsonProperty]
 		public int AccessFailedCount { get; set; }
 
-	}
+        [AutoGenerateColumn(Visible = false)]
+        [Navigate(nameof(AspNetUserClaims.UserId))]
+        [DisplayName("Roles")]
+        public virtual List<AspNetUserRoles> AspNetUserRoles { get; set; }
+
+        [AutoGenerateColumn(Visible = false)]
+        [Navigate(nameof(AspNetUserClaims.UserId))]
+        [DisplayName("Claims")]
+        public virtual List<AspNetUserClaims> AspNetUserClaimss { get; set; }
+
+        [AutoGenerateColumn(Visible = false)]
+        [Navigate(nameof(AspNetUserLogins.UserId))]
+        [DisplayName("UserLogins")]
+        public virtual List<AspNetUserLogins> AspNetUserLoginss { get; set; }
+
+    }
 
 }
