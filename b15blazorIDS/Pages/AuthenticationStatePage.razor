@@ -1,0 +1,43 @@
+﻿@page "/AuthenticationStatePage"
+@attribute [Authorize]
+
+<PageTitle>Admin 已登录</PageTitle>
+
+<pre>如果需要应用在过程逻辑中检查授权规则，请使用类型为 Task&lt;AuthenticationState&gt; 的级联参数来获取用户的 ClaimsPrincipal。 Task&lt;AuthenticationState&gt; 可以与其他服务（如 IAuthorizationService）结合使用来评估策略。</pre>
+
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+<button @onclick="@DoSomething">Do something important</button>
+
+
+<p>@Msg</p>
+
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    private string? Msg { get; set; }
+
+    private async Task DoSomething()
+    {
+        var user = (await authenticationStateTask).User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            Msg = "Perform an action only available to authenticated (signed-in) users.";
+        }
+
+        if (user.IsInRole("admin"))
+        {
+            Msg = "Perform an action only available to users in the 'admin' role.";
+        }
+
+        //if ((await AuthorizationService.AuthorizeAsync(user, "content-editor"))
+        //    .Succeeded)
+        //{
+        //    Msg = "Perform an action only available to users satisfying the 'content-editor' policy.";
+        //}
+    }
+}

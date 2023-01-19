@@ -13,7 +13,7 @@
 
         你好, @context.User.Identity?.Name
 
-        @if (@context.User.IsInRole(AuthorizeRoles.Administrators.ToString()))
+        @if (@context.User.IsInRole(AuthorizeRoles.Admin.ToString()))
         {
             <span>管理员</span>
         }
@@ -54,8 +54,8 @@
 
     public enum AuthorizeRoles
     {
+        Admin,
         Superuser,
-        Administrators,
         R110,
         R120,
         R130,
