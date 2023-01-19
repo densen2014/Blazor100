@@ -1,0 +1,6 @@
+﻿@page "/AuthorizeAdminPage"
+@attribute [Authorize(Roles = "Admin, Superuser")]
+
+<PageTitle>Admin 已登录</PageTitle>
+
+<p>You can only see this if you're in the 'Admin' or 'Superuser' role.</p>
