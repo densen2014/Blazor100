@@ -1,14 +1,12 @@
 ﻿@page "/"
-@using Microsoft.AspNetCore.Components.Authorization 
+@using Microsoft.AspNetCore.Components.Authorization
 
 <PageTitle>Index</PageTitle>
 
 <h1>Hello, world!</h1>
 
 
-<h3>
-    AuthorizeView 组件根据用户是否获得授权来选择性地显示 UI 内容。 如果只需要为用户显示数据，而不需要在过程逻辑中使用用户的标识，那么此方法很有用
-</h3>
+<p>AuthorizeView 组件根据用户是否获得授权来选择性地显示 UI 内容。 如果只需要为用户显示数据，而不需要在过程逻辑中使用用户的标识，那么此方法很有用</p>
 
 <AuthorizeView>
     <Authorized>
@@ -39,6 +37,18 @@
 
 </AuthorizeView>
 
+<p>基于角色或基于策略的授权 </p>
+
+<AuthorizeView Roles="Admin, Superuser">
+    <p>You can only see this if you're an Admin or Superuser.</p>
+</AuthorizeView>
+
+<p>基于策略的授权</p>
+
+<AuthorizeView Policy="ContentEditor">
+    <p>You can only see this if you satisfy the "ContentEditor" policy.</p>
+</AuthorizeView>
+
 @code
 {
 
@@ -50,5 +60,5 @@
         R120,
         R130,
         R140,
-    } 
+    }
 }
