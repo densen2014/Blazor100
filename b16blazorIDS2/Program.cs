@@ -12,9 +12,27 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using System.IO.Compression;
+using Densen.DataAcces.FreeSql;
+using Blazor100.Service;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddResponseCompression(options =>
+{
+    options.Providers.Add<BrotliCompressionProvider>();
+    options.Providers.Add<GzipCompressionProvider>();
+    options.MimeTypes =
+    ResponseCompressionDefaults.MimeTypes.Concat(
+                    new[] { "image/svg+xml" });
+});
+builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
+{
+    options.Level = CompressionLevel.SmallestSize;
+});
 
 //EF SqlServer 配置
 
@@ -45,8 +63,29 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<WebAppIdentityUser>>();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddFreeSql(option =>
+{
+    option.UseConnectionString(FreeSql.DataType.Sqlite, "Data Source=ids.db;")  //也可以写到配置文件中
+#if DEBUG
+         //开发环境:自动同步实体
+         .UseAutoSyncStructure(true)
+         .UseNoneCommandParameter(true)
+    //调试sql语句输出
+         .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
+#endif
+    ;
+});
+builder.Services.AddSingleton(typeof(FreeSqlDataService<>));
 
-var app = builder.Build();
+builder.Services.AddTransient<ImportExportsService>();
+builder.Services.AddDensenExtensions();
+builder.Services.ConfigureJsonLocalizationOptions(op =>
+{
+    // 忽略文化信息丢失日志
+    op.IgnoreLocalizerMissing = true;
+});
+
+var app = builder.Build(); 
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -63,6 +102,25 @@ else
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+if (Directory.Exists(Path.Combine(builder.Environment.WebRootPath, "uploads")) == false) Directory.CreateDirectory(Path.Combine(builder.Environment.WebRootPath, "uploads"));
+IFileProvider fileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.WebRootPath, "uploads"));
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = fileProvider,
+    RequestPath = new PathString("/uploads"),
+    OnPrepareResponse = ctx =>
+    {
+        const int durationInSeconds = 60 * 5;//5分钟 
+        ctx.Context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.CacheControl] =
+           "public,max-age=" + durationInSeconds;
+    }
+});
+
+app.UseDirectoryBrowser(new DirectoryBrowserOptions()
+{
+    FileProvider = fileProvider,
+    RequestPath = new PathString("/uploads")
+});
 
 app.UseRouting();
 

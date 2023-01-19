@@ -9,10 +9,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="~/" />
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+
+    <!-- 删掉这行 <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" /> !-->
+    <link href="css/site.css" rel="stylesheet" />
+
+    <!-- 添加下面两行 !-->
+    <link href="_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" rel="stylesheet">
+    <!-- 添加上面两行 !-->
+
     <link href="css/site.css" rel="stylesheet" />
     <link href="b16blazorIDS2.styles.css" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="favicon.png"/>
+    <link rel="icon" type="image/png" href="favicon.png" />
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
 </head>
 <body>
@@ -28,6 +36,9 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
+
+    <!-- 增加这行 !-->
+    <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
 
     <script src="_framework/blazor.server.js"></script>
 </body>

@@ -22,6 +22,19 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.2" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.2" />
+
+        <PackageReference Include="BootstrapBlazor" Version="7.*" />
+        <PackageReference Include="BootstrapBlazor.FontAwesome" Version="7.*" />
+        <PackageReference Include="Densen.Extensions.BootstrapBlazor" Version="7.*" />
+        <PackageReference Include="Densen.FreeSql.Extensions.BootstrapBlazor" Version="7.*" />
+        <PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.685" />
+        <PackageReference Include="Magicodes.IE.Core" Version="2.7.1" />
+        <PackageReference Include="Magicodes.IE.Excel" Version="2.7.1" />
+        <PackageReference Include="Magicodes.IE.Html" Version="2.7.1" />
+        <PackageReference Include="Magicodes.IE.Pdf" Version="2.7.1" />
+        <PackageReference Include="Magicodes.IE.Word" Version="2.7.1" />
+        <PackageReference Include="HtmlToOpenXml.dll" Version="2.3.0" />
+        <PackageReference Include="Haukcode.WkHtmlToPdfDotNet" Version="1.5.86" />
     </ItemGroup>
 
     <ItemGroup>

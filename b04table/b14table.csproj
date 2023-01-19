@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="BootstrapBlazor" Version="7.2.4-beta01" />
+        <PackageReference Include="BootstrapBlazor" Version="7.*" />
         <PackageReference Include="BootstrapBlazor.FontAwesome" Version="7.*" />
         <PackageReference Include="Densen.Extensions.BootstrapBlazor" Version="7.*" />
         <PackageReference Include="Densen.FreeSql.Extensions.BootstrapBlazor" Version="7.*" />
