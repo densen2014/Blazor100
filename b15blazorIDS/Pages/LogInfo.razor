@@ -8,7 +8,11 @@
 
 <p>@authMessage</p>
 
-@code {
+@code 
+{
+    /// <summary>
+    /// 级联参数获取身份验证状态数据
+    /// </summary>
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
 
