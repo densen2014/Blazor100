@@ -1,0 +1,35 @@
+﻿@page "/logInfo"
+
+<PageTitle>登录信息</PageTitle>
+
+<h1>登录信息</h1>
+
+<button @onclick="LogUsername">检查登录信息</button>
+
+<p>@authMessage</p>
+
+@code 
+{
+    /// <summary>
+    /// 级联参数获取身份验证状态数据
+    /// </summary>
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    private string authMessage;
+
+    private async Task LogUsername()
+    {
+        var authState = await authenticationStateTask;
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            authMessage = $"{user.Identity.Name} is authenticated.";
+        }
+        else
+        {
+            authMessage = "The user is NOT authenticated.";
+        }
+    }
+}
