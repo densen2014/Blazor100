@@ -7,7 +7,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace b15blazorIDS.Data
+namespace b16blazorIDS2.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

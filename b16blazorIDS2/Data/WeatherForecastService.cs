@@ -4,7 +4,7 @@
 // e-mail:zhouchuanglin@gmail.com 
 // **********************************
 
-namespace b15blazorIDS.Data
+namespace b16blazorIDS2.Data
 {
     public class WeatherForecastService
     {

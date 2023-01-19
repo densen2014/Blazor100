@@ -3,11 +3,11 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using b15blazorIDS.Data;
+using b16blazorIDS2.Data;
 
 #nullable disable
 
-namespace b15blazorIDS.Migrations
+namespace b16blazorIDS2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

@@ -4,8 +4,8 @@
 // e-mail:zhouchuanglin@gmail.com 
 // **********************************
 
-using b15blazorIDS.Areas.Identity;
-using b15blazorIDS.Data;
+using b16blazorIDS2.Areas.Identity;
+using b16blazorIDS2.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;

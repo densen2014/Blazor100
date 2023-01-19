@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using b15blazorIDS.Data;
+using b16blazorIDS2.Data;
 
 #nullable disable
 
-namespace b15blazorIDS.Migrations
+namespace b16blazorIDS2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230119120816_idsSqlite")]

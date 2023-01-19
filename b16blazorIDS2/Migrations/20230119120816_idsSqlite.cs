@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace b15blazorIDS.Migrations
+namespace b16blazorIDS2.Migrations
 {
     /// <inheritdoc />
     public partial class idsSqlite : Migration
