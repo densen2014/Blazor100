@@ -80,6 +80,14 @@ namespace b16blazorIDS2.Pages
 
             }
 
+            chekRole = RoleManager.RoleExistsAsync(AuthorizeRoles.R110.ToString());
+            if (chekRole.Result == false)
+            {
+                await RoleManager.CreateAsync(new IdentityRole(AuthorizeRoles.R110.ToString()));
+                await ToastService.Information("R110 Role Created");
+
+            }
+
 
         }
 
