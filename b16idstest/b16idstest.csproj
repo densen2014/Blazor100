@@ -8,10 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\b16blazorIDS2\b16blazorIDS2.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
+  </ItemGroup> 
 
 </Project>
