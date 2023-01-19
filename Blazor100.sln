@@ -91,7 +91,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b13wasm", "b13wasm\b13wasm.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b13pwa", "b13pwa\b13pwa.csproj", "{8C75FE3A-D515-4357-8160-C3138AECB343}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b14table", "b04table\b14table.csproj", "{5450CA5B-01BA-4CCF-B358-A87658AA8634}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b14table", "b04table\b14table.csproj", "{5450CA5B-01BA-4CCF-B358-A87658AA8634}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b15blazorIDS", "b15blazorIDS\b15blazorIDS.csproj", "{23C24674-DE07-44B0-8F88-D6C96200D754}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -191,6 +193,10 @@ Global
 		{5450CA5B-01BA-4CCF-B358-A87658AA8634}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5450CA5B-01BA-4CCF-B358-A87658AA8634}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5450CA5B-01BA-4CCF-B358-A87658AA8634}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23C24674-DE07-44B0-8F88-D6C96200D754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23C24674-DE07-44B0-8F88-D6C96200D754}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23C24674-DE07-44B0-8F88-D6C96200D754}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23C24674-DE07-44B0-8F88-D6C96200D754}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
