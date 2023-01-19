@@ -1,7 +1,9 @@
 ﻿@page
 @using Microsoft.AspNetCore.Identity
+@using b16blazorIDS2.Models
 @attribute [IgnoreAntiforgeryToken]
-@inject SignInManager<IdentityUser> SignInManager
+
+@inject SignInManager<WebAppIdentityUser> SignInManager
 @functions {
     public async Task<IActionResult> OnPost()
     {
