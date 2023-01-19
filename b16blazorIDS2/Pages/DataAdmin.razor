@@ -16,34 +16,16 @@
                ShowExtendButtons="true"
                DoubleClickToEdit=true
                ShowColumnList=true
-               ShowCardView=true >
+               ShowCardView=true>
 
             <TableToolbarTemplate>
                 <TableToolbarButton TItem="AspNetUsers" Color="Color.Primary" Text="自由编辑" OnClick="@IsExcelToggle" />
             </TableToolbarTemplate>
 
         </Table>
-    </TabItem>
-    <TabItem Text="Roles">
-        <Table TItem="AspNetRoles"
-               IsPagination="true"
-               IsStriped="true"
-               IsBordered="true"
-               AutoGenerateColumns="true"
-               ShowSearch="true"
-               ShowToolbar="true"
-               ShowExtendButtons="true"
-               DoubleClickToEdit=true
-               ShowColumnList=true
-               ShowCardView=true>
 
-            <TableToolbarTemplate>
-                <TableToolbarButton TItem="AspNetRoles" Color="Color.Primary" Text="自由编辑" OnClick="@IsExcelToggle" />
-            </TableToolbarTemplate>
+        <h4>UserRoles</h4>
 
-        </Table>
-    </TabItem>
-    <TabItem Text="UserRoles">
         <Table TItem="AspNetUserRoles"
                IsPagination="true"
                IsStriped="true"
@@ -61,8 +43,29 @@
             </TableToolbarTemplate>
 
         </Table>
+
+        <h4>Roles</h4>
+
+        <Table TItem="AspNetRoles"
+               IsPagination="true"
+               IsStriped="true"
+               IsBordered="true"
+               AutoGenerateColumns="true"
+               ShowSearch="true"
+               ShowToolbar="true"
+               ShowExtendButtons="true"
+               DoubleClickToEdit=true
+               ShowColumnList=true
+               ShowCardView=true>
+
+            <TableToolbarTemplate>
+                <TableToolbarButton TItem="AspNetRoles" Color="Color.Primary" Text="自由编辑" OnClick="@IsExcelToggle" />
+            </TableToolbarTemplate>
+
+        </Table>
+
     </TabItem>
-    <TabItem Text="Logins">
+     <TabItem Text="Logins">
         <Table TItem="AspNetUserLogins"
                IsPagination="true"
                IsStriped="true"
