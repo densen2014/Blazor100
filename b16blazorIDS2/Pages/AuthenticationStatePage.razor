@@ -29,18 +29,18 @@
         {
             if (user.Identity != null && user.Identity.IsAuthenticated)
             {
-                Msg = "执行仅对经过身份验证（登录）的用户可用的操作.";
+                Msg += "执行仅对经过身份验证（登录）的用户可用的操作."+Environment.NewLine;
             }
 
             if (user.IsInRole(AuthorizeRoles.Admin.ToString()))
             {
-                Msg = "执行仅对“管理员”角色的用户可用的操作.";
+                Msg += "执行仅对“管理员”角色的用户可用的操作." + Environment.NewLine;
             }
 
             if (user.IsInRole(AuthorizeRoles.User.ToString()))
             {
-                Msg = "执行仅对“用户”角色的用户可用的操作.";
-            } 
+                Msg += "执行仅对“用户”角色的用户可用的操作." + Environment.NewLine;
+            }
 
             //if ((await AuthorizationService.AuthorizeAsync(user, "content-editor"))
             //    .Succeeded)
