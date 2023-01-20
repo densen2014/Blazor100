@@ -1,14 +1,6 @@
-﻿using FreeSql.DatabaseModel;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using BootstrapBlazor.Components;
 using FreeSql.DataAnnotations;
-using BootstrapBlazor.Components;
-using DocumentFormat.OpenXml.Vml.Spreadsheet;
+using Newtonsoft.Json;
 using System.ComponentModel;
 #nullable disable
 
@@ -105,6 +97,7 @@ public partial class AspNetUsers
     [JsonProperty, Column(StringLength = -2)]
     public string provider { get; set; }
 
+    [AutoGenerateColumn(Visible = false)]
     [JsonProperty, Column(StringLength = -2)]
     public string UUID { get; set; }
 
@@ -112,6 +105,7 @@ public partial class AspNetUsers
     [JsonProperty, Column(StringLength = -2)]
     public string DOB { get; set; }
 
+    [AutoGenerateColumn(Visible = false)]
     [JsonProperty, Column(StringLength = -2)]
     public string Name { get; set; }
 
@@ -123,17 +117,22 @@ public partial class AspNetUsers
     [JsonProperty]
     public int AccessFailedCount { get; set; }
 
-    [AutoGenerateColumn(Visible = false)]
+    [JsonProperty, Column(IsIgnore = true)]
+    [DisplayName("Role")]
+    public string RoleName { get=> roleName ?? AspNetUserRoles?.First().RoleId; set=> roleName=value; }
+    string roleName;
+
+    [AutoGenerateColumn(Ignore = true)]
     [Navigate(nameof(AspNetUserClaims.UserId))]
     [DisplayName("Roles")]
     public virtual List<AspNetUserRoles> AspNetUserRoles { get; set; }
 
-    [AutoGenerateColumn(Visible = false)]
+    [AutoGenerateColumn(Ignore = true)]
     [Navigate(nameof(AspNetUserClaims.UserId))]
     [DisplayName("Claims")]
     public virtual List<AspNetUserClaims> AspNetUserClaimss { get; set; }
 
-    [AutoGenerateColumn(Visible = false)]
+    [AutoGenerateColumn(Ignore = true)]
     [Navigate(nameof(AspNetUserLogins.UserId))]
     [DisplayName("UserLogins")]
     public virtual List<AspNetUserLogins> AspNetUserLoginss { get; set; }

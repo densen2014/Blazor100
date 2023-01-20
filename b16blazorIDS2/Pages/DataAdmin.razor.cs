@@ -4,10 +4,12 @@
 // e-mail:zhouchuanglin@gmail.com 
 // **********************************
 
+using b16blazorIDS2.Enum;
 using b16blazorIDS2.Models;
 using Blazor100.Service;
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Diagnostics.CodeAnalysis;
 using static b16blazorIDS2.Pages.Index;
@@ -16,13 +18,17 @@ namespace b16blazorIDS2.Pages
 {
     public partial class DataAdmin
     {
-        [Inject]
+        [CascadingParameter]
         [NotNull]
-        protected UserManager<WebAppIdentityUser>? UserManager { get; set; }
+        private Task<AuthenticationState>? AuthenticationStateTask { get; set; }
 
         [Inject]
         [NotNull]
-        protected RoleManager<IdentityRole>? RoleManager { get; set; }
+        private UserManager<WebAppIdentityUser>? UserManager { get; set; }
+
+        [Inject]
+        [NotNull]
+        private RoleManager<IdentityRole>? RoleManager { get; set; }
 
         [Inject]
         [NotNull]
@@ -51,24 +57,6 @@ namespace b16blazorIDS2.Pages
 
             if (!firstRender) return;
 
-            var RoleResult = await RoleManager.FindByNameAsync(AuthorizeRoles.Admin.ToString());
-            if (RoleResult == null)
-            {
-                await RoleManager.CreateAsync(new IdentityRole(AuthorizeRoles.Admin.ToString()));
-                await ToastService.Information("Admin Role Created");
-            }
-
-            var user = await UserManager.FindByNameAsync("test@app.com");
-            if (user != null)
-            {
-                var UserResult = await UserManager.IsInRoleAsync(user, AuthorizeRoles.Admin.ToString());
-                if (!UserResult)
-                {
-                    await UserManager.AddToRoleAsync(user, AuthorizeRoles.Admin.ToString());
-                    await ToastService.Information("Admin Role Added to test@app.com");
-                }
-            }
-
             await AddNewRole(AuthorizeRoles.Admin);
             await AddNewRole(AuthorizeRoles.Superuser);
             await AddNewRole(AuthorizeRoles.User);
@@ -76,15 +64,33 @@ namespace b16blazorIDS2.Pages
             await AddNewRole(AuthorizeRoles.R120);
             await AddNewRole(AuthorizeRoles.R130);
             await AddNewRole(AuthorizeRoles.R140);
-            
-            await AddUser("admin",AuthorizeRoles.Admin);
-            await AddUser("super",AuthorizeRoles.Superuser);
-            await AddUser("u01",AuthorizeRoles.User);
-            await AddUser("u02",AuthorizeRoles.User);
-            await AddUser("u03",AuthorizeRoles.User);
-            await AddUser("u04",AuthorizeRoles.User);
-            await AddUser("r01",AuthorizeRoles.R110);
-            await AddUser("r02",AuthorizeRoles.R120);
+
+            await AddUser("admin", AuthorizeRoles.Admin);
+            await AddUser("super", AuthorizeRoles.Superuser);
+            await AddUser("u01", AuthorizeRoles.User);
+            await AddUser("u02", AuthorizeRoles.User);
+            await AddUser("u03", AuthorizeRoles.User);
+            await AddUser("u04", AuthorizeRoles.User);
+            await AddUser("r01", AuthorizeRoles.R110);
+            await AddUser("r02", AuthorizeRoles.R120);
+
+            var user = (await AuthenticationStateTask).User;
+            if (user?.Identity?.Name != null)
+            {
+                var userexist = await UserManager.FindByNameAsync(user.Identity.Name);
+                if (userexist != null)
+                {
+                    var UserResult = await UserManager.IsInRoleAsync(userexist, AuthorizeRoles.Admin.ToString());
+                    if (!UserResult)
+                    {
+                        userexist.UserRole = AuthorizeRoles.Admin.ToString();  
+                        await UserManager.UpdateAsync(userexist);
+                        
+                        await UserManager.AddToRoleAsync(userexist, AuthorizeRoles.Admin.ToString());
+                        await ToastService.Information($"Admin Role Added to {user.Identity.Name}");
+                    }
+                }
+            }
 
         }
 
@@ -102,7 +108,7 @@ namespace b16blazorIDS2.Pages
         }
 
         async Task AddUser(string UserName, AuthorizeRoles UserRole, WebAppIdentityUser? newUser = null) => await AddUser(UserName, UserRole.ToString(), newUser);
-        async Task AddUser(string UserName,string UserRole, WebAppIdentityUser? newUser = null)
+        async Task AddUser(string UserName, string UserRole, WebAppIdentityUser? newUser = null)
         {
             var user = await UserManager.FindByNameAsync(UserName);
             if (user != null) return;

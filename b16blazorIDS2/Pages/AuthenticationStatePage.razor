@@ -1,14 +1,14 @@
 ﻿@page "/AuthenticationStatePage"
 @attribute [Authorize]
+@    using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 
 <PageTitle>Admin 已登录</PageTitle>
 
 <pre>如果需要应用在过程逻辑中检查授权规则，请使用类型为 Task&lt;AuthenticationState&gt; 的级联参数来获取用户的 ClaimsPrincipal。 Task&lt;AuthenticationState&gt; 可以与其他服务（如 IAuthorizationService）结合使用来评估策略。</pre>
 
-@using Microsoft.AspNetCore.Authorization
-@inject IAuthorizationService AuthorizationService
 
-<button @onclick="@DoSomething">Do something important</button>
+<button @onclick="@DoSomething">做重要的事</button>
 
 
 <p>@Msg</p>
@@ -16,28 +16,37 @@
 
 @code {
     [CascadingParameter]
-    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    [NotNull]
+    private Task<AuthenticationState>? AuthenticationStateTask { get; set; }
 
     private string? Msg { get; set; }
 
     private async Task DoSomething()
     {
-        var user = (await authenticationStateTask).User;
+        var user = (await AuthenticationStateTask).User;
 
-        if (user.Identity.IsAuthenticated)
+        if (user != null)
         {
-            Msg = "Perform an action only available to authenticated (signed-in) users.";
-        }
+            if (user.Identity != null && user.Identity.IsAuthenticated)
+            {
+                Msg = "执行仅对经过身份验证（登录）的用户可用的操作.";
+            }
 
-        if (user.IsInRole("admin"))
-        {
-            Msg = "Perform an action only available to users in the 'admin' role.";
-        }
+            if (user.IsInRole(AuthorizeRoles.Admin.ToString()))
+            {
+                Msg = "执行仅对“管理员”角色的用户可用的操作.";
+            }
 
-        //if ((await AuthorizationService.AuthorizeAsync(user, "content-editor"))
-        //    .Succeeded)
-        //{
-        //    Msg = "Perform an action only available to users satisfying the 'content-editor' policy.";
-        //}
+            if (user.IsInRole(AuthorizeRoles.User.ToString()))
+            {
+                Msg = "执行仅对“用户”角色的用户可用的操作.";
+            } 
+
+            //if ((await AuthorizationService.AuthorizeAsync(user, "content-editor"))
+            //    .Succeeded)
+            //{
+            //    Msg = "执行仅对满足“内容编辑器”政策的用户可用的操作.";
+            //}
+        }
     }
 }

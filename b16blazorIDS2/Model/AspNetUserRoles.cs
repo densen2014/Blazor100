@@ -1,14 +1,6 @@
-﻿using FreeSql.DatabaseModel;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using BootstrapBlazor.Components;
 using FreeSql.DataAnnotations;
-using BootstrapBlazor.Components;
-using DocumentFormat.OpenXml.Office2021.Excel.NamedSheetViews;
+using Newtonsoft.Json;
 #nullable disable
 
 namespace b16blazorIDS2.Models.ids;
@@ -24,9 +16,11 @@ public partial class AspNetUserRoles
     [JsonProperty, Column(StringLength = -2, IsNullable = false)]
     public string RoleId { get; set; }
 
+    [AutoGenerateColumn(Ignore = true)]
     [Navigate(nameof(RoleId))]
     public virtual AspNetRoles AspNetRoles { get; set; }
 
+    [AutoGenerateColumn(Ignore = true)]
     [Navigate(nameof(UserId))]
     public virtual AspNetUsers AspNetUsers { get; set; }
 

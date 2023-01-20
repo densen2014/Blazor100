@@ -1,5 +1,5 @@
 ﻿@page "/"
-@using Microsoft.AspNetCore.Components.Authorization
+@    using Microsoft.AspNetCore.Components.Authorization
 
 <PageTitle>Index</PageTitle>
 
@@ -49,17 +49,4 @@
     <p>You can only see this if you satisfy the "ContentEditor" policy.</p>
 </AuthorizeView>*@
 
-@code
-{
-
-    public enum AuthorizeRoles
-    {
-        Admin,
-        Superuser,
-        User,
-        R110,
-        R120,
-        R130,
-        R140,
-    }
-}
+ 

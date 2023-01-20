@@ -1,14 +1,6 @@
-﻿using FreeSql.DatabaseModel;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using BootstrapBlazor.Components;
 using FreeSql.DataAnnotations;
-using BootstrapBlazor.Components;
-using DocumentFormat.OpenXml.Office2021.Excel.NamedSheetViews;
+using Newtonsoft.Json;
 #nullable disable
 
 namespace b16blazorIDS2.Models.ids;
@@ -33,6 +25,7 @@ public partial class AspNetUserClaims
     /// <summary>
     /// 用户
     /// </summary>
+    [AutoGenerateColumn(Ignore = true)]
     [Navigate(nameof(UserId))]
     public virtual AspNetUsers AspNetUsers { get; set; }
 
