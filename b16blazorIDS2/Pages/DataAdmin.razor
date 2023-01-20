@@ -1,5 +1,6 @@
 ﻿@page "/DataAdmin"
-@using b16blazorIDS2.Models.ids 
+@*@attribute [Route(DataAdmin)]*@
+@using b16blazorIDS2.Models.ids
 @using static Blazor100.Service.ImportExportsService
 
 <PageTitle>管理</PageTitle>
@@ -65,7 +66,7 @@
         </Table>
 
     </TabItem>
-     <TabItem Text="Logins">
+    <TabItem Text="Logins">
         <Table TItem="AspNetUserLogins"
                IsPagination="true"
                IsStriped="true"
