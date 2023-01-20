@@ -91,13 +91,13 @@ builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuth
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddFreeSql(option =>
 {
-    option.UseConnectionString(FreeSql.DataType.Sqlite, connectionString)  
+    option.UseConnectionString(FreeSql.DataType.Sqlite, connectionString)
 #if DEBUG
          //开发环境:自动同步实体
          .UseAutoSyncStructure(true)
          .UseNoneCommandParameter(true)
     //调试sql语句输出
-         .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
+         .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText + Environment.NewLine))
 #endif
     ;
 });

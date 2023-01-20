@@ -69,7 +69,7 @@ builder.Services.AddFreeSql(option =>
          .UseAutoSyncStructure(true)
          .UseNoneCommandParameter(true)
     //调试sql语句输出
-         .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
+         .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText + Environment.NewLine))
 #endif
     ;
 });
@@ -83,7 +83,7 @@ builder.Services.ConfigureJsonLocalizationOptions(op =>
     op.IgnoreLocalizerMissing = true;
 });
 
-var app = builder.Build(); 
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

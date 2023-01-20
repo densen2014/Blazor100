@@ -107,20 +107,21 @@ namespace b16blazorIDS2.Pages
         async Task AddUser(string UserName, AuthorizeRoles UserRole, WebAppIdentityUser? newUser = null) => await AddUser(UserName, UserRole.ToString(), newUser);
         async Task AddUser(string UserName, string UserRole, WebAppIdentityUser? newUser = null)
         {
-            var user = await UserManager.FindByNameAsync(UserName);
+            var email = $"{UserName}@app.com";
+            var user = await UserManager.FindByNameAsync(email);
             if (user != null) return;
 
             var NewUser = newUser ??
                 new WebAppIdentityUser
                 {
-                    UserName = UserName,
-                    Email = $"{UserName}@app.com",
+                    UserName = email,
+                    Email = email,
                     PhoneNumber = UserName,
                     UUID = Guid.NewGuid().ToString(),
                     EmailConfirmed = true,
                     UserRole = UserRole,
                 };
-            await ToastService.Information($"{UserName}@app.com Created");
+            await ToastService.Information($"{email} Created");
 
             var CreateResult =
                 await UserManager
@@ -148,7 +149,7 @@ namespace b16blazorIDS2.Pages
             else
             {
                 await UserManager.AddToRoleAsync(NewUser, CurrentUserRole);
-                await ToastService.Information($"{UserName}@app.com Add To Role {CurrentUserRole}");
+                await ToastService.Information($"{email} Add To Role {CurrentUserRole}");
             }
         }
 
