@@ -78,7 +78,7 @@ public class RegisterModel : PageModel
         /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
         /// </summary>
         [Required]
-        [StringLength(100, ErrorMessage = "{0} 的长度必须至少为 {2}，最多为 {1} 个字符.", MinimumLength = 6)]
+        [StringLength(100, MinimumLength=1, ErrorMessage = "{0} 的长度必须至少为 {2}，最多为 {1} 个字符.")]
         [DataType(DataType.Password)]
         [Display(Name = "密码")]
         public string Password { get; set; }
