@@ -10,6 +10,7 @@ using FreeSql.DataAnnotations;
 using BootstrapBlazor.Components;
 using DocumentFormat.OpenXml.Vml.Spreadsheet;
 using System.ComponentModel;
+#nullable disable
 
 namespace b16blazorIDS2.Models.ids;
 

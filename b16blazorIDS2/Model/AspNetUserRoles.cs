@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using FreeSql.DataAnnotations;
 using BootstrapBlazor.Components;
 using DocumentFormat.OpenXml.Office2021.Excel.NamedSheetViews;
+#nullable disable
 
 namespace b16blazorIDS2.Models.ids;
 
