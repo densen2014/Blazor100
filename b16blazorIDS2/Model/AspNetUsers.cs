@@ -11,8 +11,41 @@ namespace b16blazorIDS2.Models.ids;
 public partial class AspNetUsers
 {
 
+    [DisplayName("用户ID")]
     [JsonProperty, Column(StringLength = -2, IsPrimary = true, IsNullable = false)]
     public string Id { get; set; }
+
+    [JsonProperty, Column(StringLength = -2)]
+    [DisplayName("用户名")]
+    public string UserName { get; set; }
+
+    [JsonProperty, Column(StringLength = -2)]
+    public string Email { get; set; }
+
+    [DisplayName("电话")]
+    [JsonProperty, Column(StringLength = -2)]
+    public string PhoneNumber { get; set; }
+
+    [DisplayName("自定义名称")]
+    [AutoGenerateColumn(Visible = false)]
+    [JsonProperty, Column(StringLength = -2)]
+    public string Name { get; set; }
+
+    [DisplayName("用户组")]
+    [JsonProperty, Column(StringLength = -2)]
+    public string UserRole { get; set; }
+
+    [AutoGenerateColumn(Visible = false)]
+    [JsonProperty, Column(StringLength = -2)]
+    public string PasswordHash { get; set; }
+
+    [AutoGenerateColumn(Visible = false)]
+    [JsonProperty]
+    public int EmailConfirmed { get; set; }
+
+    [AutoGenerateColumn(Visible = false)]
+    [JsonProperty]
+    public int PhoneNumberConfirmed { get; set; }
 
     [AutoGenerateColumn(Visible = false)]
     [JsonProperty, Column(StringLength = -2)]
@@ -21,14 +54,6 @@ public partial class AspNetUsers
     [AutoGenerateColumn(Visible = false)]
     [JsonProperty]
     public int TwoFactorEnabled { get; set; }
-
-    [AutoGenerateColumn(Visible = false)]
-    [JsonProperty]
-    public int PhoneNumberConfirmed { get; set; }
-
-    [DisplayName("电话")]
-    [JsonProperty, Column(StringLength = -2)]
-    public string PhoneNumber { get; set; }
 
     [AutoGenerateColumn(Visible = false)]
     [JsonProperty, Column(StringLength = -2)]
@@ -40,18 +65,7 @@ public partial class AspNetUsers
 
     [AutoGenerateColumn(Visible = false)]
     [JsonProperty, Column(StringLength = -2)]
-    public string PasswordHash { get; set; }
-
-    [AutoGenerateColumn(Visible = false)]
-    [JsonProperty]
-    public int EmailConfirmed { get; set; }
-
-    [AutoGenerateColumn(Visible = false)]
-    [JsonProperty, Column(StringLength = -2)]
     public string NormalizedEmail { get; set; }
-
-    [JsonProperty, Column(StringLength = -2)]
-    public string Email { get; set; }
 
     [AutoGenerateColumn(Visible = false)]
     [DisplayName("标准化用户名")]
@@ -61,9 +75,6 @@ public partial class AspNetUsers
     [AutoGenerateColumn(Visible = false)]
     [JsonProperty]
     public int LockoutEnabled { get; set; }
-
-    [JsonProperty, Column(StringLength = -2)]
-    public string UserName { get; set; }
 
     [AutoGenerateColumn(Visible = false)]
     [JsonProperty, Column(StringLength = -2)]
@@ -106,19 +117,11 @@ public partial class AspNetUsers
     public string DOB { get; set; }
 
     [AutoGenerateColumn(Visible = false)]
-    [JsonProperty, Column(StringLength = -2)]
-    public string Name { get; set; }
-
-    [DisplayName("用户组")]
-    [JsonProperty, Column(StringLength = -2)]
-    public string UserRole { get; set; }
-
-    [AutoGenerateColumn(Visible = false)]
     [JsonProperty]
     public int AccessFailedCount { get; set; }
 
     [JsonProperty, Column(IsIgnore = true)]
-    [DisplayName("Role")]
+    [DisplayName("角色")]
     public string RoleName { get=> roleName ?? AspNetUserRoles?.First().RoleId; set=> roleName=value; }
     string roleName;
 

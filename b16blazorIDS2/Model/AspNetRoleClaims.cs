@@ -5,6 +5,9 @@ using Newtonsoft.Json;
 
 namespace b16blazorIDS2.Models.ids;
 
+/// <summary>
+/// 角色声明
+/// </summary>
 [AutoGenerateClass(Searchable = true, Filterable = true, Sortable = true, ShowTips = true)]
 [JsonObject(MemberSerialization.OptIn), Table(DisableSyncStructure = true)]
 public partial class AspNetRoleClaims

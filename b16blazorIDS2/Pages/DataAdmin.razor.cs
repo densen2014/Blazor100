@@ -4,15 +4,12 @@
 // e-mail:zhouchuanglin@gmail.com 
 // **********************************
 
-using b16blazorIDS2.Enum;
 using b16blazorIDS2.Models;
-using Blazor100.Service;
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Diagnostics.CodeAnalysis;
-using static b16blazorIDS2.Pages.Index;
 
 namespace b16blazorIDS2.Pages
 {
