@@ -66,7 +66,8 @@ builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
 //builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
 //EF Sqlite 配置
-builder.Services.AddDbContext<ApplicationDbContext>(o => o.UseSqlite(builder.Configuration.GetConnectionString("IdsSQliteConnection")));
+var connectionString = builder.Configuration.GetConnectionString("IdsSQliteConnection") ?? throw new InvalidOperationException("Connection string 'IdsSQliteConnection' not found.");
+builder.Services.AddDbContext<ApplicationDbContext>(o => o.UseSqlite(connectionString));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -77,7 +78,7 @@ builder.Services.AddDefaultIdentity<WebAppIdentityUser>(o =>
     o.Password.RequireLowercase = false;
     o.Password.RequireNonAlphanumeric = false;
     o.Password.RequireUppercase = false;
-    o.Password.RequiredLength = 4;
+    o.Password.RequiredLength = 1;
     o.Password.RequiredUniqueChars = 1;
 }
     )
@@ -90,7 +91,7 @@ builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuth
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddFreeSql(option =>
 {
-    option.UseConnectionString(FreeSql.DataType.Sqlite, "Data Source=ids.db;")  //也可以写到配置文件中
+    option.UseConnectionString(FreeSql.DataType.Sqlite, connectionString)  
 #if DEBUG
          //开发环境:自动同步实体
          .UseAutoSyncStructure(true)
