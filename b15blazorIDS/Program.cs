@@ -28,15 +28,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(o => o.UseSqlite(builder.Con
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(o =>
- {   // Password settings.
-     o.Password.RequireDigit = false;
-     o.Password.RequireLowercase = false;
-     o.Password.RequireNonAlphanumeric = false;
-     o.Password.RequireUppercase = false;
-     o.Password.RequiredLength = 4;
-     o.Password.RequiredUniqueChars = 1;
- }
-)
+        {   // Password settings.
+            o.Password.RequireDigit = false;
+            o.Password.RequireLowercase = false;
+            o.Password.RequireNonAlphanumeric = false;
+            o.Password.RequireUppercase = false;
+            o.Password.RequiredLength = 1;
+            o.Password.RequiredUniqueChars = 1;
+        }
+    )
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddRazorPages();

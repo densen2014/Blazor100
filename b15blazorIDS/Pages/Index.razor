@@ -1,5 +1,8 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Identity
+@using System.Diagnostics.CodeAnalysis
 
 <PageTitle>Index</PageTitle>
 
@@ -46,11 +49,61 @@
 @*<p>基于策略的授权</p>*@
 
 @*<AuthorizeView Policy="ContentEditor">
-    <p>You can only see this if you satisfy the "ContentEditor" policy.</p>
-</AuthorizeView>*@
+        <p>You can only see this if you satisfy the "ContentEditor" policy.</p>
+    </AuthorizeView>*@
 
 @code
 {
+    [Inject]
+    [NotNull]
+    protected UserManager<IdentityUser>? UserManager { get; set; }
+
+    [Inject]
+    [NotNull]
+    protected RoleManager<IdentityRole>? RoleManager { get; set; }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender) return;
+
+        var RoleResult = await RoleManager.FindByNameAsync(AuthorizeRoles.Admin.ToString());
+        if (RoleResult == null)
+        {
+            await RoleManager.CreateAsync(new IdentityRole(AuthorizeRoles.Admin.ToString()));
+            Console.WriteLine("Admin Role Created");
+        }
+
+        var user = await UserManager.FindByNameAsync("test@app.com");
+        if (user != null)
+        {
+            var UserResult = await UserManager.IsInRoleAsync(user, AuthorizeRoles.Admin.ToString());
+            if (!UserResult)
+            {
+                await UserManager.AddToRoleAsync(user, AuthorizeRoles.Admin.ToString());
+                Console.WriteLine("Admin Role Added to test@app.com");
+            }
+        }
+
+        var chekRole = RoleManager.RoleExistsAsync(AuthorizeRoles.R110.ToString());
+        if (chekRole.Result == false)
+        {
+            await RoleManager.CreateAsync(new IdentityRole(AuthorizeRoles.R110.ToString()));
+            Console.WriteLine("R110Role Created");
+        }
+
+        chekRole = RoleManager.RoleExistsAsync(AuthorizeRoles.Superuser.ToString());
+        if (chekRole.Result == false)
+        {
+            await RoleManager.CreateAsync(new IdentityRole(AuthorizeRoles.Superuser.ToString()));
+            Console.WriteLine("Superuser Role Created");
+
+        }
+
+    }
+
 
     public enum AuthorizeRoles
     {
@@ -61,4 +114,5 @@
         R130,
         R140,
     }
+
 }
