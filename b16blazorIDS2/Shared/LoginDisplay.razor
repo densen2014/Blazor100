@@ -1,12 +1,12 @@
 ﻿<AuthorizeView>
     <Authorized>
-        <a href="Identity/Account/Manage">Hello, @context.User.Identity?.Name!</a>
-        <form method="post" action="Identity/Account/Logout">
-            <button type="submit" class="nav-link btn btn-link">Log out</button>
+        <a href="Identity/Account/Manage" class="m-3">你好, @context.User.Identity?.Name ! </a>
+        <form method="post" action="Identity/Account/Logout" class="m-3">
+            <button type="submit" class="nav-link btn btn-link">注销</button>
         </form>
     </Authorized>
     <NotAuthorized>
-        <a href="Identity/Account/Register">Register</a>
-        <a href="Identity/Account/Login">Log in</a>
+        <a href="Identity/Account/Register">注册</a>
+        <a href="Identity/Account/Login">登录</a>
     </NotAuthorized>
 </AuthorizeView>

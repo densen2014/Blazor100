@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - b16blazorIDS2</title>
+    <title>@ViewData["Title"] - 登录验证</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/Identity/lib/bootstrap/dist/css/bootstrap.css" />
@@ -27,7 +27,7 @@
             <div class="container">
                 <a class="navbar-brand" href="~/">b16blazorIDS2</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                        aria-expanded="false" aria-label="切换导航">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
@@ -40,9 +40,9 @@
                     }
                     else
                     {
-                        throw new InvalidOperationException("The default Identity UI layout requires a partial view '_LoginPartial' " +
-                            "usually located at '/Pages/_LoginPartial' or at '/Views/Shared/_LoginPartial' to work. Based on your configuration " +
-                            $"we have looked at it in the following locations: {System.Environment.NewLine}{string.Join(System.Environment.NewLine, result.SearchedLocations)}.");
+                        throw new InvalidOperationException("默认身份 UI 布局需要部分视图 '_LoginPartial' " +
+                            "通常位于 '/Pages/_LoginPartial' or at '/Views/Shared/_LoginPartial' 生效。根据您的配置 " +
+                            $"我们在以下位置查看过它: {System.Environment.NewLine}{string.Join(System.Environment.NewLine, result.SearchedLocations)}.");
                     }
                 </div>
             </div>
@@ -57,13 +57,13 @@
     </div>
     <footer class="footer border-top pl-3 text-muted">
         <div class="container">
-        &copy; 2023 - b16blazorIDS2
+            &copy; 2023 - 登录验证
             @{
                 var foundPrivacy = Url.Page("/Privacy", new { area = "" });
             }
             @if (foundPrivacy != null)
             {
-                <a asp-area="" asp-page="/Privacy">Privacy</a>
+                <a asp-area="" asp-page="/Privacy">隐私</a>
             }
         </div>
     </footer>
