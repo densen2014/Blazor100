@@ -1,4 +1,4 @@
-﻿// ********************************** 
+// ********************************** 
 // Densen Informatica 中讯科技 
 // 作者：Alex Chow
 // e-mail:zhouchuanglin@gmail.com 
@@ -35,7 +35,7 @@ builder.Services.AddDefaultIdentity<WebAppIdentityUser>(o =>
      o.Password.RequireLowercase = false;
      o.Password.RequireNonAlphanumeric = false;
      o.Password.RequireUppercase = false;
-     o.Password.RequiredLength = 4;
+     o.Password.RequiredLength = 1;
      o.Password.RequiredUniqueChars = 1;
  }
 )
