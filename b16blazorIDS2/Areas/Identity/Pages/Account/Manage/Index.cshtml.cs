@@ -6,114 +6,127 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using b16blazorIDS2.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using b16blazorIDS2.Models;
 
-namespace b16blazorIDS2.Areas.Identity.Pages.Account.Manage
+namespace b16blazorIDS2.Areas.Identity.Pages.Account.Manage;
+
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly UserManager<WebAppIdentityUser> _userManager;
+    private readonly SignInManager<WebAppIdentityUser> _signInManager;
+
+    public IndexModel(
+        UserManager<WebAppIdentityUser> userManager,
+        SignInManager<WebAppIdentityUser> signInManager)
     {
-        private readonly UserManager<WebAppIdentityUser> _userManager;
-        private readonly SignInManager<WebAppIdentityUser> _signInManager;
+        _userManager = userManager;
+        _signInManager = signInManager;
+    }
 
-        public IndexModel(
-            UserManager<WebAppIdentityUser> userManager,
-            SignInManager<WebAppIdentityUser> signInManager)
+    /// <summary>
+    /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+    /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
+    /// </summary>
+    [Display(Name = "用户名")]
+    public string Username { get; set; }
+
+    /// <summary>
+    /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算使用
+    /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
+    /// </summary>
+    [TempData]
+    public string StatusMessage { get; set; }
+
+    /// <summary>
+    /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算用于
+    /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
+    /// </summary>
+    [BindProperty]
+    public InputModel Input { get; set; }
+
+    /// <summary>
+    /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算用于
+    /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
+    /// </summary>
+    public class InputModel
+    {
+        /// <summary>
+        /// 此 API 支持 ASP.NET Core Identity 默认 UI 基础结构，不打算用于
+        /// 直接来自您的代码。此 API 可能会在未来的版本中更改或删除。
+        /// </summary>
+        [Phone]
+        [Display(Name = "电话号码")]
+        public string PhoneNumber { get; set; }
+
+
+        [Display(Name = "名称")]
+        public string Name { get; set; }
+    }
+
+    private async Task LoadAsync(WebAppIdentityUser user)
+    {
+        var userName = await _userManager.GetUserNameAsync(user);
+        var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+        var name = user.Name;
+
+        Username = userName;
+
+        Input = new InputModel
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            PhoneNumber = phoneNumber,
+            Name = name
+        };
+    }
+
+    public async Task<IActionResult> OnGetAsync()
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null)
+        {
+            return NotFound($"无法加载具有 ID 的用户 '{_userManager.GetUserId(User)}'.");
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public string Username { get; set; }
+        await LoadAsync(user);
+        return Page();
+    }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        [TempData]
-        public string StatusMessage { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        [BindProperty]
-        public InputModel Input { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public class InputModel
+    public async Task<IActionResult> OnPostAsync()
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null)
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
+            return NotFound($"无法加载具有 ID 的用户 '{_userManager.GetUserId(User)}'.");
         }
 
-        private async Task LoadAsync(WebAppIdentityUser user)
+        if (!ModelState.IsValid)
         {
-            var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
-            Username = userName;
-
-            Input = new InputModel
-            {
-                PhoneNumber = phoneNumber
-            };
-        }
-
-        public async Task<IActionResult> OnGetAsync()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
             await LoadAsync(user);
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+        if (Input.PhoneNumber != phoneNumber)
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
+            var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+            if (!setPhoneResult.Succeeded)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                StatusMessage = "尝试设置电话号码时出现意外错误.";
+                return RedirectToPage();
             }
-
-            if (!ModelState.IsValid)
-            {
-                await LoadAsync(user);
-                return Page();
-            }
-
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
-            {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
-                }
-            }
-
-            await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
-            return RedirectToPage();
         }
+
+        var name = user.Name;
+        if (Input.Name != name)
+        {
+            user.Name = Input.Name;
+            await _userManager.UpdateAsync(user);
+        }
+
+        await _signInManager.RefreshSignInAsync(user);
+        StatusMessage = "你的个人资料已经更新";
+        return RedirectToPage();
     }
 }
