@@ -3,7 +3,7 @@ using Microsoft.Extensions.FileProviders;
 using System.Text.Encodings.Web;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.WebHost.UseUrls(builder.Configuration["UseUrls"]);
+builder.WebHost.UseUrls(builder.Configuration["UseUrls"]?? "http://localhost:8000;http://0.0.0.0:8000;");
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 //设置文件上传的大小限制 , 默认值128MB 
