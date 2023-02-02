@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Http.Features;
+﻿// ********************************** 
+// Densen Informatica 中讯科技 
+// 作者：Alex Chow
+// e-mail:zhouchuanglin@gmail.com 
+// **********************************
+
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.FileProviders;
 using System.Text.Encodings.Web;
 
