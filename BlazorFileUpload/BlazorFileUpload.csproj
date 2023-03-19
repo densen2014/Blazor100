@@ -26,7 +26,7 @@
   </ItemGroup>
     
   <ItemGroup>
-    <PackageReference Include="AME.SortedDirectoryChs" Version="6.5.0" />
+    <PackageReference Include="AME.SortedDirectoryChs" Version="7.1.0" />
   </ItemGroup> 
     
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

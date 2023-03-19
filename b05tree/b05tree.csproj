@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="6.10.10" />
-    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="6.2.0" />
-    <PackageReference Include="Densen.FreeSql.Extensions.BootstrapBlazor" Version="6.8.0" />
+    <PackageReference Include="BootstrapBlazor" Version="7.4.3" />
+    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="7.3.0" />
+    <PackageReference Include="Densen.FreeSql.Extensions.BootstrapBlazor" Version="7.2.1" />
     <PackageReference Include="FreeSql.Provider.Sqlite" Version="3.*" />
   </ItemGroup>
 

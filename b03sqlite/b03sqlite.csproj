@@ -7,17 +7,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BootstrapBlazor" Version="6.10.10" />
+		<PackageReference Include="BootstrapBlazor" Version="7.4.3" />
 		<!--<PackageReference Include="BootstrapBlazor.DataAcces.FreeSql" Version="6.0.0" />-->
-		<PackageReference Include="BootstrapBlazor.FontAwesome" Version="6.2.0" />
-		<PackageReference Include="Densen.Extensions.BootstrapBlazor" Version="6.8.3" />
-		<PackageReference Include="Densen.FreeSql.Extensions.BootstrapBlazor" Version="6.8.0" />
+		<PackageReference Include="BootstrapBlazor.FontAwesome" Version="7.3.0" />
+		<PackageReference Include="Densen.Extensions.BootstrapBlazor" Version="7.3.1" />
+		<PackageReference Include="Densen.FreeSql.Extensions.BootstrapBlazor" Version="7.2.1" />
 		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.*" />
-		<PackageReference Include="Magicodes.IE.Core" Version="2.6.4" />
-		<PackageReference Include="Magicodes.IE.Excel" Version="2.6.4" />
-		<PackageReference Include="Magicodes.IE.Html" Version="2.6.4" />
-		<PackageReference Include="Magicodes.IE.Pdf" Version="2.6.4" />
-		<PackageReference Include="Magicodes.IE.Word" Version="2.6.4" />
+		<PackageReference Include="Magicodes.IE.Core" Version="2.7.4.3" />
+		<PackageReference Include="Magicodes.IE.Excel" Version="2.7.4.3" />
+		<PackageReference Include="Magicodes.IE.Html" Version="2.7.4.3" />
+		<PackageReference Include="Magicodes.IE.Pdf" Version="2.7.4.3" />
+		<PackageReference Include="Magicodes.IE.Word" Version="2.7.4.3" />
 	</ItemGroup>
 
 	<ItemGroup>
