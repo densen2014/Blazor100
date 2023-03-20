@@ -1,0 +1,36 @@
+﻿@page "/fetchdataCagetory2"
+@using b17tableII.Data
+
+<PageTitle>Cagetory2</PageTitle>
+
+<TablePollo TItem="Cagetory2"
+            IncludeByPropertyNames="@IncludeByPropertyNames"
+            ItemDetails="NullClass"
+            ItemDetailsII="NullClass"
+            EnableCascadeSave />
+
+<TablePollo TItem="SubCagetory"
+            ItemDetails="NullClass"
+            ItemDetailsII="NullClass" />
+
+@code {
+
+
+    // 由于使用了FreeSql ORM 数据服务,可以直接取对象
+    [Inject] IFreeSql? fsql { get; set; }
+    [Inject] ToastService? toastService { get; set; }
+
+    List<string> IncludeByPropertyNames = new List<string> {
+                nameof(Cagetory2.Childs) ,
+            };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Cagetory2.GenDemoDatas(fsql!);
+        }
+    }
+
+
+}

@@ -1,0 +1,39 @@
+﻿@page "/fetchdataCagetory3"
+@using b17tableII.Data
+
+<PageTitle>Cagetory3 - OneToOne</PageTitle>
+
+<TablePollo TItem="Cagetory3"
+            IncludeByPropertyNames="@IncludeByPropertyNames"
+            ItemDetails="NullClass"
+            ItemDetailsII="NullClass"
+            EnableCascadeSave />
+
+<TablePollo TItem="SubCagetory3PK"
+            ItemDetails="NullClass"
+            ItemDetailsII="NullClass" />
+
+
+https://github.com/dotnetcore/FreeSql/blob/540f2251b3761bc0caeb2e2894b67272d101f659/FreeSql.Tests/FreeSql.Tests/DataAnnotations/Navigate/OneToOneTest.cs
+
+@code {
+
+
+    // 由于使用了FreeSql ORM 数据服务,可以直接取对象
+    [Inject] IFreeSql? fsql { get; set; }
+    [Inject] ToastService? toastService { get; set; }
+
+    List<string> IncludeByPropertyNames = new List<string> {
+                nameof(Cagetory3.Ext) ,
+            };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Cagetory3.GenDemoDatas(fsql!);
+        }
+    }
+
+
+}
