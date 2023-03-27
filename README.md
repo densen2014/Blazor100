@@ -81,7 +81,6 @@
 
 ![ChuanglinZhou](https://user-images.githubusercontent.com/8428709/205942253-8ff5f9ca-a033-4707-9c36-b8c9950e50d6.png)
 
+![Alex Chow's GitHub stats](https://github-readme-stats.vercel.app/api?username=densen2014&include_all_commits=true&count_private=true&show_icons=true)
 
-[![Alex Chow's GitHub stats](https://github-readme-stats.vercel.app/api?username=anuraghazra)](https://github.com/anuraghazra/github-readme-stats)
-
-
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=densen2014&layout=compact)
