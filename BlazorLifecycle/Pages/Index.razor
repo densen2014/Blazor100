@@ -1,0 +1,110 @@
+﻿@page "/"
+@page "/{StartDate:datetime}"
+@page "/2/{StartDate2:datetime}"
+
+@using Microsoft.Extensions.Logging
+@inject ILogger<Index> Logger
+
+<PageTitle>Index</PageTitle>
+
+<pre>@message</pre>
+
+<button @onclick="LogInformation">Log information (and trigger a render)</button>
+
+<Index1 StartDate="new DateTime (2019,1,1)" Count="count" />
+Count : 
+<InputNumber @bind-Value="@count" />
+<button @onclick="SetCount">Set</button>
+
+@code {
+    private string? message;
+    private int? count=2;
+
+    protected override void OnInitialized()
+    {
+        message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnInitialized";
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnInitializedAsync";
+        await Task.CompletedTask;
+    }
+
+    [Parameter]
+    public DateTime StartDate { get; set; }
+
+    [Parameter]
+    public DateTime StartDate2 { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (StartDate == default)
+        {
+            StartDate = DateTime.Now;
+
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnParametersSet=>没有设置参数:开始日期。应用默认值 (StartDate: {StartDate}).";
+        }
+        else
+        {
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnParametersSet=>设置参数:开始日期 (StartDate: {StartDate}).";
+        }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (StartDate2 == default)
+        {
+            StartDate2 = DateTime.Now;
+
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnParametersSetAsync=>没有设置参数:开始日期。应用默认值 (StartDate2: {StartDate2}).";
+        }
+        else
+        {
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnParametersSetAsync=>设置参数:开始日期 (StartDate2: {StartDate2}).";
+        }
+        await Task.CompletedTask;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnAfterRender=>为第一次渲染执行.";
+            StateHasChanged();
+        }
+        else
+        {
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnAfterRender=>非第一次渲染.";
+        }
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnAfterRenderAsync=>为第一次渲染执行.";
+            StateHasChanged();
+            //await MockData();
+        }
+        else
+        {
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnAfterRenderAsync=>非第一次渲染.";
+        }
+
+        await Task.CompletedTask;
+    }
+
+    private void LogInformation()
+    {
+        Logger.LogInformation("LogInformation called");
+    }
+
+    private void SetCount()
+    {
+        Logger.LogInformation("SetCount");
+    }
+}

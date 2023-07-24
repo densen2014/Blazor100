@@ -1,0 +1,169 @@
+﻿@page "/Index2"
+@page "/Index2/{StartDate:datetime}"
+@page "/Index22/{StartDate2:datetime}"
+@page "/Index222/{Count:int}"
+
+@using Microsoft.Extensions.Logging
+@inject ILogger<Index> Logger
+
+<h3>子组件</h3>
+
+<pre>@message</pre>
+
+<button @onclick="LogInformation">Log information (and trigger a render)</button>
+
+<p>刷新计数器: @refreshTimes</p>
+
+@if (listItem == null)
+{
+    <p>Loading... 模拟加载数据3秒</p>
+}
+else
+{
+    <p>数据列表</p>
+    <ui>
+        @foreach (var item in listItem)
+        {
+            <li>@item</li>
+        }
+    </ui>
+}
+@{
+    refreshTimes++;
+}
+
+@code {
+    private string? message;
+    private List<string>? listItem;
+
+    [Parameter]
+    public DateTime StartDate { get; set; }
+
+    [Parameter]
+    public DateTime StartDate2 { get; set; }
+
+    [Parameter]
+    public int? Count { get; set; }
+
+    private int refreshTimes;
+
+    protected override void OnInitialized()
+    {
+        message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnInitialized";
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnInitializedAsync";
+        await Task.CompletedTask;
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (StartDate == default)
+        {
+            StartDate = DateTime.Now;
+
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnParametersSet=>没有设置参数:开始日期。应用默认值 (StartDate: {StartDate}).";
+        }
+        else
+        {
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnParametersSet=>设置参数:开始日期 (StartDate: {StartDate}).";
+        }
+        if (Count == default)
+        {
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnParametersSet=>没有设置参数:计数.";
+        }
+        else
+        {
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnParametersSet=>设置参数:计数 (Count: {Count}).";
+        }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (StartDate2 == default)
+        {
+            StartDate2 = DateTime.Now;
+
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnParametersSetAsync=>没有设置参数:开始日期。应用默认值 (StartDate2: {StartDate2}).";
+        }
+        else
+        {
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnParametersSetAsync=>设置参数:开始日期 (StartDate2: {StartDate2}).";
+        }
+        if (Count == default)
+        {
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnParametersSetAsync=>没有设置参数:计数.";
+        }
+        else
+        {
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnParametersSetAsync=>设置参数:计数 (Count: {Count}).";
+            listItem = null;
+            await MockData();
+        }
+        await Task.CompletedTask;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnAfterRender=>为第一次渲染执行.";
+            StateHasChanged();
+        }
+        else
+        {
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnAfterRender=>非第一次渲染.";
+        }
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnAfterRenderAsync=>为第一次渲染执行.";
+            StateHasChanged();
+
+            if (Count == null) {
+                Count = Count ?? 5;
+                message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnAfterRenderAsync=>没有设置参数:计数,使用默认值 5.";
+                await MockData();
+            }
+        }
+        else
+        {
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} OnAfterRenderAsync=>非第一次渲染.";
+        }
+
+        await Task.CompletedTask;
+    }
+
+    private void LogInformation()
+    {
+        Logger.LogInformation("LogInformation called");
+    }
+
+
+    protected async Task MockData()
+    {
+        message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} MockData Delay 3s 模拟加载数据";
+        StateHasChanged();
+
+        if (listItem == null)
+        {
+            await Task.Delay(3000);
+            listItem = new List<string>();
+            for (int i = 0; i < Count; i++)
+            {
+                listItem.Add(Guid.NewGuid().ToString());
+            }
+            message += $"{Environment.NewLine}{DateTime.Now:hh:mm:ss.fff} MockData 模拟加载数据完成 , 刷新UI";
+            StateHasChanged();
+        }
+
+    }
+}
