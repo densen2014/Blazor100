@@ -7,6 +7,7 @@
         <InputDIY Context="@context" />
         <EditorItem @bind-Field="@context.Name" Editable="@context.Complete" />
         <EditorItem @bind-Field="@context.Education" Editable="@context.Complete" />
+        <EditorItem @bind-Field="@context.DateTime" Readonly="true" />
         <EditorItem @bind-Field="@context.Complete" />
     </FieldItems>
     <Buttons>
@@ -14,4 +15,3 @@
     </Buttons>
 </EditorForm>
 
- 
