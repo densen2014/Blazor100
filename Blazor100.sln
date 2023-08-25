@@ -33,8 +33,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11-20", "11-20", "{808F29E6-F014-4FA4-A9E8-0C81EEC7969A}"
 	ProjectSection(SolutionItems) = preProject
 		docs\10.FileUpload.md = docs\10.FileUpload.md
-		docs\12..md = docs\12..md
 		docs\11.Lifecycle.md = docs\11.Lifecycle.md
+		docs\12..md = docs\12..md
 		docs\13..md = docs\13..md
 		docs\README11-20.md = docs\README11-20.md
 	EndProjectSection
@@ -106,6 +106,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b18QuickStartv757", "b18QuickStartv757\b18QuickStartv757.csproj", "{8BBF8A97-68C5-4BBE-A500-D4CB1E0EDCCF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorLifecycle", "BlazorLifecycle\BlazorLifecycle.csproj", "{EC1568E3-1D65-41F6-98B8-3B8199BE1204}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b18ValidateForm", "b18ValidateForm\b18ValidateForm.csproj", "{23466341-0CAA-4C1B-B776-CF7D823187CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -229,6 +231,10 @@ Global
 		{EC1568E3-1D65-41F6-98B8-3B8199BE1204}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC1568E3-1D65-41F6-98B8-3B8199BE1204}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC1568E3-1D65-41F6-98B8-3B8199BE1204}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23466341-0CAA-4C1B-B776-CF7D823187CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23466341-0CAA-4C1B-B776-CF7D823187CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23466341-0CAA-4C1B-B776-CF7D823187CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23466341-0CAA-4C1B-B776-CF7D823187CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

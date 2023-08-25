@@ -1,0 +1,17 @@
+﻿@page "/"
+
+<PageTitle>EditorForm</PageTitle>
+
+<EditorForm Model="@Model">
+    <FieldItems>
+        <InputDIY Context="@context" />
+        <EditorItem @bind-Field="@context.Name" Editable="@context.Complete" />
+        <EditorItem @bind-Field="@context.Education" Editable="@context.Complete" />
+        <EditorItem @bind-Field="@context.Complete" />
+    </FieldItems>
+    <Buttons>
+        <Button Icon="fa-solid fa-floppy-disk" Text="提交" />
+    </Buttons>
+</EditorForm>
+
+ 

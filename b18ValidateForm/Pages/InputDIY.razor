@@ -1,0 +1,18 @@
+﻿
+<Row>
+
+    <BootstrapInput @bind-Value="@Context!.Name" IsDisabled="@Context!.Complete" ShowLabel="true" />
+
+    <BootstrapInput @bind-Value="@Context!.Education" IsDisabled="@Context!.Complete" ShowLabel="true" />
+
+    @*<Checkbox @bind-Value="@Context!.Complete" ShowLabel="true" />*@
+
+</Row>
+
+<br />
+
+@code{
+
+    [Parameter] public Foo? Context { get; set; }
+
+}

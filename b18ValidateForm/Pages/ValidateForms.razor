@@ -1,0 +1,16 @@
+﻿@page "/ValidateForms"
+
+<ValidateForm Model="@Model">
+    <EditorForm TModel="Foo">
+        <FieldItems>
+            <InputDIY Context="@context" />
+            <EditorItem @bind-Field="@context.Name" Editable="@context.Complete" />
+            <EditorItem @bind-Field="@context.Education" Editable="@context.Complete" />
+            <EditorItem @bind-Field="@context.DateTime" Readonly="true" />
+            <EditorItem @bind-Field="@context.Complete" />
+        </FieldItems>
+        <Buttons>
+            <Button ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text='提交' />
+        </Buttons>
+    </EditorForm>
+</ValidateForm>
