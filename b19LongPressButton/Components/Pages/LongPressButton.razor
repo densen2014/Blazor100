@@ -1,0 +1,145 @@
+﻿@inherits ComponentBase
+
+<div @onclick="onClick" @oncontextmenu="onContextMenu" @ontouchstart="OnTouchStart" @ontouchend="OnTouchEnd">
+    @ChildContent
+</div>
+
+
+@code {
+
+
+    [Inject]
+    private IJSRuntime? JS { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 启用长按
+    /// </summary>
+    [Parameter]
+    public bool LongPress { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 ContextMenu 菜单项回调委托
+    /// </summary>
+    [Parameter]
+    public Func<MouseEventArgs, Task>? OnContextMenu { get; set; }
+
+    /// <summary>
+    /// 获得/设置 长按回调委托, 如果启用长按并且不是触摸设备,则回落到 Click 点击时触发
+    /// </summary>
+    [Parameter]
+    public Func<MouseEventArgs, Task>? OnLongPress { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Click 回调委托
+    /// </summary>
+    [Parameter]
+    public Func<MouseEventArgs, Task>? OnClick { get; set; }
+
+    /// <summary>
+    /// 获得/设置 长按延时
+    /// </summary>
+    [Parameter]
+    public int OnTouchTime { get; set; } = 500;
+
+    /// <summary>
+    /// ContextMenu 菜单项点击时触发
+    /// </summary>
+    /// <returns></returns>
+    Task onContextMenu(MouseEventArgs args)
+    {
+        if (OnContextMenu != null)
+        {
+            return OnContextMenu.Invoke(args);
+        }
+        else
+        {
+            return Task.CompletedTask;
+        }
+    }
+
+    /// <summary>
+    /// 点击时触发
+    /// </summary>
+    /// <returns></returns>
+    Task onClick(MouseEventArgs args)
+    {
+        if (OnClick != null)
+        {
+            return OnClick.Invoke(args);
+        }
+        else if (OnLongPress != null && !IsTouchDevice)
+        {
+            return OnLongPress.Invoke(args);
+        }
+        else
+        {
+            return Task.CompletedTask;
+        }
+    }
+
+    /// <summary>
+    /// 是否触摸设备
+    /// </summary>
+    private bool IsTouchDevice { get; set; }
+
+    /// <summary>
+    /// 是否触摸
+    /// </summary>
+    private bool TouchStart { get; set; }
+
+    /// <summary>
+    /// 触摸定时器工作指示
+    /// </summary>
+    private bool IsBusy { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            IsTouchDevice = await JS!.InvokeAsync<bool>("eval", $"'ontouchstart' in document.documentElement");
+        }
+    }
+
+    private async Task OnTouchStart(TouchEventArgs e)
+    {
+        if (!IsBusy)
+        {
+            IsBusy = true;
+            TouchStart = true;
+
+            // 延时保持 TouchStart 状态
+            await Task.Delay(OnTouchTime);
+            if (TouchStart)
+            {
+                var args = new MouseEventArgs()
+                {
+                    ClientX = e.Touches[0].ClientX,
+                    ClientY = e.Touches[0].ClientY,
+                    ScreenX = e.Touches[0].ScreenX,
+                    ScreenY = e.Touches[0].ScreenY,
+                    Type = "LongPress"
+                };
+
+                // 弹出关联菜单
+                if (OnContextMenu != null)
+                    await OnContextMenu(args);
+
+                if (OnLongPress != null)
+                    await OnLongPress(args);
+
+                //延时防止重复激活菜单功能
+                await Task.Delay(OnTouchTime);
+            }
+            IsBusy = false;
+        }
+    }
+
+    private void OnTouchEnd()
+    {
+        TouchStart = false;
+    }
+
+}

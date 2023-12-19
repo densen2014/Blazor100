@@ -1,0 +1,22 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+ <LongPressButton OnLongPress="TaskOnLongPress" > 
+        <div style="width:200px;height:100px;background-color:gold;">
+            <p>LongPressButton</p>
+        </div> 
+</LongPressButton>
+
+<p>@message</p>
+
+@code {
+    string message = "No long press";
+
+    private Task TaskOnLongPress(MouseEventArgs e)
+    {
+        message = e.Type;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}
