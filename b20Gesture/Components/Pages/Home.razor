@@ -1,5 +1,4 @@
 ﻿@page "/"
-@page "/Page"
 
 <PageTitle>Home</PageTitle>
 
@@ -32,7 +31,10 @@
             pageNumber = 1;
         }
 
+        //翻页和路由参数跳转大佬们自由发挥测试
         //NavigationManager.NavigateTo($"/Page{page}");
+
+
         StateHasChanged();
         return Task.CompletedTask;
     }
