@@ -111,7 +111,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "b18ValidateForm", "b18Valid
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b19LongPressButton", "b19LongPressButton\b19LongPressButton.csproj", "{62E62ADC-E7D5-4071-B5BF-7B7BD148E0C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b20SlideBackComponent", "b20SlideBackComponent\b20SlideBackComponent.csproj", "{0BDFEAE3-0DF3-4E81-B8BD-57E461A67196}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b20Gesture", "b20Gesture\b20Gesture.csproj", "{C852C035-E65B-4596-BF73-D2C0D3735159}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -243,10 +243,10 @@ Global
 		{62E62ADC-E7D5-4071-B5BF-7B7BD148E0C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62E62ADC-E7D5-4071-B5BF-7B7BD148E0C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62E62ADC-E7D5-4071-B5BF-7B7BD148E0C7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0BDFEAE3-0DF3-4E81-B8BD-57E461A67196}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0BDFEAE3-0DF3-4E81-B8BD-57E461A67196}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0BDFEAE3-0DF3-4E81-B8BD-57E461A67196}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0BDFEAE3-0DF3-4E81-B8BD-57E461A67196}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C852C035-E65B-4596-BF73-D2C0D3735159}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C852C035-E65B-4596-BF73-D2C0D3735159}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C852C035-E65B-4596-BF73-D2C0D3735159}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C852C035-E65B-4596-BF73-D2C0D3735159}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

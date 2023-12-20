@@ -1,0 +1,78 @@
+﻿<p>startX @startX</p>
+<p>endX @endX</p>
+<p>deltaX @deltaX</p>
+<p>check @(Math.Abs(deltaX) > Threshold)</p>
+<p>gesture @gesture</p>
+
+<div @ontouchstart="OnTouchStart" @ontouchmove="OnTouchMove" @ontouchend="OnTouchEnd">
+
+    @ChildContent
+
+</div>
+
+@code {
+
+    double startX, endX, deltaX;
+
+    EnumGesture gesture = EnumGesture.None;
+
+    //// 默认手势移动距离阈值px
+    [Parameter]
+    public int Threshold { get; set; } = 100;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 手势动作回调委托
+    /// </summary>
+    [Parameter]
+    public Func<EnumGesture, Task>? OnGesture { get; set; }
+
+    private void OnTouchStart(TouchEventArgs e)
+    {
+        // 记录手势起始点坐标
+        startX = e.Touches[0].PageX;
+    }
+
+    private void OnTouchMove(TouchEventArgs e)
+    {
+
+        endX = e.Touches[0].PageX;
+
+        deltaX = endX - startX;
+
+        gesture = deltaX > 0 ? EnumGesture.Right  : EnumGesture.Left ;
+
+        StateHasChanged();
+
+    }
+
+    private void OnTouchEnd(TouchEventArgs e)
+    {
+
+        deltaX = endX - startX;
+
+        if (deltaX > 0 && deltaX > Threshold)
+        {
+
+            gesture = EnumGesture.Back;
+        }
+        else if (Math.Abs(deltaX) > Threshold)
+        {
+            gesture = EnumGesture.PageUp;
+        }
+        else
+        {
+            gesture = EnumGesture.None;
+        }
+
+        if (OnGesture != null)
+        {
+            OnGesture.Invoke(gesture);
+        }
+
+        StateHasChanged();
+    }
+
+}

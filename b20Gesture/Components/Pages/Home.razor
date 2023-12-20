@@ -1,0 +1,40 @@
+﻿@page "/"
+@page "/Page"
+
+<PageTitle>Home</PageTitle>
+
+<GestureComponent OnGesture="OnGesture">
+    <div style="width:100%;height:70vh;background-color:gold;">
+        <p>Slide me</p>
+        <p>page @pageNumber</p>
+    </div>
+</GestureComponent>
+
+@code {
+
+    int pageNumber = 1;
+
+    private Task OnGesture(EnumGesture gesture)
+    {
+        switch (gesture)
+        {
+            case EnumGesture.Back:
+                pageNumber--;
+                break;
+            case EnumGesture.PageUp:
+                pageNumber++;
+                break;
+            default:
+                break;
+        }
+        if (pageNumber < 1)
+        {
+            pageNumber = 1;
+        }
+
+        //NavigationManager.NavigateTo($"/Page{page}");
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+} 
