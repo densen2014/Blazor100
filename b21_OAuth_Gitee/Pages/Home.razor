@@ -1,0 +1,52 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager Navigation
+@inject IAccessTokenProvider TokenProvider
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+<AuthorizeView>
+    <Authorized>
+        Hello, @context.User.Identity?.Name!
+        <button class="btn btn-link" @onclick="BeginLogOut">注销</button>
+    </Authorized>
+    <NotAuthorized>
+        <button class="btn btn-link" @onclick="Login">登录</button>
+    </NotAuthorized>
+</AuthorizeView>
+
+<p>@output</p>
+<button @onclick="DisplayToken">Display Access Token </button>
+
+@code{
+
+    private void Login()
+    {
+        Navigation.NavigateToLogout("authentication/login");
+    }
+
+    private void BeginLogOut()
+    {
+        Navigation.NavigateToLogout("authentication/logout");
+    }
+
+    private string? output;
+
+    private async Task DisplayToken()
+    {
+        var tokenResult = await TokenProvider.RequestAccessToken();
+
+        if (tokenResult.TryGetToken(out var token))
+        {
+            output = token.Value;
+
+        }
+        else
+        {
+            output = "No token";
+        }
+    }
+
+}
