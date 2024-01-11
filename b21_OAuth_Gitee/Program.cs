@@ -26,4 +26,17 @@ builder.Services.AddOidcAuthentication(options =>
     options.UserOptions.AuthenticationType = "google";
 });
 
+//gitee
+
+builder.Services.AddOidcAuthentication(options =>
+{
+    options.ProviderOptions.Authority = "https://gitee.com/oauth/";
+    options.ProviderOptions.ClientId = "e5cb4a812a87aac306ec91d45d8a9c42e04a699c7dd6788fdf12a55d800c751d";
+    options.ProviderOptions.Clien =
+    options.ProviderOptions.ResponseType = "id_token token";
+    options.ProviderOptions.RedirectUri = "https://localhost:5001/authentication/login-callback";
+    options.ProviderOptions.PostLogoutRedirectUri = "/";
+    options.UserOptions.AuthenticationType = "google";
+});
+
 await builder.Build().RunAsync();
