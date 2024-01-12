@@ -1,0 +1,118 @@
+﻿@page "/authenticationgitte/{action}"
+@page "/authenticationgitte/{action}/{token}"
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+<p>@output</p>
+
+@if (Token != null)
+{
+    <p>Token:</p> <p>@Token</p>
+}
+
+@code{
+
+    [Parameter] public string? Action { get; set; }
+    [Parameter] public string? Token { get; set; }
+
+    [Inject] public IAccessTokenProvider? TokenProvider { get; set; }
+    [Inject] public NavigationManager? Navigation { get; set; }
+    [Inject] public HttpClient? HttpClient { get; set; }
+    [Inject] public IConfiguration? Config { get; set; }
+    [Inject] public AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
+
+    private string? output;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            //var ClientId = (string)Config["gitte:ClientId"];
+            //var ClientSecret = (string)Config["gitte:ClientSecret"];
+            //var RedirectUri = (string)Config["gitte:RedirectUri"];
+
+            var ClientId = "e5cb4a812a87aac306ec91d45d8a9c42e04a699c7dd6788fdf12a55d800c751d";
+            var ClientSecret = "e1489dcd5c8d2ceed06b81afb8702548b84a8fa64d36c117af3c711a60800aae";
+            var RedirectUri = $"https://localhost:5001/authenticationgitte/login-callback";
+
+            var Authority = $"https://gitee.com/oauth/authorize?client_id={ClientId}&redirect_uri={RedirectUri}&response_type=code";
+            var GetToken = $"https://gitee.com/oauth/token?grant_type=authorization_code&client_id={ClientId}&redirect_uri={RedirectUri}&client_secret={ClientSecret}&code=";
+            var GetUserInfo = $"https://gitee.com/api/v5/user?access_token=";
+            if (Action == "login")
+            {
+
+                Navigation!.NavigateTo(Authority);
+
+            }
+            else if (Action == "login-callback")
+            {
+                // 获取Uri对象
+                var uri = Navigation!.ToAbsoluteUri(Navigation.Uri);
+                // HttpUtility 获取参数值
+                var code = System.Web.HttpUtility.ParseQueryString(uri.Query).Get("code");
+                var url = $"{GetToken}{code}";
+                var result = await HttpClient!.PostAsync(url, null);
+                var token = await result.Content.ReadFromJsonAsync<GitteRespone>();
+                if (token?.access_token != null)
+                {
+                    url = $"{GetUserInfo}{token.access_token}";
+                    var user = await HttpClient!.GetFromJsonAsync<GitteUserRespone>(url);
+                    if (user != null)
+                    {
+                        output = $"Hello, {user.name}!";
+                        Navigation!.NavigateTo($"/authenticationgitte/login-complete/{token?.access_token}");
+                    }
+                }
+            }
+            else if (Action == "login-complete")
+            {
+            }
+
+        }
+    }
+
+
+    private class GitteRespone
+    {
+        public string? access_token { get; set; }
+        public string? token_type { get; set; }
+        public int expires_in { get; set; }
+        public string? refresh_token { get; set; }
+        public string? scope { get; set; }
+        public int created_at { get; set; }
+    }
+
+    private class GitteUserRespone
+    {
+        public int id { get; set; }
+        public string? login { get; set; }
+        public string? name { get; set; }
+        public string? avatar_url { get; set; }
+        public string? url { get; set; }
+        public string? html_url { get; set; }
+        public string? remark { get; set; }
+        public string? followers_url { get; set; }
+        public string? following_url { get; set; }
+        public string? gists_url { get; set; }
+        public string? starred_url { get; set; }
+        public string? subscriptions_url { get; set; }
+        public string? organizations_url { get; set; }
+        public string? repos_url { get; set; }
+        public string? events_url { get; set; }
+        public string? received_events_url { get; set; }
+        public string? type { get; set; }
+        public string? blog { get; set; }
+        public string? weibo { get; set; }
+        public string? bio { get; set; }
+        public int public_repos { get; set; }
+        public int public_gists { get; set; }
+        public int followers { get; set; }
+        public int following { get; set; }
+        public int stared { get; set; }
+        public int watched { get; set; }
+        public DateTime created_at { get; set; }
+        public DateTime updated_at { get; set; }
+        public string? email { get; set; }
+    }
+
+
+}
