@@ -1,0 +1,66 @@
+﻿@page "/SwitchBarDemo"
+
+@using Microsoft.Extensions.Logging
+@inject ILogger<Index> Logger
+
+<SwitchBar ValueChanged="OnValueChanged" Initiated="OnInitiated">
+    <div>我是子组件1内容, 点击++</div>
+</SwitchBar>
+
+@*<SwitchBar ValueChanged="OnValueChanged">
+    <div>我是子组件2内容</div>
+</SwitchBar>*@
+
+<div style="@ClassString">
+    <h3>主组件</h3>
+    @message @Value
+
+    @for (int i = 0; i < Value2; i++)
+    {
+        <div>渲染 Table</div>
+    } 
+
+</div>
+
+@code {
+    [Parameter]
+    public bool Value { get; set; }
+
+    int Value2;
+
+    string message = "我是主组件内容";
+
+    private string? ClassString => Value ? "height:200px;color:red;" : "height:100px;color:green;";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            //message += "主组件加载";
+            //StateHasChanged();
+
+            //await Task.Delay(1000);
+            //message += "，主组件加载完成";
+            //StateHasChanged();
+        }
+    }
+
+    private async Task OnInitiated(bool val)
+    {
+        message += "，子组件加载完成(查询角色)";
+        StateHasChanged();
+        Value2 = 2;
+        Value = val;
+        await Task.Delay(1000);
+        StateHasChanged();
+    }
+
+    private Task OnValueChanged(int val)
+    {
+        Value2= val;
+        message += "子组件数据变化";
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}

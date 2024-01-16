@@ -1,0 +1,43 @@
+﻿@using Microsoft.Extensions.Logging
+@inject ILogger<Index> Logger
+
+<div style="@ClassString" @onclick="OnClick">
+    @ChildContent
+</div>
+
+
+@code {
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public int Value { get; set; }
+
+    [Parameter]
+    public EventCallback<int> ValueChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> Initiated { get; set; }
+
+    private string? ClassString =>  Value<5? "height:100px;color:red;" : "height:100px;color:green;";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            await Task.Delay(2000); 
+            await Initiated.InvokeAsync(true);
+        }
+    }
+
+    private async Task OnClick()
+    {
+        Value ++;
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(Value);
+        }
+    }
+}
