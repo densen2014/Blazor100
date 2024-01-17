@@ -1,0 +1,54 @@
+﻿@page "/AuthenticationStatePage"
+@attribute [Authorize]
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@namespace Densen.Identity.Shared
+
+<PageTitle>Admin 已登录</PageTitle>
+
+<p>如果需要应用在过程逻辑中检查授权规则，请使用类型为 Task&lt;AuthenticationState&gt; 的级联参数来获取用户的 ClaimsPrincipal。</p>
+<p> Task&lt;AuthenticationState&gt; 可以与其他服务（如 IAuthorizationService）结合使用来评估策略。</p>
+
+
+<button @onclick="@DoSomething">做重要的事</button>
+
+
+<p>@Msg</p>
+
+
+@code {
+    [CascadingParameter]
+    [NotNull]
+    private Task<AuthenticationState>? AuthenticationStateTask { get; set; }
+
+    private string? Msg { get; set; }
+
+    private async Task DoSomething()
+    {
+        var user = (await AuthenticationStateTask).User;
+
+        if (user != null)
+        {
+            if (user.Identity != null && user.Identity.IsAuthenticated)
+            {
+                Msg += "执行仅对经过身份验证（登录）的用户可用的操作." + Environment.NewLine;
+            }
+
+            if (user.IsInRole(AuthorizeRoles.Admin.ToString()))
+            {
+                Msg += "执行仅对“管理员”角色的用户可用的操作." + Environment.NewLine;
+            }
+
+            if (user.IsInRole(AuthorizeRoles.User.ToString()))
+            {
+                Msg += "执行仅对“用户”角色的用户可用的操作." + Environment.NewLine;
+            }
+
+            //if ((await AuthorizationService.AuthorizeAsync(user, "content-editor"))
+            //    .Succeeded)
+            //{
+            //    Msg = "执行仅对满足“内容编辑器”政策的用户可用的操作.";
+            //}
+        }
+    }
+}

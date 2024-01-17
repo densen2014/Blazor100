@@ -1,0 +1,67 @@
+﻿using FreeSql.DatabaseModel;@{
+var gen = Model as RazorModel;
+
+Func<string, string> GetAttributeString = attr => {
+	if (string.IsNullOrEmpty(attr)) return "";
+	return string.Concat(", ", attr.Trim('[', ']'));
+};
+Func<string, string> GetDefaultValue = defval => {
+    if (string.IsNullOrEmpty(defval)) return "";
+    return " = " + defval + ";";
+};
+}@{
+switch (gen.fsql.Ado.DataType) {
+	case FreeSql.DataType.PostgreSQL:
+@:using System;
+@:using System.Collections;
+@:using System.Collections.Generic;
+@:using System.Linq;
+@:using System.Reflection;
+@:using System.Threading.Tasks;
+@:using Newtonsoft.Json;
+@:using FreeSql.DataAnnotations;
+@:using System.Net;
+@:using Newtonsoft.Json.Linq;
+@:using System.Net.NetworkInformation;
+@:using NpgsqlTypes;
+@:using Npgsql.LegacyPostgis;
+		break;
+	case FreeSql.DataType.SqlServer:
+	case FreeSql.DataType.MySql:
+	default:
+@:using System;
+@:using System.Collections;
+@:using System.Collections.Generic;
+@:using System.Linq;
+@:using System.Reflection;
+@:using System.Threading.Tasks;
+@:using Newtonsoft.Json;
+@:using FreeSql.DataAnnotations;
+		break;
+}
+}
+
+namespace @gen.NameSpace {
+
+@if (string.IsNullOrEmpty(gen.table.Comment) == false) {
+	@:/// <summary>
+	@:/// @gen.table.Comment.Replace("\r\n", "\n").Replace("\n", "\r\n		/// ")
+	@:/// </summary>
+}
+	[JsonObject(MemberSerialization.OptIn)@GetAttributeString(gen.GetTableAttribute())]
+	public partial class @gen.GetCsName(gen.FullTableName) {
+
+	@foreach (var col in gen.columns) {
+
+		if (string.IsNullOrEmpty(col.Comment) == false) {
+		@:/// <summary>
+		@:/// @col.Comment.Replace("\r\n", "\n").Replace("\n", "\r\n		/// ")
+		@:/// </summary>
+		}
+		@:@("[JsonProperty" + GetAttributeString(gen.GetColumnAttribute(col, true)) + "]")
+		@:public @gen.GetCsType(col) @gen.GetCsName(col.Name) { get; set; }@GetDefaultValue(gen.GetColumnDefaultValue(col, false))
+@:
+	}
+	}
+@gen.GetMySqlEnumSetDefine()
+}

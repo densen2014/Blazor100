@@ -1,0 +1,7 @@
+﻿@page "/AuthorizeAdminPage"
+@attribute [Authorize(Roles = "Admin, Superuser")]
+@namespace Densen.Identity.Shared
+
+<PageTitle>Admin 已登录</PageTitle>
+
+<p>您处于“管理员”或“超级用户”角色.</p>
