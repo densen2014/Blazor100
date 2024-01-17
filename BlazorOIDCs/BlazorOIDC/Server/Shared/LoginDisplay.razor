@@ -1,0 +1,19 @@
+﻿@inject NavigationManager Navigation
+
+<AuthorizeView>
+    <Authorized>
+        <a href="Identity/Account/Manage" class="m-3">你好, @context.User.Identity?.Name ! </a>
+        <button class="nav-link btn btn-link" @onclick="BeginLogOut">注销</button>
+    </Authorized>
+    <NotAuthorized>
+        <a href="Identity/Account/Register">注册</a>
+        <a href="Identity/Account/Login">登录</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code{
+    private void BeginLogOut()
+    {
+        Navigation.NavigateTo("Identity/Account/Logout",true);
+    }
+}

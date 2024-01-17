@@ -26,7 +26,7 @@
 
 **BlazorOIDC.Server项目**
 
-编辑 Models/WebAppIdentityUser.cs 文件
+编辑 Models/ApplicationUser.cs 文件
 
 ```
 using Microsoft.AspNetCore.Identity;
@@ -209,7 +209,7 @@ AspNet.Security.OAuth.GitHub
 ```
 using BlazorOIDC.Server.Data;
 using BlazorOIDC.Server.Models;
-using Densen.Identity.Areas.Identity;
+using BlazorOIDC.Server.Areas.Identity;
 using Densen.Models.ids;
 using Duende.IdentityServer;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
@@ -264,7 +264,7 @@ builder.Services.AddIdentityServer(options =>
         // Client localhost
         var url2 = "localhost";
         var spaClient2 = ClientBuilder
-            .SPA("BlazorWasmIdentity.Localhost")
+            .SPA("BlazorOIDC.Localhost")
             .WithRedirectUri($"https://{url2}:5001/authentication/login-callback")
             .WithLogoutRedirectUri($"https://{url2}:5001/authentication/logout-callback")
             .WithScopes("openid Profile")

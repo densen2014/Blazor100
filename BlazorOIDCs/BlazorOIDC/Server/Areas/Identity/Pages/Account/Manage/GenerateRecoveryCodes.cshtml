@@ -1,0 +1,27 @@
+﻿@page
+@model GenerateRecoveryCodesModel
+@{
+    ViewData["Title"] = "生成双因素身份验证 (2FA) 恢复代码";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h3>@ViewData["Title"]</h3>
+<div class="alert alert-warning" role="alert">
+    <p>
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <strong>把这些代码放在安全的地方.</strong>
+    </p>
+    <p>
+        如果您丢失了设备并且没有恢复代码，您将无法访问您的帐户.
+    </p>
+    <p>
+        生成新的恢复代码不会更改身份验证器应用程序中使用的密钥。如果你想改变钥匙
+        你应该在验证器应用程序中使用 <a asp-page="./ResetAuthenticator">重置您的身份验证器密钥.</a>
+    </p>
+</div>
+<div>
+    <form method="post">
+        <button class="btn btn-danger" type="submit">生成恢复代码</button>
+    </form>
+</div>

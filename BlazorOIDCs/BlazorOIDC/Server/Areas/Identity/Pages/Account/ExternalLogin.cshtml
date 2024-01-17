@@ -1,0 +1,33 @@
+﻿@page
+@model ExternalLoginModel
+@{
+    ViewData["Title"] = "登记";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h2 id="external-login-title">关联你的 @Model.ProviderDisplayName 帐户.</h2>
+<hr />
+
+<p id="external-login-description" class="text-info">
+    您已成功通过身份验证 <strong>@Model.ProviderDisplayName</strong>.
+    请在下方输入此站点的电子邮件地址，然后单击“注册”按钮完成
+    在登录.
+</p>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Email" class="form-control" autocomplete="邮箱" placeholder="请输入您的邮箱."/>
+                <label asp-for="Input.Email" class="form-label"></label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">注册</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

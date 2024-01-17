@@ -1,0 +1,30 @@
+﻿<BootstrapBlazorRoot>
+    <CascadingAuthenticationState>
+        <Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="new[] { typeof(BlazorOIDC.Shared._Imports).Assembly }">
+            <Found Context="routeData">
+                <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                    <NotAuthorized>
+                        @if (context.User.Identity?.IsAuthenticated != true)
+                        {
+                            <RedirectToLogin />
+                        }
+                        else
+                        {
+                            <p role="alert">您无权访问该资源.</p>
+                        }
+                    </NotAuthorized>
+                    <Authorizing>
+                        <p>正在验证您的身份...</p>
+                    </Authorizing>
+                </AuthorizeRouteView>
+                <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+            </Found>
+            <NotFound>
+                <PageTitle>未找到</PageTitle>
+                <LayoutView Layout="@typeof(MainLayout)">
+                    <p role="alert">抱歉，好像你打开了错误的页面地址.</p>
+                </LayoutView>
+            </NotFound>
+        </Router>
+    </CascadingAuthenticationState>
+</BootstrapBlazorRoot>

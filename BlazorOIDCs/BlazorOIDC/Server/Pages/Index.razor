@@ -1,0 +1,67 @@
+﻿@page "/"
+@using System.Reflection
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, ssr!</h1>
+
+<div class="alert alert-warning" role="alert">
+    TEST V @GetAppInfo()
+</div>
+
+
+
+<p>@output</p>
+
+
+@code
+{
+    public string GetAppInfo() => $"{Assembly.GetExecutingAssembly().GetName().Version}";
+
+    private string? output;
+
+}
+
+
+<p>AuthorizeView 组件根据用户是否获得授权来选择性地显示 UI 内容。 如果只需要为用户显示数据，而不需要在过程逻辑中使用用户的标识，那么此方法很有用</p>
+
+<AuthorizeView>
+    <Authorized>
+
+        你好, @context.User.Identity?.Name
+
+        @if (@context.User.IsInRole(AuthorizeRoles.Admin.ToString()))
+        {
+            <span>管理员</span>
+        }
+        else if (@context.User.IsInRole(AuthorizeRoles.Superuser.ToString()))
+        {
+            <span>超级用户</span>
+        }
+        else
+        {
+            <span>能力者</span>
+        }
+
+    </Authorized>
+    <NotAuthorized>
+        <span>看起来你还没登录</span>
+    </NotAuthorized>
+
+</AuthorizeView>
+
+
+<p>以下是基于角色或基于策略的授权,未登录不显示 </p>
+
+<AuthorizeView Roles="Admin, Superuser">
+    <p>只有管理员或超级用户才能看到.</p>
+</AuthorizeView>
+
+
+@*<p>基于策略的授权</p>*@
+
+@*<AuthorizeView Policy="ContentEditor">
+        <p>如果您满足“内容编辑器”政策，您只能看到这个.</p>
+    </AuthorizeView>*@
+
+

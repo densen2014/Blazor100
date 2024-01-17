@@ -6,7 +6,9 @@
 
 using BlazorOIDC.Server.Data;
 using BlazorOIDC.Server.Models;
-using Densen.Identity.Areas.Identity;
+using BootstrapBlazor.Components;
+using Densen.DataAcces.FreeSql;
+using BlazorOIDC.Server.Areas.Identity;
 using Densen.Models.ids;
 using Duende.IdentityServer;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
@@ -14,6 +16,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -61,7 +64,7 @@ builder.Services.AddIdentityServer(options =>
         // Client localhost
         var url2 = "localhost";
         var spaClient2 = ClientBuilder
-            .SPA("BlazorWasmIdentity.Localhost")
+            .SPA("BlazorOIDC.Localhost")
             .WithRedirectUri($"https://{url2}:5001/authentication/login-callback")
             .WithLogoutRedirectUri($"https://{url2}:5001/authentication/logout-callback")
             .WithScopes("openid Profile")
@@ -142,6 +145,38 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<ApplicationUser>>();
 
+builder.Services.AddFreeSql(option =>
+{
+    option.UseConnectionString(FreeSql.DataType.Sqlite, builder.Configuration.GetConnectionString("IdsSQliteConnection"))  //也可以写到配置文件中
+#if DEBUG
+         //开发环境:自动同步实体
+         .UseAutoSyncStructure(true)
+         .UseNoneCommandParameter(true)
+    //调试sql语句输出
+         .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText + Environment.NewLine))
+#endif
+    ;
+});
+builder.Services.AddTransient(typeof(FreeSqlDataService<>));
+builder.Services.AddSingleton(typeof(ILookupService), typeof(IdsLookupService));
+builder.Services.AddDensenExtensions();
+// 忽略文化信息丢失日志
+builder.Services.ConfigureJsonLocalizationOptions(op => op.IgnoreLocalizerMissing = true);
+
+// 增加多语言支持配置信息
+builder.Services.AddRequestLocalization<IOptionsMonitor<BootstrapBlazorOptions>>((localizerOption, blazorOption) =>
+{
+    blazorOption.OnChange(op => Invoke(op));
+    Invoke(blazorOption.CurrentValue);
+
+    void Invoke(BootstrapBlazorOptions option)
+    {
+        var supportedCultures = option.GetSupportedCultures();
+        localizerOption.SupportedCultures = supportedCultures;
+        localizerOption.SupportedUICultures = supportedCultures;
+    }
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -149,6 +184,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
     app.UseWebAssemblyDebugging();
+    app.UseDeveloperExceptionPage();
 }
 else
 {
@@ -172,6 +208,7 @@ app.UseAuthorization();
 app.MapBlazorHub();
 app.MapRazorPages();
 app.MapControllers();
+app.MapFallbackToPage("/ssr/{*path:nonfile}", "/_Host");
 app.MapFallbackToFile("index.html");
 
 app.Run();

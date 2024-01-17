@@ -1,0 +1,178 @@
+﻿@page "/DataAdmin"
+@*@attribute [Route(DataAdmin)]*@
+@using Densen.Models.ids
+@*@attribute [Authorize]*@
+
+<PageTitle>管理</PageTitle>
+
+<Tab IsLazyLoadTabItem>
+
+    <TabItem Text="用户">
+
+        <h4>用户表</h4>
+
+        <TablePollo TItem="AspNetUsers"
+                    IncludeByPropertyNames="@IncludeAspNetUsers"
+                    ItemDetails="AspNetUserRoles"
+                    SubIncludeByPropertyNames="@SubIncludeByPropertyNames"
+                    SubAddAsync="OnSubAddAsync"
+                    ItemDetailsII="NullClass"
+                    ItemDetailsIII="NullClass"
+                    ShowColumnList
+                    ShowExportButton
+                    ShowDetailRowS
+                    Field="@nameof(AspNetUsers.Id)"
+                    FieldD="@nameof(AspNetUserRoles.UserId)"
+                    ExportToStream="false"
+                    ExportBasePath="temp" />
+        @code{
+
+            //通过 UserId 联表读取角色表 AspNetUserRoles 指定用户数据, 但是AspNetUsers表主键是 Id 字段, 详表指定 FieldD="UserId"
+
+            //附加导航IncludeByPropertyName查询条件
+            List<string> IncludeAspNetUsers
+            {
+                get => new List<string> {
+                    $"{nameof(AspNetUsers.AspNetUserRoless)},{nameof(AspNetUserRoles.AspNetRoless)}" ,
+                };
+            }
+
+            List<string> SubIncludeByPropertyNames = new List<string> {
+                nameof(AspNetUserRoles.AspNetRoless) ,
+            };
+
+            protected Task<AspNetUserRoles> OnSubAddAsync(AspNetUserRoles item)
+            {
+                //item.UserId = itemMain.Id;
+                //item.UserName = itemMain.UserName;
+                return Task.FromResult(item);
+            }
+        }
+
+    </TabItem>
+
+    <TabItem Text="角色表">
+        <p>存储向哪些用户分配哪些角色</p>
+        <TablePollo TItem="AspNetUserRoles"
+                    WhereLamda="where"
+                    ItemDetails="AspNetUsers"
+                    ItemDetailsII="NullClass"
+                    ItemDetailsIII="NullClass"
+                    ShowColumnList
+                    ShowExportButton
+                    ShowDetailRowS
+                    Field="@nameof(AspNetUserRoles.UserId)"
+                    FieldD="@nameof(AspNetUsers.Id)"
+                    ExportToStream="false"
+                    ExportBasePath="temp" />
+    </TabItem>
+
+    <TabItem Text="角色定义">
+
+        <TablePollo TItem="AspNetRoles"
+                    IncludeByPropertyNames="new List<string> {nameof(AspNetRoles.AspNetUserRoless) }"
+                    ItemDetails="AspNetUserRoles"
+                    SubIncludeByPropertyNames="new List<string> {nameof(AspNetUserRoles.AspNetUserss),nameof(AspNetUserRoles.AspNetRoless) }"
+                    ItemDetailsII="NullClass"
+                    ItemDetailsIII="NullClass"
+                    ShowColumnList
+                    ShowExportButton
+                    ShowDetailRowS
+                    Field="@nameof(AspNetRoles.Id)"
+                    FieldD="@nameof(AspNetUserRoles.RoleId)"
+                    ExportToStream="false"
+                    ExportBasePath="temp" />
+
+    </TabItem>
+
+    <TabItem Text="用户登录">
+
+        <TablePollo TItem="AspNetUserLogins"
+                    ItemDetails="NullClass"
+                    ItemDetailsII="NullClass"
+                    ItemDetailsIII="NullClass"
+                    ShowColumnList
+                    ShowExportButton
+                    ExportToStream="false"
+                    ExportBasePath="temp" />
+
+    </TabItem>
+
+    <TabItem Text="用户令牌">
+
+        <TablePollo TItem="AspNetUserTokens"
+                    ItemDetails="NullClass"
+                    ItemDetailsII="NullClass"
+                    ItemDetailsIII="NullClass"
+                    ShowColumnList
+                    ShowExportButton
+                    ExportToStream="false"
+                    ExportBasePath="temp" />
+
+    </TabItem>
+
+    <TabItem Text="角色声明">
+
+        <TablePollo TItem="AspNetRoleClaims"
+                    ItemDetails="NullClass"
+                    ItemDetailsII="NullClass"
+                    ItemDetailsIII="NullClass"
+                    ShowColumnList
+                    ShowExportButton
+                    ExportToStream="false"
+                    ExportBasePath="temp" />
+
+    </TabItem>
+
+    <TabItem Text="用户声明">
+
+        <TablePollo TItem="AspNetUserClaims"
+                    ItemDetails="NullClass"
+                    ItemDetailsII="NullClass"
+                    ItemDetailsIII="NullClass"
+                    ShowColumnList
+                    ShowExportButton
+                    ExportToStream="false"
+                    ExportBasePath="temp" />
+
+    </TabItem>
+
+    <TabItem Text="密钥">
+
+        <TablePollo TItem="Keys"
+                    ItemDetails="NullClass"
+                    ItemDetailsII="NullClass"
+                    ItemDetailsIII="NullClass"
+                    ShowColumnList
+                    ShowExportButton
+                    ExportToStream="false"
+                    ExportBasePath="temp" />
+
+    </TabItem>
+
+    <TabItem Text="设备代码">
+
+        <TablePollo TItem="DeviceCodes"
+                    ItemDetails="NullClass"
+                    ItemDetailsII="NullClass"
+                    ItemDetailsIII="NullClass"
+                    ShowColumnList
+                    ShowExportButton
+                    ExportToStream="false"
+                    ExportBasePath="temp" />
+
+    </TabItem>
+
+    <TabItem Text="持久化保存">
+
+        <TablePollo TItem="PersistedGrants"
+                    ItemDetails="NullClass"
+                    ItemDetailsII="NullClass"
+                    ItemDetailsIII="NullClass"
+                    ShowColumnList
+                    ShowExportButton
+                    ExportToStream="false"
+                    ExportBasePath="temp" />
+
+    </TabItem>
+</Tab>

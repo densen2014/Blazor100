@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Densen.Identity.Migrations;
+namespace BlazorOIDC.Server.Migrations;
 
 /// <inheritdoc />
 public partial class idsSqlite : Migration
