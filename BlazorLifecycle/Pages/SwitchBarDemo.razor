@@ -3,17 +3,17 @@
 @using Microsoft.Extensions.Logging
 @inject ILogger<Index> Logger
 
-<SwitchBar ValueChanged="OnValueChanged" Initiated="OnInitiated">
+<SwitchBar ValueChanged="OnValueChanged" ValueChangedNotRender="OnValueChangedNotRender" Initiated="OnInitiated">
     <div>我是子组件SwitchBar内容, 点击++</div>
 </SwitchBar>
 
-<SwitchBar2 ValueChanged="OnValueChanged" Initiated="OnInitiated2" Value2="99999">
+<SwitchBar2 ValueChanged="OnValueChanged" ValueChangedNotRender="OnValueChangedNotRender" BackgroundColor="lightslategrey" Initiated="OnInitiated2" Value2="99999">
     <div>我是继承组件SwitchBar的SwitchBar2组件内容, 点击++</div>
 </SwitchBar2>
 
 @*<SwitchBar ValueChanged="OnValueChanged">
-    <div>我是子组件2内容</div>
-</SwitchBar>*@
+        <div>我是子组件2内容</div>
+    </SwitchBar>*@
 
 <div style="@ClassString">
     <h3>主组件</h3>
@@ -22,7 +22,7 @@
     @for (int i = 0; i < Value2; i++)
     {
         <div>渲染 Table</div>
-    } 
+    }
 
 </div>
 
@@ -41,12 +41,12 @@
 
         if (firstRender)
         {
-            //message += "主组件加载";
-            //StateHasChanged();
+            message += "主组件加载";
+            StateHasChanged();
 
-            //await Task.Delay(1000);
-            //message += "，主组件加载完成";
-            //StateHasChanged();
+            await Task.Delay(500);
+            message += "，主组件加载完成";
+            StateHasChanged();
         }
     }
 
@@ -63,15 +63,20 @@
     private Task OnInitiated2(bool val)
     {
         message += "，子组件2加载完成(查询角色)";
-        StateHasChanged(); 
-return Task.CompletedTask;
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     private Task OnValueChanged(int val)
     {
-        Value2= val;
+        Value2 = val;
         message += "子组件数据变化";
-        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnValueChangedNotRender(int val)
+    {
+        Value2 = val;
         return Task.CompletedTask;
     }
 }

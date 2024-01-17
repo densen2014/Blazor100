@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿// ********************************** 
+// Densen Informatica 中讯科技 
+// 作者：Alex Chow
+// e-mail:zhouchuanglin@gmail.com 
+// **********************************
 
-
+using Microsoft.AspNetCore.Components;
 
 namespace BlazorLifecycle.Pages;
 
-
-public class SwitchBar2 : SwitchBar  
+public class SwitchBar2 : SwitchBar
 {
     [Parameter]
     public int Value2 { get; set; }
@@ -14,12 +17,13 @@ public class SwitchBar2 : SwitchBar
     {
         base.OnInitialized();
 
-        ToolBar= RenderComponents();
+        ToolBar = RenderComponents();
     }
 
     private static RenderFragment RenderComponents() => builder =>
     {
         builder.OpenComponent<ToolBarBase>(0);
-        builder.CloseComponent(); 
+        builder.AddAttribute(1, nameof(ToolBarBase.Title), "工程文件操作");
+        builder.CloseComponent();
     };
 }

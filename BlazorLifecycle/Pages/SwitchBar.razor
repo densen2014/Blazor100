@@ -2,12 +2,19 @@
 @inject ILogger<Index> Logger
 @inherits ComponentBase
 
-@ToolBar
 
-<div style="@ClassString" @onclick="OnClick">
+<div class="m-3" style="@ClassString" @onclick="OnClick">
+    @ToolBar
+
     @ChildContent
+
+
 </div>
 
+
+<button @onclick="OnClickNotRender">Func方式按钮</button>
+是否重新渲染
+<pre>@Guid.NewGuid().ToString()</pre>
 
 @code {
 
@@ -21,12 +28,21 @@
     public int Value { get; set; }
 
     [Parameter]
+    public string? BackgroundColor { get; set; } = "lightseagreen";
+
+    [Parameter]
     public EventCallback<int> ValueChanged { get; set; }
+
+    /// <summary>
+    /// 不会触发整页渲染
+    /// </summary>
+    [Parameter]
+    public Func<int, Task>? ValueChangedNotRender { get; set; }
 
     [Parameter]
     public EventCallback<bool> Initiated { get; set; }
 
-    private string? ClassString =>  Value<5? "height:100px;color:red;" : "height:100px;color:green;";
+    private string? ClassString => Value < 5 ? $"height:150px;background-color:{BackgroundColor};" : "height:150px;background-color:lightsalmon;";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -40,10 +56,19 @@
 
     private async Task OnClick()
     {
-        Value ++;
+        Value++;
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
+        }
+    }
+
+    private async Task OnClickNotRender()
+    {
+        Value++;
+        if (ValueChangedNotRender != null)
+        {
+            await ValueChangedNotRender.Invoke(Value);
         }
     }
 }

@@ -1,11 +1,24 @@
 ﻿@using Microsoft.Extensions.Logging
- @inherits ComponentBase
+@inherits ComponentBase
 
-
-<div style="background-color:lawngreen;width:300px;height:40px;" >
-     <button>新建</button>
-     <button>打开</button>
-     <button>保存</button>
+<h5>@Title</h5>
+<div style="background-color:lawngreen;width:300px;height:40px;">
+    <button @onclick='_=>OnClick("新建")'>新建</button>
+    <button @onclick='_=>OnClick("打开")'>打开</button>
+    <button @onclick='_=>OnClick("保存")'>保存</button>
 </div>
 
- 
+@message
+
+@code {
+    [Parameter]
+    public string? Title { get; set; }
+
+    private string message = "ToolBarBase";
+
+    private Task OnClick(string title)
+    {
+        message =$"点击了{title}";
+        return Task.CompletedTask;
+    }
+}
