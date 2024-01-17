@@ -66,8 +66,7 @@ builder.Services.AddIdentityServer(options =>
         var spaClient2 = ClientBuilder
             .SPA("BlazorOIDC.Localhost")
             .WithRedirectUri($"https://{url2}:5001/authentication/login-callback")
-            .WithLogoutRedirectUri($"https://{url2}:5001/authentication/logout-callback")
-            .WithScopes("openid Profile")
+            .WithLogoutRedirectUri($"https://{url2}:5001/authentication/logout-callback") 
             .Build();
         spaClient2.AllowOfflineAccess = true;
 
