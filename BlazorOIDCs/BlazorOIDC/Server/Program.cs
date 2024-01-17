@@ -4,34 +4,21 @@
 // e-mail:zhouchuanglin@gmail.com 
 // **********************************
 
-using BlazorOIDCAuto;
-using BlazorOIDCAuto.Components;
-using BlazorOIDCAuto.Components.Account;
-using BlazorOIDCAuto.Data;
+using BlazorOIDC.Server.Data;
+using BlazorOIDC.Server.Models;
+using Densen.Identity.Areas.Identity;
+using Densen.Models.ids;
+using Duende.IdentityServer;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents()
-    .AddInteractiveWebAssemblyComponents();
-
-builder.Services.AddCascadingAuthenticationState();
-builder.Services.AddScoped<IdentityUserAccessor>();
-builder.Services.AddScoped<IdentityRedirectManager>();
-builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
-
-builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultScheme = IdentityConstants.ApplicationScheme;
-        options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-    })
-    .AddIdentityCookies();
-
 //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //    options.UseSqlServer(connectionString));
@@ -41,22 +28,57 @@ builder.Services.AddDbContext<ApplicationDbContext>(o => o.UseSqlite(builder.Con
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+
 //附加自定义用户声明到用户主体
 builder.Services.AddScoped<ApplicationUserClaimsPrincipalFactory>();
 
-builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(o =>
+{   // Password settings.
+    o.Password.RequireDigit = false;
+    o.Password.RequireLowercase = false;
+    o.Password.RequireNonAlphanumeric = false;
+    o.Password.RequireUppercase = false;
+    o.Password.RequiredLength = 1;
+    o.Password.RequiredUniqueChars = 1;
+})
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddSignInManager()
-    .AddDefaultTokenProviders()
     .AddClaimsPrincipalFactory<ApplicationUserClaimsPrincipalFactory>();
 
-//builder.Services.AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+builder.Services.AddIdentityServer(options =>
+{
+    options.LicenseKey = builder.Configuration["IdentityServerLicenseKey"];
 
-builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+    options.Events.RaiseErrorEvents = true;
+    options.Events.RaiseInformationEvents = true;
+    options.Events.RaiseFailureEvents = true;
+    options.Events.RaiseSuccessEvents = true;
+})
+    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
+    {
+        options.IdentityResources["openid"].UserClaims.Add("roleVIP");
+
+        // Client localhost
+        var url2 = "localhost";
+        var spaClient2 = ClientBuilder
+            .SPA("BlazorWasmIdentity.Localhost")
+            .WithRedirectUri($"https://{url2}:5001/authentication/login-callback")
+            .WithLogoutRedirectUri($"https://{url2}:5001/authentication/logout-callback")
+            .WithScopes("openid Profile")
+            .Build();
+        spaClient2.AllowOfflineAccess = true;
+
+        spaClient2.AllowedCorsOrigins = new[]
+        {
+            $"https://{url2}:5001"
+        };
+
+        options.Clients.Add(spaClient2);
+    });
+
+ 
 builder.Services.AddAuthentication();
 
-//添加第三方登录
 var autbuilder = new AuthenticationBuilder(builder.Services);
 autbuilder.AddGoogle(o =>
 {
@@ -97,57 +119,59 @@ autbuilder.AddGitHub(o =>
 //    o.AppId = builder.Configuration["Authentication:QQ:AppId"] ?? "";
 //    o.AppKey = builder.Configuration["Authentication:QQ:AppKey"] ?? "";
 //});
-//autbuilder.AddOpenIdConnect("oidc", "Demo IdentityServer", options =>
-//{
-//    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-//    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
-//    options.SaveTokens = true;
+autbuilder.AddOpenIdConnect("oidc", "Demo IdentityServer", options =>
+{
+    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
+    options.SaveTokens = true;
 
-//    options.Authority = "https://demo.duendesoftware.com";
-//    options.ClientId = "interactive.confidential";
-//    options.ClientSecret = "secret";
-//    options.ResponseType = "code";
+    options.Authority = "https://demo.duendesoftware.com";
+    options.ClientId = "interactive.confidential";
+    options.ClientSecret = "secret";
+    options.ResponseType = "code";
 
-//    options.TokenValidationParameters = new TokenValidationParameters
-//    {
-//        NameClaimType = "name",
-//        RoleClaimType = "role"
-//    };
-//});
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        NameClaimType = "name",
+        RoleClaimType = "role"
+    };
+});
 
-//builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<WebAppIdentityUser>>();
+builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<ApplicationUser>>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseWebAssemblyDebugging();
     app.UseMigrationsEndPoint();
+    app.UseWebAssemblyDebugging();
 }
 else
 {
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 
+app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
-app.UseAntiforgery();
+
 app.UseRouting();
-
 app.UseCors(o => o.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-//app.UseIdentityServer();
-//app.UseAuthorization();
 
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode()
-    .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(BlazorOIDCAuto.Client._Imports).Assembly);
+app.UseIdentityServer();
+app.UseAuthorization();
 
-// Add additional endpoints required by the Identity /Account Razor components.
-app.MapAdditionalIdentityEndpoints();
+
+app.MapBlazorHub();
+app.MapRazorPages();
+app.MapControllers();
+app.MapFallbackToFile("index.html");
 
 app.Run();

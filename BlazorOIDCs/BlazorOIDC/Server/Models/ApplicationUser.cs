@@ -7,8 +7,8 @@
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
-namespace BlazorOIDCAuto.Data;
-// Add profile data for application users by adding properties to the ApplicationUser class
+namespace BlazorOIDC.Server.Models;
+
 public class ApplicationUser : IdentityUser
 {
 
@@ -63,6 +63,5 @@ public class ApplicationUser : IdentityUser
     [Display(Name = "类型")]
     [PersonalData]
     public string? UserRole { get; set; }
+
 }
-
-
