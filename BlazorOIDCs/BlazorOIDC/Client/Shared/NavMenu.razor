@@ -1,4 +1,6 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@inject NavigationManager Navigation
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">BlazorOIDC</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -44,6 +46,11 @@
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
             </NavLink>
         </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" @onclick="_=>GoSSR()">
+                <span class="oi oi-home" aria-hidden="true"></span> SSR
+            </NavLink>
+        </div>
     </nav>
 </div>
 
@@ -55,5 +62,10 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+ 
+    void GoSSR()
+    {
+        Navigation.NavigateTo("/", true);
     }
 }
