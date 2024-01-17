@@ -12,10 +12,10 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 var useServerAPI = false;
 
 //使用真实的演示站点的API
-var useServerAPIDemo = false;
+var useServerAPIDemo = true;
 
 //只是WASM客户端,不使用自托管服务器端API
-var isClientOnly = false;
+var isClientOnly = true;
 
 /* 
  * wasm asp.net core 自托管oidc授权: useServerAPI = false, useServerAPIDemo = false, isClientOnly = false
