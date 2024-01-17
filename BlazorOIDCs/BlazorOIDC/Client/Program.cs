@@ -17,6 +17,13 @@ var useServerAPIDemo = false;
 //只是WASM客户端,不使用自托管服务器端API
 var isClientOnly = false;
 
+/* 
+ * wasm asp.net core 自托管oidc授权: useServerAPI = false, useServerAPIDemo = false, isClientOnly = false
+ * wasm 纯客户端 oidc授权: useServerAPI = false, useServerAPIDemo = false, isClientOnly = true
+ * wasm 纯客户端 oidc 真实的演示站点API授权: useServerAPI = false, useServerAPIDemo = true, isClientOnly = true
+ */
+
+
 var serverAPIclientID = !useServerAPIDemo?"BlazorOIDC.ServerAPI":"BlazorWasmIdentity.ServerAPI";
 var oidcClientID = !useServerAPIDemo? "BlazorOIDC.Client" : "BlazorWasmIdentity.Localhost";
 
