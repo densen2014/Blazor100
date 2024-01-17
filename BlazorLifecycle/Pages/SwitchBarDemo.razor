@@ -4,8 +4,12 @@
 @inject ILogger<Index> Logger
 
 <SwitchBar ValueChanged="OnValueChanged" Initiated="OnInitiated">
-    <div>我是子组件1内容, 点击++</div>
+    <div>我是子组件SwitchBar内容, 点击++</div>
 </SwitchBar>
+
+<SwitchBar2 ValueChanged="OnValueChanged" Initiated="OnInitiated2" Value2="99999">
+    <div>我是继承组件SwitchBar的SwitchBar2组件内容, 点击++</div>
+</SwitchBar2>
 
 @*<SwitchBar ValueChanged="OnValueChanged">
     <div>我是子组件2内容</div>
@@ -54,6 +58,13 @@
         Value = val;
         await Task.Delay(1000);
         StateHasChanged();
+    }
+
+    private Task OnInitiated2(bool val)
+    {
+        message += "，子组件2加载完成(查询角色)";
+        StateHasChanged(); 
+return Task.CompletedTask;
     }
 
     private Task OnValueChanged(int val)

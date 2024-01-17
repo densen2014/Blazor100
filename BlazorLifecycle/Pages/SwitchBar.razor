@@ -1,5 +1,8 @@
 ﻿@using Microsoft.Extensions.Logging
 @inject ILogger<Index> Logger
+@inherits ComponentBase
+
+@ToolBar
 
 <div style="@ClassString" @onclick="OnClick">
     @ChildContent
@@ -10,6 +13,9 @@
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? ToolBar { get; set; }
 
     [Parameter]
     public int Value { get; set; }
@@ -27,7 +33,7 @@
 
         if (firstRender)
         {
-            await Task.Delay(2000); 
+            await Task.Delay(2000);
             await Initiated.InvokeAsync(true);
         }
     }
