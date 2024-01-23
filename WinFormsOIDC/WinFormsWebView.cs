@@ -1,14 +1,8 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using IdentityModel.OidcClient;
 using IdentityModel.OidcClient.Browser;
 using Microsoft.Web.WebView2.WinForms;
-using System;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace WinFormsWebView2;
 
@@ -82,8 +76,8 @@ public class WinFormsWebView : IBrowser
                     // Initialization
                     await webView.EnsureCoreWebView2Async(null);
 
-                    // Delete existing Cookies so previous logins won't remembered
-                    //webView.CoreWebView2.CookieManager.DeleteAllCookies();
+                    // 删除现有的 Cookie，这样以前的登录就不会被记住, 以免影响测试, 反之去掉这行,就可以保持登录
+                    webView.CoreWebView2.CookieManager.DeleteAllCookies();
 
                     // Navigate
                     webView.CoreWebView2.Navigate(_options.StartUrl);
