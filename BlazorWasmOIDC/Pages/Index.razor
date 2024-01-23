@@ -1,0 +1,52 @@
+﻿@page "/"
+@using System.Diagnostics.CodeAnalysis
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+<PageTitle>Index</PageTitle>
+
+<AuthorizeView>
+    <Authorized>
+
+        你好, @context.User.Identity?.Name
+
+    </Authorized>
+    <NotAuthorized>
+        <span>看起来你还没登录</span>
+    </NotAuthorized>
+
+</AuthorizeView>
+
+@code{
+    [Inject]
+    [NotNull]
+    IAccessTokenProvider? TokenProvider { get; set; }
+
+    [Inject]
+    [NotNull]
+    NavigationManager? Navigation { get; set; }
+
+
+    private string? output;
+
+    private async Task DisplayToken()
+    {
+        var tokenResult = await TokenProvider.RequestAccessToken();
+
+        if (tokenResult.TryGetToken(out var token))
+        {
+            output = token.Value;
+
+        }
+        else
+        {
+            output = "No token";
+        }
+
+    }
+
+    private void BeginLogOut()
+    {
+        Navigation.NavigateToLogout("authentication/logout");
+    }
+}
