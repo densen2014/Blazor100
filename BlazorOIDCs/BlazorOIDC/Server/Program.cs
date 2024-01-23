@@ -74,8 +74,36 @@ builder.Services.AddIdentityServer(options =>
         {
             $"https://{url2}:5001"
         };
-
         options.Clients.Add(spaClient2);
+
+        var spaClientBlazor5002 = ClientBuilder
+        .SPA("Blazor5002")
+        .WithScopes("api")
+        .Build();
+
+        spaClientBlazor5002.AllowedCorsOrigins = new[]
+        {
+            $"http://0.0.0.0",
+            $"http://0.0.0.0:5001",
+            $"http://0.0.0.0:5002",
+            $"http://localhost",
+            $"http://localhost:5001",
+            $"http://localhost:5002",
+            $"https://localhost",
+            $"https://localhost:5001",
+            $"https://localhost:5002"
+        };
+
+        foreach (var item in spaClientBlazor5002.AllowedCorsOrigins)
+        {
+            spaClientBlazor5002.RedirectUris.Add($"{item}/authentication/login-callback");
+            spaClientBlazor5002.PostLogoutRedirectUris.Add($"{item}/authentication/logout-callback");
+        }
+
+        spaClientBlazor5002.AllowOfflineAccess = true;
+
+        options.Clients.Add(spaClientBlazor5002);
+
     });
 
  
