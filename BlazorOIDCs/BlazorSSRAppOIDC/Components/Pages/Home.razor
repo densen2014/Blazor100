@@ -1,0 +1,51 @@
+﻿@page "/"
+@using System.Security.Claims
+@inject NavigationManager Navigation
+
+<PageTitle>Home</PageTitle>
+
+ 
+<AuthorizeView>
+    <Authorized>
+
+        你好, @context.User.Identity?.Name (@context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value)
+       
+        <Button Text="注销" OnClick="BeginLogOut" />
+
+        <br /><br /><br />
+        <h5>以下是用户的声明</h5><br />
+
+        @foreach (var claim in context.User.Claims)
+        {
+            <p>@claim.Type: @claim.Value</p>
+        }
+
+
+    </Authorized>
+    <NotAuthorized>
+
+        <Button Text="登录" OnClick="BeginLogIn" />
+
+        <p>默认账号 test@test.com 密码 0</p>
+
+    </NotAuthorized>
+
+</AuthorizeView>
+
+@code {
+    private string LoginUrl = "login?redirectUri=";
+    private void BeginLogIn()
+    {
+        var returnUrl = Uri.EscapeDataString(Navigation.Uri);
+        Navigation.NavigateTo(LoginUrl + returnUrl, forceLoad: true);
+    }
+
+    private string LogoutUrl = "logout?redirectUri=";
+    private void BeginLogOut()
+    {
+        var returnUrl = Uri.EscapeDataString(Navigation.Uri);
+        Navigation.NavigateTo(LogoutUrl + returnUrl, forceLoad: true);
+    }
+
+}
+ 

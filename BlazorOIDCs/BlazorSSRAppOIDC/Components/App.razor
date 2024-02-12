@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+    <Link Href="_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css" />
+    <Link Href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" />
+    <Link Href="_content/BootstrapBlazor/css/motronic.min.css" />
+    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="BlazorSSRAppOIDC.styles.css" />
+    <HeadOutlet @rendermode="new InteractiveServerRenderMode(false)" />
+</head>
+
+<body>
+    <Routes @rendermode="new InteractiveServerRenderMode(false)" />
+    <ReconnectorOutlet ReconnectInterval="5000" @rendermode="new InteractiveServerRenderMode(false)" />
+    <Script Src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></Script>
+    <script src="_framework/blazor.web.js"></script>
+</body>
+
+</html>
