@@ -146,7 +146,7 @@
         var isSuccess= await MockImportExcel();
 
         // 关闭 option 相关联的弹窗
-        await option.Close();
+        option.Close();
 
         // 弹窗告知下载完毕
         await toastService.Show(new ToastOption()
