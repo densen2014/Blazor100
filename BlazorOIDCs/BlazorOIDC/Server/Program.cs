@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -106,8 +108,37 @@ builder.Services.AddIdentityServer(options =>
 
     });
 
- 
-builder.Services.AddAuthentication();
+
+// 想要添加一个JWT来给自己的API接口使用，API接口用来对外开发一些数据
+// 现在遇到的问题就是一旦增加JWT，登录就失效
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddCookie().AddJwtBearer();
+
+builder.Services.AddAuthentication()
+    .AddIdentityServerJwt()
+    .AddPolicyScheme("ApplicationDefinedAuthentication", null, CustomerPolicyScheme);
+builder.Services.Configure<AuthenticationOptions>(options => options.DefaultScheme = "ApplicationDefinedAuthentication");
+
+static void CustomerPolicyScheme(PolicySchemeOptions options)
+{
+    options.ForwardDefaultSelector = (context) =>
+    {
+        //特定方案授权
+        System.Console.WriteLine(context.Request.Path);
+        string? authorization = context.Request.Headers[HeaderNames.Authorization];
+        if (!string.IsNullOrEmpty(authorization) && authorization.StartsWith("Bearer "))
+        {
+            var token = authorization.Substring("Bearer ".Length).Trim();
+            //使用 JWT 持有者身份验证
+            return IdentityServerJwtConstants.IdentityServerJwtBearerScheme;
+        }
+        else
+        {
+            //针对登录使用基于 cookie 的身份验证
+            return IdentityConstants.ApplicationScheme;
+
+        }
+    };
+}
 
 var autbuilder = new AuthenticationBuilder(builder.Services);
 autbuilder.AddGoogle(o =>
