@@ -36,7 +36,7 @@ partial class Form1
     {
         this.components = new System.ComponentModel.Container();
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.ClientSize = new System.Drawing.Size(800, 600);
+        this.ClientSize = new System.Drawing.Size(1300, 1000);
         this.Text = "Form1";
     }
 

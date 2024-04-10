@@ -13,8 +13,8 @@ namespace ConsoleOIDC;
 
 public class Program
 {
-    static string authority = "https://localhost:5001/";
-    //static string authority = "https://ids2.app1.es/"; //真实环境
+    //static string authority = "https://localhost:5001/";
+    static string authority = "https://ids2.app1.es/"; //真实环境
     static string api = $"{authority}WeatherForecast";
     static string clientId = "Blazor5002";
 

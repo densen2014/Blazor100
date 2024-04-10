@@ -1,0 +1,95 @@
+﻿@inject AuthenticationStateProvider AuthenticationStateProvider
+@page "/Login"
+@using System.Security.Claims
+
+<button @onclick="Login">Log in</button>
+
+<p>@Msg</p>
+ 
+
+<AuthorizeView>
+    <Authorized>
+
+        你好, @context.User.Identity?.Name
+
+        [
+        @if (@context.User.IsInRole(AuthorizeRoles.Admin.ToString()))
+        {
+            <span>管理员 </span>
+        }
+        @if (@context.User.IsInRole(AuthorizeRoles.Superuser.ToString()))
+        {
+            <span>超级用户 </span>
+        }
+        @if (@context.User.IsInRole(AuthorizeRoles.User.ToString()))
+        {
+            <span>用户 </span>
+        }
+        @if (@context.User.IsInRole(AuthorizeRoles.R110.ToString()))
+        {
+            <span>R110用户 </span>
+        }
+        @if (@context.User.IsInRole(AuthorizeRoles.R120.ToString()))
+        {
+            <span>R120用户 </span>
+        }
+        @if (@context.User.IsInRole(AuthorizeRoles.R130.ToString()))
+        {
+            <span>R130用户 </span>
+        }
+        @if (@context.User.IsInRole(AuthorizeRoles.R140.ToString()))
+        {
+            <span>R140用户 </span>
+        }
+        ]
+
+        <br /><br /><br />
+        <h5>以下是用户的声明</h5><br />
+
+        @foreach (var claim in context.User.Claims)
+        {
+            <p>@claim.Type: @claim.Value</p>
+        } 
+ 
+
+    </Authorized> 
+
+</AuthorizeView>
+
+
+<p>以下是基于角色或基于策略的授权,未登录不显示 </p>
+
+<AuthorizeView Roles="Admin, Superuser">
+    <p>只有管理员或超级用户才能看到.</p>
+</AuthorizeView>
+
+@code
+{
+    [Inject]
+    private AuthenticatedUser? authenticatedUser { get; set; }
+
+    /// <summary>
+    /// 级联参数获取身份验证状态数据
+    /// </summary>
+    [CascadingParameter]
+    private Task<AuthenticationState>? authenticationStateTask { get; set; }
+
+    private string? Msg { get; set; }
+
+    private ClaimsPrincipal? User { get; set; }
+
+    public async Task Login()
+    {
+        var authenticationState = await ((ExternalAuthStateProvider)AuthenticationStateProvider).LogInAsync();
+
+        User = authenticationState?.User;
+
+        if (User != null)
+        {
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                Msg += "已登录." + Environment.NewLine;
+            }
+        }
+    }
+}

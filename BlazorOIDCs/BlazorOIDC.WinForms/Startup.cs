@@ -1,11 +1,13 @@
-// ********************************** 
+﻿// ********************************** 
 // Densen Informatica 中讯科技 
 // 作者：Alex Chow
 // e-mail:zhouchuanglin@gmail.com 
 // **********************************
 
 using BlazorOIDC.WinForms.Data;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 
 namespace BlazorOIDC.WinForms;
@@ -25,6 +27,12 @@ public static class Startup
     {
         services.AddWindowsFormsBlazorWebView();
         services.AddSingleton<WeatherForecastService>();
+
+        services.AddAuthorizationCore();
+        services.TryAddScoped<AuthenticationStateProvider, ExternalAuthStateProvider>();
+        services.AddSingleton<AuthenticatedUser>();
+ 
+  
 
 #if DEBUG
         services.AddBlazorWebViewDeveloperTools();
