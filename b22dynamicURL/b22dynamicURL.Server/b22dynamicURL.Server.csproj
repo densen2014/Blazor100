@@ -19,6 +19,7 @@
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor" Version="8.*" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="8.*" />
+    <PackageReference Include="Microsoft.International.Converters.PinYinConverter" Version="1.0.0" />
   </ItemGroup>
 
 </Project>

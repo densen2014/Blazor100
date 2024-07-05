@@ -2,13 +2,26 @@
 @attribute [TabItemOption(Text = "Index", Closable = false)]
 @page "/music/{Value?}"
 @using System.Diagnostics.CodeAnalysis
+@using Microsoft.International.Converters.PinYinConverter
 
 <PageTitle>Index</PageTitle>
 
+
 <div>
     @Value
-</div>
 
+    拼音
+
+    <i>
+        @pinyin
+    </i>
+
+    拼音缩写
+
+    <b>
+        @pinyinCompat
+    </b>
+</div>
 <BootstrapInput @bind-Value="Value" ShowLabel="true" UseInputEvent="true" OnValueChanged="_=>UpdateSearching()" IsAutoFocus />
 
 @code{
@@ -20,8 +33,33 @@
     [Parameter]
     public string? Value { get; set; } = "12345";
 
+    string? pinyin { get; set; } = "";
+    string? pinyinCompat { get; set; } = "";
+
+
     Task UpdateSearching()
     {
+        if (!string.IsNullOrWhiteSpace(Value))
+        {
+            pinyin = string.Empty;
+            pinyinCompat = string.Empty;
+
+            foreach (char c in Value)
+            {
+                if (ChineseChar.IsValidChar(c))
+                {
+                    ChineseChar chineseChar = new ChineseChar(c);
+                    pinyin += chineseChar.Pinyins[0];
+                    pinyinCompat += chineseChar.Pinyins[0][0];
+                }
+                else
+                {
+                    pinyin += c;
+                    pinyinCompat += c;
+                }
+            }
+        }
+
         NavigationManager.NavigateTo($"music/{Value}");
         return Task.CompletedTask;
     }
