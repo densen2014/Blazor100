@@ -1,0 +1,14 @@
+﻿@page "/table"
+@attribute [TabItemOption(Text = "Table")]
+
+<PageTitle>Table</PageTitle>
+
+<Table TItem="Foo" AutoGenerateColumns="true" class="table-demo"
+       IsPagination="true" PageItemsSource="PageItemsSource"
+       IsStriped="true" IsBordered="true"IsMultipleSelect="true"
+       ShowSkeleton="true" ShowToolbar="true" ShowSearch="true" ShowExtendButtons="true"
+       OnQueryAsync="OnQueryAsync" OnSaveAsync="OnSaveAsync" OnDeleteAsync="OnDeleteAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Hobby" Items="GetHobbys(context)" />
+    </TableColumns>
+</Table>
