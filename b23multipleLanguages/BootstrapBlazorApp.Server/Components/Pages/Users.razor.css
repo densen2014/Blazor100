@@ -1,0 +1,23 @@
+﻿.page-user {
+    height: calc(100vh - 82px - var(--bb-layout-footer-height) - var(--bb-tabs-item-height, 0px));
+}
+
+.user-demo-address {
+    margin-top: .25rem;
+    font-size: 86%;
+    color: #c0c4cc;
+}
+
+::deep .table-users {
+    height: calc(100% - 93px);
+}
+
+::deep .table-cell img {
+    width: 46px;
+    border-radius: var(--bs-border-radius);
+}
+
+::deep .table-cell .progress {
+    height: 6px;
+    margin-top: .5rem;
+}

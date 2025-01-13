@@ -1,0 +1,14 @@
+﻿@inherits BootstrapComponentBase
+@namespace BootstrapBlazor.Server.Components.Components
+
+<div @attributes="@AdditionalAttributes" class="@ClassString">
+    <span>@Label</span>
+    <Select Value="@SelectedCulture" OnSelectedItemChanged="@SetCulture">
+        <Options>
+            @foreach (var kv in BootstrapOptions.CurrentValue.GetSupportedCultures())
+            {
+                <SelectOption Text="@GetDisplayName(kv)" Value="@kv.Name" />
+            }
+        </Options>
+    </Select>
+</div>

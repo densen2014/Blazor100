@@ -141,6 +141,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleOIDC", "ConsoleOIDC\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "b22dynamicURL.Server", "b22dynamicURL\b22dynamicURL.Server\b22dynamicURL.Server.csproj", "{A689CDB7-43C1-4C67-9EA9-4C34DE8EC140}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazorApp.Server", "b23multipleLanguages\BootstrapBlazorApp.Server\BootstrapBlazorApp.Server.csproj", "{D07F8480-704D-4C94-AB5B-1E30A17CA5FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "b23multipleLanguages", "b23multipleLanguages", "{2D74DF40-3ACF-452D-B7C2-8C2661999BEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -323,6 +327,10 @@ Global
 		{A689CDB7-43C1-4C67-9EA9-4C34DE8EC140}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A689CDB7-43C1-4C67-9EA9-4C34DE8EC140}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A689CDB7-43C1-4C67-9EA9-4C34DE8EC140}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D07F8480-704D-4C94-AB5B-1E30A17CA5FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D07F8480-704D-4C94-AB5B-1E30A17CA5FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D07F8480-704D-4C94-AB5B-1E30A17CA5FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D07F8480-704D-4C94-AB5B-1E30A17CA5FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -345,6 +353,7 @@ Global
 		{88CC39AC-4A02-4049-A3CF-4E9C5B0C9CDB} = {1B15B302-B562-413B-8B99-F6F822EC5605}
 		{1B6BB0F8-0719-499D-8391-7E4E3E037E11} = {1B15B302-B562-413B-8B99-F6F822EC5605}
 		{43C15A94-4E9A-470A-8626-62D4E74B4010} = {1B15B302-B562-413B-8B99-F6F822EC5605}
+		{D07F8480-704D-4C94-AB5B-1E30A17CA5FB} = {2D74DF40-3ACF-452D-B7C2-8C2661999BEB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5953555A-3C5E-405F-9785-92A3321DA588}
