@@ -1,0 +1,71 @@
+﻿@page "/flex2"
+
+<PageTitle>Virtualized Orders</PageTitle>
+
+<h1>Virtualized Orders</h1>
+
+对于 Blazor 组件虚拟化支持flex-wrap: wrap与网格布局的研究 [二]
+
+https://www.cnblogs.com/densen2014/p/18677521
+
+<div id="div-test" style="height: 370px; overflow-y: scroll;  width: 70vw; ">
+    @if (GroupedOrders != null)
+    {
+        <Virtualize Items="GroupedOrders" Context="orderGroup">
+            <div style="display: flex; flex-direction: row; flex-wrap: wrap; ">
+                @foreach (var order in orderGroup)
+                {
+                    <div style="width: 100px; height: 100px; background-color: cadetblue; padding: 10px; margin: 10px;">
+                        <div>$ @order.Value</div>
+                    </div>
+                }
+            </div>
+        </Virtualize>
+    }
+</div>
+
+<p>元素宽度: @elementWidth px 每行分配 @itemsPerRow 个元素</p>
+
+@code {
+    private float elementWidth;
+
+
+    int itemsPerRow = 3;
+    int itemsHeight = 100;
+
+    public record Order(Guid Id, int Value);
+
+    public IList<Order> Orders { get; set; } = new List<Order>();
+    public IList<IEnumerable<Order>>? GroupedOrders { get; set; }
+
+    [Inject]
+    [System.Diagnostics.CodeAnalysis.NotNull]
+    private IJSRuntime? JSRuntime { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            elementWidth = await JSRuntime.InvokeAsync<int>("getElementWidth", "div-test");
+            itemsPerRow = (int)elementWidth / (itemsHeight + 20);
+
+            GroupedOrders = Orders
+                .Select((order, index) => new { order, index })
+                .GroupBy(x => x.index / itemsPerRow)
+                .Select(g => g.Select(x => x.order))
+                .ToList();
+
+            StateHasChanged();
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        var random = new Random();
+        for (int i = 0; i < 100; i++)
+        {
+            Orders.Add(new Order(Guid.NewGuid(), random.Next(20, 9999)));
+        }
+
+    }
+}
