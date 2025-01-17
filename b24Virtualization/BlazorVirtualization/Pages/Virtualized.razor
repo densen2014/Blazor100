@@ -1,0 +1,31 @@
+﻿@page "/"
+
+<PageTitle>Virtualized Orders</PageTitle>
+
+<h1>Virtualized Orders</h1>
+
+Blazor 通过组件虚拟化提高性能
+
+https://www.cnblogs.com/densen2014/p/18677409
+
+<Virtualize Items="Orders" Context="order" OverscanCount="15">
+    <div style="display:flex;">
+        <div style="width: 400px;">@order.Id</div>
+        <div>$ @order.Value</div>
+    </div>
+</Virtualize>
+
+@code {
+    public record Order(Guid Id, int Value);
+
+    public IList<Order> Orders { get; set; } = new List<Order>();
+
+    protected override void OnInitialized()
+    {
+        var random = new Random();
+        for (int i = 0; i < 100_000; i++)
+        {
+            Orders.Add(new Order(Guid.NewGuid(), random.Next(20, 9999)));
+        }
+    }
+}

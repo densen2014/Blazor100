@@ -1,0 +1,28 @@
+﻿@page "/virtualized"
+
+<PageTitle>Orders without Virtualization</PageTitle>
+
+<h1>Orders without Virtualization</h1>
+
+@foreach (var order in Orders)
+{
+    <div style="display:flex;">
+        <div style="width: 400px;">@order.Id</div>
+        <div>$ @order.Value</div>
+    </div>
+}
+
+@code {
+    public record Order(Guid Id, int Value);
+
+    public IList<Order> Orders { get; set; } = new List<Order>();
+
+    protected override void OnInitialized()
+    {
+        var random = new Random();
+        for (int i = 0; i < 100_000; i++)
+        {
+            Orders.Add(new Order(Guid.NewGuid(), random.Next(20, 9999)));
+        }
+    }
+}

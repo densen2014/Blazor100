@@ -1,0 +1,43 @@
+﻿@page "/lazyloading"
+
+<PageTitle>Lazy Loading Orders - @StartIndex:@Count</PageTitle>
+
+<h1>Lazy Loading Orders</h1>
+
+<Virtualize ItemsProvider="@LoadOrders" Context="order">
+    <div style="display:flex;">
+        <div style="width: 400px;">@order.Id</div>
+        <div>$ @order.Value</div>
+    </div>
+</Virtualize>
+
+@code {
+    public record Order(Guid Id, int Value);
+
+    public IList<Order> Orders { get; set; } = new List<Order>();
+    public int StartIndex { get; set; }
+    public int Count { get; set; }
+
+    protected override void OnInitialized()
+    {
+        var random = new Random();
+        for (int i = 0; i < 100_000; i++)
+        {
+            Orders.Add(new Order(Guid.NewGuid(), random.Next(20, 9999)));
+        }
+    }
+
+    private ValueTask<ItemsProviderResult<Order>> LoadOrders(ItemsProviderRequest request)
+    {
+        StartIndex = request.StartIndex;
+        Count = request.Count;
+
+        StateHasChanged();
+
+        var filteredOrders = Orders.Skip(request.StartIndex)
+            .Take(request.Count);
+
+        var result = new ItemsProviderResult<Order>(filteredOrders, Orders.Count());
+        return ValueTask.FromResult(result);
+    }
+}
