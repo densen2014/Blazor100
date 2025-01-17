@@ -4,44 +4,44 @@
 
 <h1>Virtualized Orders</h1>
 
-对于 Blazor 组件虚拟化支持flex-wrap: wrap与网格布局的研究 [一]
+<a href="https://www.cnblogs.com/densen2014/p/18677406">
+    对于 Blazor 组件虚拟化支持flex-wrap: wrap与网格布局的研究 [一]
+</a>
 
-https://www.cnblogs.com/densen2014/p/18677406
+    <div style="height: 370px; overflow-y: scroll;  width: 380px; ">
+        <Virtualize Items="GroupedOrders" Context="orderGroup" ItemSize="16.667f">
+            <div style="display: flex; flex-direction: row; flex-wrap: wrap; ">
+                @foreach (var order in orderGroup)
+                {
+                    <div style="width: 100px; height: 100px; background-color: cadetblue; padding: 10px; margin: 10px;">
+                        <div>$ @order.Value</div>
+                    </div>
+                }
+            </div>
+        </Virtualize>
+    </div>
 
-<div style="height: 370px; overflow-y: scroll;  width: 380px; ">
-    <Virtualize Items="GroupedOrders" Context="orderGroup" ItemSize="16.667f">
-        <div style="display: flex; flex-direction: row; flex-wrap: wrap; ">
-            @foreach (var order in orderGroup)
-            {
-                <div style="width: 100px; height: 100px; background-color: cadetblue; padding: 10px; margin: 10px;">
-                    <div>$ @order.Value</div>
-                </div>
-            }
-        </div>
-    </Virtualize>
-</div>
+    @code {
 
-@code {
+        int itemsPerRow = 3;
 
-    int itemsPerRow = 3;
+        public record Order(Guid Id, int Value);
 
-    public record Order(Guid Id, int Value);
+        public IList<Order> Orders { get; set; } = new List<Order>();
+        public IList<IEnumerable<Order>>? GroupedOrders { get; set; }
 
-    public IList<Order> Orders { get; set; } = new List<Order>();
-    public IList<IEnumerable<Order>>? GroupedOrders { get; set; }
-
-    protected override void OnInitialized()
-    {
-        var random = new Random();
-        for (int i = 0; i < 100; i++)
+        protected override void OnInitialized()
         {
-            Orders.Add(new Order(Guid.NewGuid(), random.Next(20, 9999)));
-        }
+            var random = new Random();
+            for (int i = 0; i < 100; i++)
+            {
+                Orders.Add(new Order(Guid.NewGuid(), random.Next(20, 9999)));
+            }
 
-        GroupedOrders = Orders
-            .Select((order, index) => new { order, index })
-            .GroupBy(x => x.index / itemsPerRow)
-            .Select(g => g.Select(x => x.order))
-            .ToList();
+            GroupedOrders = Orders
+                .Select((order, index) => new { order, index })
+                .GroupBy(x => x.index / itemsPerRow)
+                .Select(g => g.Select(x => x.order))
+                .ToList();
+        }
     }
-}

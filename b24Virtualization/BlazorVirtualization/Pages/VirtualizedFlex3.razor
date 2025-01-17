@@ -4,9 +4,9 @@
 
 <h1>Virtualized Orders</h1>
 
-对于 Blazor 组件虚拟化支持flex-wrap: wrap与网格布局的研究 [三]
-
-https://www.cnblogs.com/densen2014/p/18677530
+<a href="https://www.cnblogs.com/densen2014/p/18677530">
+    对于 Blazor 组件虚拟化支持flex-wrap: wrap与网格布局的研究 [三]
+</a>
 
 <div id="div-test" style="height: 370px; overflow-y: scroll;  width: 70vw; ">
     @if (GroupedOrders != null)
@@ -77,6 +77,12 @@ https://www.cnblogs.com/densen2014/p/18677530
     [JSInvokable]
     public void OnElementWidthChanged(float newWidth)
     {
+        if (newWidth == 0)
+        {
+            //页面切换后,OnElementWidthChanged 回报上来的宽度会变成0
+            return;
+        }
+
         elementWidth = newWidth;
         itemsPerRow = (int)elementWidth / (itemsHeight + 20);
         GroupOrders();
