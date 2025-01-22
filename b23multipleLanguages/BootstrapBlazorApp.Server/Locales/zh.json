@@ -25,5 +25,8 @@
   },
   "BootstrapBlazorApp.Server.Components.Pages.Index": {
     "Wellcome": "Blazor 对你有什么帮助？"
+  },
+  "BootstrapBlazor.Components.Table": {
+    "AddButtonText": "添了个加"
   }
 }

@@ -25,5 +25,8 @@
   },
   "BootstrapBlazorApp.Server.Components.Pages.Index": {
     "Wellcome": "How is Blazor working for you?"
+  },
+  "BootstrapBlazor.Components.Table": {
+    "AddButtonText": "Add a life"
   }
 }
