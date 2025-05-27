@@ -1,0 +1,24 @@
+﻿<Window x:Class="MiOcr.ScreenCaptureWindow"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        WindowStyle="None" AllowsTransparency="True" Background="#01000000"
+        Topmost="True" ShowInTaskbar="False" WindowState="Maximized">
+    <Canvas x:Name="CaptureCanvas">
+        <TextBlock x:Name="StartCoordText"
+               Foreground="Yellow"
+               Background="#80000000"
+               FontSize="14"
+               Visibility="Collapsed"/>
+        <TextBlock x:Name="CurrentCoordText"
+               Foreground="Yellow"
+               Background="#80000000"
+               FontSize="14"
+               Visibility="Collapsed"/>
+        <TextBlock x:Name="SizeText"
+               Foreground="Yellow"
+               Background="#80000000"
+               FontSize="14"
+               Visibility="Collapsed"/>
+    </Canvas>
+
+</Window>
