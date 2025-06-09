@@ -43,11 +43,11 @@ void Expr_EvaluateFunction(string name, FunctionArgs args)
     }else if (name == "VIP")
     {
         // 计算价格
-        args.Result = product.Name.StartsWith('*')? "<有会员折扣>" : string.Empty;
+        args.Result = product.Name.StartsWith('*')? "此商品享有会员折扣" : string.Empty;
     }
 }
 
-expr = new Expression("if([product.Name] LIKE '*%','<有会员折扣>','')", ExpressionOptions.StringConcat);
+expr = new Expression("if([product.Name] LIKE '*%','此商品享有会员折扣','')", ExpressionOptions.StringConcat);
 expr.EvaluateParameter += value;
 res = expr.Evaluate();
 
