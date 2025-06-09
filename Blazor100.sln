@@ -149,6 +149,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "b24Virtualization", "b24Vir
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorVirtualization", "b24Virtualization\BlazorVirtualization\BlazorVirtualization.csproj", "{5D35300C-4E0D-4CCE-99B0-FBD490AB409D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test01NCalc", "Test01NCalc\Test01NCalc.csproj", "{E01A247E-F740-4BE5-AE15-5E4DE518CB29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -339,6 +341,10 @@ Global
 		{5D35300C-4E0D-4CCE-99B0-FBD490AB409D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D35300C-4E0D-4CCE-99B0-FBD490AB409D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D35300C-4E0D-4CCE-99B0-FBD490AB409D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E01A247E-F740-4BE5-AE15-5E4DE518CB29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E01A247E-F740-4BE5-AE15-5E4DE518CB29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E01A247E-F740-4BE5-AE15-5E4DE518CB29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E01A247E-F740-4BE5-AE15-5E4DE518CB29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
