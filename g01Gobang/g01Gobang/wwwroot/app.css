@@ -1,4 +1,4 @@
-html, body {
+﻿html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -57,4 +57,28 @@ h1:focus {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
+}
+/* 动画和高亮样式 */
+.cell.last-move {
+    animation: pop 0.3s;
+    box-shadow: 0 0 10px 3px #ff9800;
+    z-index: 1;
+    position: relative;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0.2);
+        opacity: 0.2;
+    }
+
+    70% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }

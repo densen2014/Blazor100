@@ -5,6 +5,15 @@
 <h1>五子棋游戏</h1>
 
 <div style="margin-bottom:10px;">
+    <span style="width:200px;">当前玩家: <b>@(currentPlayer == 1 ? "黑子" : (isHumanVsAI ? "白子" : "白子"))</b></span>
+    @if (winner != 0)
+    {
+        <span style="color:red;margin-left:20px;">胜者: @(winner == 1 ? "黑子" : (isHumanVsAI ? "白子" : "白子"))</span>
+        <button class="btn btn-sm btn-primary" style="margin-left:20px;" @onclick="Restart">重新开始</button>
+    }
+</div>
+
+<div style="margin-bottom:10px;">
     <b>难度：</b>
     <button class="btn btn-sm @(aiLevel==0?"btn-primary":"btn-outline-primary")" @onclick="() => SetAILevel(0)">简单</button>
     <button class="btn btn-sm @(aiLevel==1?"btn-primary":"btn-outline-primary")" @onclick="() => SetAILevel(1)">中等</button>
@@ -17,16 +26,12 @@
     </span>
 </div>
 
+
 <div style="margin-bottom:10px;">
-    当前玩家: <b>@(currentPlayer == 1 ? "黑子" : (isHumanVsAI ? "白子(电脑)" : "白子"))</b>
-    <span style="margin-left:20px;">黑子得分: <b>@blackScore</b></span>
+    <span>黑子得分: <b>@blackScore</b></span>
     <span style="margin-left:20px;">白子得分: <b>@whiteScore</b></span>
-    <button class="btn btn-danger" style="margin-left:20px;" @onclick="ResetScore">重置得分</button>
-    @if (winner != 0)
-    {
-        <span style="color:red;margin-left:20px;">胜者: @(winner == 1 ? "黑子" : (isHumanVsAI ? "白子(电脑)" : "白子"))</span>
-        <button class="btn btn-primary" style="margin-left:20px;" @onclick="Restart">重新开始</button>
-    }
+    <button class="btn btn-sm btn-danger" style="margin-left:20px;" @onclick="ResetScore">重置得分</button>
+    <button class="btn btn-sm btn-warning" @onclick="Undo" disabled="@(moveHistory.Count == 0)">悔棋</button>
 </div>
 
 <table style="border-collapse:collapse;">
@@ -37,16 +42,22 @@
             {
                 int _x = x;
                 int _y = y;
-                <td style="width:32px;height:32px;border:1px solid #888;text-align:center;vertical-align:middle;cursor:pointer;background:@GetCellBg(x, y);"
-                    @onclick="@(() => PlacePiece(_x, _y))">
-                    @if (board[x, y] == 1)
-                    {
-                        <span style="font-size:24px;color:black;">●</span>
-                    }
-                    else if (board[x, y] == 2)
-                    {
-                        <span style="font-size:24px;color:#eee;text-shadow:0 0 2px #888;">●</span>
-                    }
+                <td class="cell @(lastMoveX == x && lastMoveY == y ? "last-move" : "")" style="width:32px;height:32px;border:1px solid #888;text-align:center;vertical-align:middle;cursor:pointer;background:@GetCellBg(x, y);padding:0;">
+                    <span style="display:inline-block;width:100%;height:100%;line-height:32px;font-size:24px;user-select:none;"
+                          @onclick="@(() => PlacePiece(_x, _y))">
+                        @if (board[x, y] == 1)
+                        {
+                            <span style="color:black;">●</span>
+                        }
+                        else if (board[x, y] == 2)
+                        {
+                            <span style="color:#eee;text-shadow:0 0 2px #888;">●</span>
+                        }
+                        else
+                        {
+                            <span style="visibility:hidden;">●</span>
+                        }
+                    </span>
                 </td>
             }
         </tr>
@@ -54,7 +65,7 @@
 </table>
 
 @code {
-    const int BoardSize = 15;
+    const int BoardSize = 12;
     int[,] board = new int[BoardSize, BoardSize];
     int currentPlayer = 1; // 1: 黑子, 2: 白子(电脑/玩家)
     int winner = 0;
@@ -63,17 +74,25 @@
     Random rand = new();
     bool isHumanVsAI = true;
     int aiLevel = 1; // 0:简单 1:中等 2:困难
+    // 记录每一步
+    record Move(int X, int Y, int Player, int[,] BoardSnapshot, int CurrentPlayer, int Winner);
+
+    List<Move> moveHistory = new();
+    int? lastMoveX = null;
+    int? lastMoveY = null;
 
     void PlacePiece(int x, int y)
     {
         if (winner != 0 || board[x, y] != 0)
             return;
-
-        // 人机模式下，只有当前为玩家时可落子
         if (isHumanVsAI && currentPlayer == 2)
             return;
 
+        moveHistory.Add(new Move(x, y, currentPlayer, (int[,])board.Clone(), currentPlayer, winner));
+
         board[x, y] = currentPlayer;
+        lastMoveX = x; // 记录最新落子
+        lastMoveY = y;
         if (CheckWin(x, y, currentPlayer))
         {
             winner = currentPlayer;
@@ -99,7 +118,11 @@
         if (winner != 0) return;
 
         var (aiX, aiY) = FindBestMove();
+        moveHistory.Add(new Move(aiX, aiY, 2, (int[,])board.Clone(), currentPlayer, winner));
+
         board[aiX, aiY] = 2;
+        lastMoveX = aiX; // 记录AI最新落子
+        lastMoveY = aiY;
         if (CheckWin(aiX, aiY, 2))
         {
             winner = 2;
@@ -224,6 +247,9 @@
         board = new int[BoardSize, BoardSize];
         currentPlayer = 1;
         winner = 0;
+        moveHistory.Clear();
+        lastMoveX = null;
+        lastMoveY = null;
         if (isHumanVsAI && currentPlayer == 2)
         {
             _ = AITurnAsync();
@@ -246,6 +272,45 @@
     {
         isHumanVsAI = !isHumanVsAI;
         Restart();
+    }
+
+    // 悔棋功能
+    void Undo()
+    {
+        if (moveHistory.Count == 0) return;
+
+        if (isHumanVsAI)
+        {
+            // 人机模式下，悔棋撤销两步（AI和玩家各一步）
+            for (int i = 0; i < 2 && moveHistory.Count > 0; i++)
+            {
+                var last = moveHistory[^1];
+                Array.Copy(last.BoardSnapshot, board, board.Length);
+                currentPlayer = last.CurrentPlayer;
+                winner = last.Winner;
+                moveHistory.RemoveAt(moveHistory.Count - 1);
+            }
+        }
+        else
+        {
+            // 人人模式下，悔棋撤销一步
+            var last = moveHistory[^1];
+            Array.Copy(last.BoardSnapshot, board, board.Length);
+            currentPlayer = last.CurrentPlayer;
+            winner = last.Winner;
+            moveHistory.RemoveAt(moveHistory.Count - 1);
+        }
+        if (moveHistory.Count > 0)
+        {
+            lastMoveX = moveHistory[^1].X;
+            lastMoveY = moveHistory[^1].Y;
+        }
+        else
+        {
+            lastMoveX = null;
+            lastMoveY = null;
+        }
+        StateHasChanged();
     }
 
     string GetCellBg(int x, int y)
