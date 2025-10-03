@@ -6,6 +6,9 @@
 
 <div style="margin-bottom:10px;">
     当前玩家: <b>@(currentPlayer == 1 ? "黑子" : "白子")</b>
+    <span style="margin-left:20px;">黑子得分: <b>@blackScore</b></span>
+    <span style="margin-left:20px;">白子得分: <b>@whiteScore</b></span>
+    <button class="btn btn-danger" style="margin-left:20px;" @onclick="ResetScore">重置得分</button>
     @if (winner != 0)
     {
         <span style="color:red;margin-left:20px;">胜者: @(winner == 1 ? "黑子" : "白子")</span>
@@ -42,10 +45,11 @@
     int[,] board = new int[BoardSize, BoardSize];
     int currentPlayer = 1; // 1: 黑子, 2: 白子
     int winner = 0;
+    int blackScore = 0;
+    int whiteScore = 0;
 
     void PlacePiece(int x, int y)
     {
-        // 修复：增加边界检查，防止越界
         if (x < 0 || x >= BoardSize || y < 0 || y >= BoardSize)
             return;
         if (winner != 0 || board[x, y] != 0)
@@ -55,6 +59,10 @@
         if (CheckWin(x, y, currentPlayer))
         {
             winner = currentPlayer;
+            if (winner == 1)
+                blackScore++;
+            else if (winner == 2)
+                whiteScore++;
         }
         else
         {
@@ -104,6 +112,12 @@
         board = new int[BoardSize, BoardSize];
         currentPlayer = 1;
         winner = 0;
+    }
+
+    void ResetScore()
+    {
+        blackScore = 0;
+        whiteScore = 0;
     }
 
     string GetCellBg(int x, int y)
