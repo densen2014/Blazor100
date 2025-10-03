@@ -5,13 +5,26 @@
 <h1>五子棋游戏</h1>
 
 <div style="margin-bottom:10px;">
-    当前玩家: <b>@(currentPlayer == 1 ? "黑子" : "白子")</b>
+    <b>难度：</b>
+    <button class="btn btn-sm @(aiLevel==0?"btn-primary":"btn-outline-primary")" @onclick="() => SetAILevel(0)">简单</button>
+    <button class="btn btn-sm @(aiLevel==1?"btn-primary":"btn-outline-primary")" @onclick="() => SetAILevel(1)">中等</button>
+    <button class="btn btn-sm @(aiLevel==2?"btn-primary":"btn-outline-primary")" @onclick="() => SetAILevel(2)">困难</button>
+    <span style="margin-left:20px;">
+        <b>模式：</b>
+        <button class="btn btn-sm @(isHumanVsAI?"btn-success":"btn-outline-success")" @onclick="ToggleMode">
+            @(isHumanVsAI ? "人机对战" : "人人对战")
+        </button>
+    </span>
+</div>
+
+<div style="margin-bottom:10px;">
+    当前玩家: <b>@(currentPlayer == 1 ? "黑子" : (isHumanVsAI ? "白子(电脑)" : "白子"))</b>
     <span style="margin-left:20px;">黑子得分: <b>@blackScore</b></span>
     <span style="margin-left:20px;">白子得分: <b>@whiteScore</b></span>
     <button class="btn btn-danger" style="margin-left:20px;" @onclick="ResetScore">重置得分</button>
     @if (winner != 0)
     {
-        <span style="color:red;margin-left:20px;">胜者: @(winner == 1 ? "黑子" : "白子")</span>
+        <span style="color:red;margin-left:20px;">胜者: @(winner == 1 ? "黑子" : (isHumanVsAI ? "白子(电脑)" : "白子"))</span>
         <button class="btn btn-primary" style="margin-left:20px;" @onclick="Restart">重新开始</button>
     }
 </div>
@@ -43,16 +56,21 @@
 @code {
     const int BoardSize = 15;
     int[,] board = new int[BoardSize, BoardSize];
-    int currentPlayer = 1; // 1: 黑子, 2: 白子
+    int currentPlayer = 1; // 1: 黑子, 2: 白子(电脑/玩家)
     int winner = 0;
     int blackScore = 0;
     int whiteScore = 0;
+    Random rand = new();
+    bool isHumanVsAI = true;
+    int aiLevel = 1; // 0:简单 1:中等 2:困难
 
     void PlacePiece(int x, int y)
     {
-        if (x < 0 || x >= BoardSize || y < 0 || y >= BoardSize)
-            return;
         if (winner != 0 || board[x, y] != 0)
+            return;
+
+        // 人机模式下，只有当前为玩家时可落子
+        if (isHumanVsAI && currentPlayer == 2)
             return;
 
         board[x, y] = currentPlayer;
@@ -66,18 +84,112 @@
         }
         else
         {
-            currentPlayer = 3 - currentPlayer; // 切换玩家
+            currentPlayer = 3 - currentPlayer;
+            if (isHumanVsAI && currentPlayer == 2 && winner == 0)
+            {
+                StateHasChanged();
+                _ = AITurnAsync();
+            }
         }
+    }
+
+    async Task AITurnAsync()
+    {
+        await Task.Delay(500);
+        if (winner != 0) return;
+
+        var (aiX, aiY) = FindBestMove();
+        board[aiX, aiY] = 2;
+        if (CheckWin(aiX, aiY, 2))
+        {
+            winner = 2;
+            whiteScore++;
+        }
+        else
+        {
+            currentPlayer = 1;
+        }
+        StateHasChanged();
+    }
+
+    (int, int) FindBestMove()
+    {
+        if (aiLevel == 0)
+        {
+            // 简单：随机落子
+            var empty = new List<(int x, int y)>();
+            for (int i = 0; i < BoardSize; i++)
+                for (int j = 0; j < BoardSize; j++)
+                    if (board[i, j] == 0)
+                        empty.Add((i, j));
+            return empty[rand.Next(empty.Count)];
+        }
+        else
+        {
+            // 中等/困难：评分法
+            int maxScore = int.MinValue;
+            var bestMoves = new List<(int x, int y)>();
+            for (int x = 0; x < BoardSize; x++)
+            {
+                for (int y = 0; y < BoardSize; y++)
+                {
+                    if (board[x, y] != 0) continue;
+                    int score = EvaluatePoint(x, y, 2);
+                    score = Math.Max(score, EvaluatePoint(x, y, 1));
+                    if (score > maxScore)
+                    {
+                        maxScore = score;
+                        bestMoves.Clear();
+                        bestMoves.Add((x, y));
+                    }
+                    else if (score == maxScore)
+                    {
+                        bestMoves.Add((x, y));
+                    }
+                }
+            }
+            return bestMoves[rand.Next(bestMoves.Count)];
+        }
+    }
+
+    int EvaluatePoint(int x, int y, int player)
+    {
+        int score = 0;
+        int opponent = player == 1 ? 2 : 1;
+        // 不同难度权重
+        int[] winWeight = { 100, 10000, 10000 };
+        int[] fourWeight = { 10, 1000, 3000 };
+        int[] threeWeight = { 5, 100, 500 };
+        int[] twoWeight = { 2, 10, 50 };
+        int[] blockWinWeight = { 90, 9000, 9000 };
+        int[] blockFourWeight = { 9, 900, 2500 };
+        int[] blockThreeWeight = { 4, 90, 400 };
+        int[] blockTwoWeight = { 1, 9, 40 };
+
+        foreach (var dir in new[] { (1, 0), (0, 1), (1, 1), (1, -1) })
+        {
+            int count = 1 + CountDirection(x, y, dir.Item1, dir.Item2, player)
+                          + CountDirection(x, y, -dir.Item1, -dir.Item2, player);
+            if (count >= 5) score += winWeight[aiLevel];
+            else if (count == 4) score += fourWeight[aiLevel];
+            else if (count == 3) score += threeWeight[aiLevel];
+            else if (count == 2) score += twoWeight[aiLevel];
+
+            int oppCount = 1 + CountDirection(x, y, dir.Item1, dir.Item2, opponent)
+                             + CountDirection(x, y, -dir.Item1, -dir.Item2, opponent);
+            if (oppCount >= 5) score += blockWinWeight[aiLevel];
+            else if (oppCount == 4) score += blockFourWeight[aiLevel];
+            else if (oppCount == 3) score += blockThreeWeight[aiLevel];
+            else if (oppCount == 2) score += blockTwoWeight[aiLevel];
+        }
+        return score;
     }
 
     bool CheckWin(int x, int y, int player)
     {
         int[][] directions = new int[][]
         {
-            new int[]{1,0}, // 横
-            new int[]{0,1}, // 竖
-            new int[]{1,1}, // 斜
-            new int[]{1,-1} // 反斜
+            new int[]{1,0}, new int[]{0,1}, new int[]{1,1}, new int[]{1,-1}
         };
         foreach (var dir in directions)
         {
@@ -112,12 +224,28 @@
         board = new int[BoardSize, BoardSize];
         currentPlayer = 1;
         winner = 0;
+        if (isHumanVsAI && currentPlayer == 2)
+        {
+            _ = AITurnAsync();
+        }
     }
 
     void ResetScore()
     {
         blackScore = 0;
         whiteScore = 0;
+    }
+
+    void SetAILevel(int level)
+    {
+        aiLevel = level;
+        Restart();
+    }
+
+    void ToggleMode()
+    {
+        isHumanVsAI = !isHumanVsAI;
+        Restart();
     }
 
     string GetCellBg(int x, int y)
