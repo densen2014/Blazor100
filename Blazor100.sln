@@ -151,6 +151,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorVirtualization", "b24
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test01NCalc", "Test01NCalc\Test01NCalc.csproj", "{E01A247E-F740-4BE5-AE15-5E4DE518CB29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "g01Gobang", "g01Gobang\g01Gobang\g01Gobang.csproj", "{AA820050-E413-41C4-B7D0-738FFC40BFB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "g01Gobang.Client", "g01Gobang\g01Gobang.Client\g01Gobang.Client.csproj", "{60C28FC9-4876-4D70-AC4F-D774F5F3BC9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -345,6 +349,14 @@ Global
 		{E01A247E-F740-4BE5-AE15-5E4DE518CB29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E01A247E-F740-4BE5-AE15-5E4DE518CB29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E01A247E-F740-4BE5-AE15-5E4DE518CB29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA820050-E413-41C4-B7D0-738FFC40BFB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA820050-E413-41C4-B7D0-738FFC40BFB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA820050-E413-41C4-B7D0-738FFC40BFB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA820050-E413-41C4-B7D0-738FFC40BFB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60C28FC9-4876-4D70-AC4F-D774F5F3BC9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60C28FC9-4876-4D70-AC4F-D774F5F3BC9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60C28FC9-4876-4D70-AC4F-D774F5F3BC9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60C28FC9-4876-4D70-AC4F-D774F5F3BC9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,113 @@
+﻿@page "/"
+
+<PageTitle>五子棋</PageTitle>
+
+<h1>五子棋游戏</h1>
+
+<div style="margin-bottom:10px;">
+    当前玩家: <b>@(currentPlayer == 1 ? "黑子" : "白子")</b>
+    @if (winner != 0)
+    {
+        <span style="color:red;margin-left:20px;">胜者: @(winner == 1 ? "黑子" : "白子")</span>
+        <button class="btn btn-primary" style="margin-left:20px;" @onclick="Restart">重新开始</button>
+    }
+</div>
+
+<table style="border-collapse:collapse;">
+    @for (int y = 0; y < BoardSize; y++)
+    {
+        <tr>
+            @for (int x = 0; x < BoardSize; x++)
+            {
+                int _x = x;
+                int _y = y;
+                <td style="width:32px;height:32px;border:1px solid #888;text-align:center;vertical-align:middle;cursor:pointer;background:@GetCellBg(x, y);"
+                    @onclick="@(() => PlacePiece(_x, _y))">
+                    @if (board[x, y] == 1)
+                    {
+                        <span style="font-size:24px;color:black;">●</span>
+                    }
+                    else if (board[x, y] == 2)
+                    {
+                        <span style="font-size:24px;color:#eee;text-shadow:0 0 2px #888;">●</span>
+                    }
+                </td>
+            }
+        </tr>
+    }
+</table>
+
+@code {
+    const int BoardSize = 15;
+    int[,] board = new int[BoardSize, BoardSize];
+    int currentPlayer = 1; // 1: 黑子, 2: 白子
+    int winner = 0;
+
+    void PlacePiece(int x, int y)
+    {
+        // 修复：增加边界检查，防止越界
+        if (x < 0 || x >= BoardSize || y < 0 || y >= BoardSize)
+            return;
+        if (winner != 0 || board[x, y] != 0)
+            return;
+
+        board[x, y] = currentPlayer;
+        if (CheckWin(x, y, currentPlayer))
+        {
+            winner = currentPlayer;
+        }
+        else
+        {
+            currentPlayer = 3 - currentPlayer; // 切换玩家
+        }
+    }
+
+    bool CheckWin(int x, int y, int player)
+    {
+        int[][] directions = new int[][]
+        {
+            new int[]{1,0}, // 横
+            new int[]{0,1}, // 竖
+            new int[]{1,1}, // 斜
+            new int[]{1,-1} // 反斜
+        };
+        foreach (var dir in directions)
+        {
+            int count = 1;
+            count += CountDirection(x, y, dir[0], dir[1], player);
+            count += CountDirection(x, y, -dir[0], -dir[1], player);
+            if (count >= 5)
+                return true;
+        }
+        return false;
+    }
+
+    int CountDirection(int x, int y, int dx, int dy, int player)
+    {
+        int count = 0;
+        for (int step = 1; step < 5; step++)
+        {
+            int nx = x + dx * step;
+            int ny = y + dy * step;
+            if (nx < 0 || nx >= BoardSize || ny < 0 || ny >= BoardSize)
+                break;
+            if (board[nx, ny] == player)
+                count++;
+            else
+                break;
+        }
+        return count;
+    }
+
+    void Restart()
+    {
+        board = new int[BoardSize, BoardSize];
+        currentPlayer = 1;
+        winner = 0;
+    }
+
+    string GetCellBg(int x, int y)
+    {
+        return (x + y) % 2 == 0 ? "#f9d77e" : "#eac066";
+    }
+}
