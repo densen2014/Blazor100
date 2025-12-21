@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SignInMauiApp.SignInReportPage">
+    <VerticalStackLayout Padding="20,30" Spacing="10">
+        <Label Text="签到历史报表" FontSize="22" HorizontalOptions="Center" />
+        <HorizontalStackLayout Spacing="10">
+            <DatePicker x:Name="StartDatePicker" />
+            <Label Text="至" VerticalOptions="Center" />
+            <DatePicker x:Name="EndDatePicker" />
+            <Button Text="查询" Clicked="OnQueryClicked" />
+        </HorizontalStackLayout>
+        <Button Text="导出Excel" Clicked="OnExportClicked" />
+        <CollectionView x:Name="ReportCollectionView">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,5" Padding="10" BorderColor="#ccc">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Username}" />
+                            <Label Text="{Binding TenantName}" />
+                            <Label Text="{Binding SignInTime, StringFormat='签到时间：{0:yyyy-MM-dd HH:mm:ss}'}" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

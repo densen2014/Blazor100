@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SignInMauiApp.TenantManagementPage">
+    <VerticalStackLayout Padding="20,30" Spacing="10">
+        <Label Text="公司管理" FontSize="22" HorizontalOptions="Center" />
+        <Entry x:Name="NewTenantEntry" Placeholder="新公司名称" />
+        <Button Text="添加公司" Clicked="OnAddTenantClicked" />
+        <CollectionView x:Name="TenantCollectionView" SelectionMode="Single" SelectionChanged="OnTenantSelected">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="0,5" Padding="10">
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding Name}" VerticalOptions="Center"  Padding="10" />
+                            <Button Text="编辑" Clicked="OnEditTenantClicked" CommandParameter="{Binding .}"  Margin="5" />
+                            <Button Text="删除" Clicked="OnDeleteTenantClicked" CommandParameter="{Binding .}" Margin="5" />
+                        </HorizontalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SignInMauiApp.SignInHistoryPage">
+    <VerticalStackLayout Padding="20,30" Spacing="10">
+        <Label x:Name="TitleLabel" FontSize="20" HorizontalOptions="Center" />
+        <CollectionView x:Name="HistoryCollectionView">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="0,5" Padding="10" >
+                        <VerticalStackLayout>
+                            <Label Text="{Binding SignInTime, StringFormat='签到时间：{0:yyyy-MM-dd HH:mm:ss}'}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

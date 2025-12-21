@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SignInMauiApp.RegisterPage">
+    <VerticalStackLayout Padding="30,60" Spacing="20">
+        <Label Text="用户注册" FontSize="24" HorizontalOptions="Center" />
+        <Picker x:Name="TenantPicker" Title="选择公司" />
+        <Entry x:Name="NewTenantEntry" Placeholder="新建公司（可选）" />
+        <Entry x:Name="UsernameEntry" Placeholder="用户名" />
+        <Entry x:Name="PasswordEntry" Placeholder="密码" IsPassword="True" />
+        <Button Text="注册" Clicked="OnRegisterClicked" />
+        <Label x:Name="ErrorLabel" TextColor="Red" IsVisible="False" />
+    </VerticalStackLayout>
+</ContentPage>
