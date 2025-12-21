@@ -29,7 +29,8 @@ public partial class LoginPage : ContentPage
     {
         // 检查本地存储是否已完成引导
         var onboardingDone = Preferences.Get("OnboardingDone", false);
-        if (!onboardingDone)
+        var tenantsCount = _fsql!.Select<Tenant>().Count();
+        if (tenantsCount == 0 || !onboardingDone)
         {
             await Navigation.PushModalAsync(new OnboardingPage(_fsql));
         }
@@ -68,6 +69,7 @@ public partial class LoginPage : ContentPage
         }
         var tenantId = _tenants[tenantIdx].Id;
         var user = _fsql!.Select<User>().Where(u => u.Username == username && u.Password == password && u.TenantId == tenantId).First();
+        var user2 = _fsql!.Select<User>().Where(u => u.Username == username && u.Password == password && u.TenantId == tenantId).ToSql();
         if (user == null)
         {
             ErrorLabel.Text = "用户名或密码错误";

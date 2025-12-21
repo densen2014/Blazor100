@@ -21,11 +21,11 @@ public partial class OnboardingPage : ContentPage
     {
         _fsql = fsql;
         Title = "初次设置";
-        _tenantEntry = new Entry { Placeholder = "请输入公司名称,默认为[我的公司]" };
-        _adminUserEntry = new Entry { Placeholder = "管理员账号,默认为[admin]" };
-        _adminPassEntry = new Entry { Placeholder = "管理员密码", IsPassword = true };
-        _firstUserEntry = new Entry { Placeholder = "第一个用户名称,默认为[demo]" };
-        _firstUserPassEntry = new Entry { Placeholder = "第一个用户密码,默认为[0]", IsPassword = true };
+        _tenantEntry = new Entry { Placeholder = "请输入公司名称, 默认为[我的公司]" };
+        _adminUserEntry = new Entry { Placeholder = "管理员账号, 默认为[admin]" };
+        _adminPassEntry = new Entry { Placeholder = "管理员密码, 默认为[123456]", IsPassword = true };
+        _firstUserEntry = new Entry { Placeholder = "第一个用户名称, 默认为[demo]" };
+        _firstUserPassEntry = new Entry { Placeholder = "第一个用户密码, 默认为[0]", IsPassword = true };
         _submitButton = new Button { Text = "完成设置" };
         _submitButton.Clicked += OnSubmitClicked;
         Content = new VerticalStackLayout
@@ -48,7 +48,7 @@ public partial class OnboardingPage : ContentPage
     {
         var tenantName = _tenantEntry.Text?.Trim()?? "我的公司";
         var adminUser = _adminUserEntry.Text?.Trim()??"admin";
-        var adminPass = _adminPassEntry.Text?.Trim();
+        var adminPass = _adminPassEntry.Text?.Trim()??"123456";
         var firstUser = _firstUserEntry.Text?.Trim() ?? "demo";
         var firstUserPass = _firstUserPassEntry.Text?.Trim() ?? "0";
         if (string.IsNullOrEmpty(tenantName) || string.IsNullOrEmpty(adminUser) || string.IsNullOrEmpty(adminPass) || string.IsNullOrEmpty(firstUser))
@@ -58,7 +58,7 @@ public partial class OnboardingPage : ContentPage
         }
         // 创建租户
         var tenant = new Tenant { Name = tenantName };
-        _fsql?.Insert(tenant).ExecuteAffrows();
+        tenant.Id=(int) _fsql!.Insert(tenant).ExecuteIdentity();
         // 创建管理员
         var admin = new User { Username = adminUser, Password = adminPass, IsAdmin = true, TenantId = tenant.Id };
         _fsql?.Insert(admin).ExecuteAffrows();

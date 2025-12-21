@@ -23,10 +23,11 @@ public partial class App : Application
         // 初始化租户
         if (!fsql.Select<Models.Tenant>().Any())
         {
-            var tenant = new Models.Tenant { Name = "默认租户" };
-            fsql.Insert(tenant).ExecuteAffrows();
+            Preferences.Set("OnboardingDone", false);
+            //var tenant = new Models.Tenant { Name = "我的公司" };
+            //fsql.Insert(tenant).ExecuteAffrows();
             // 初始化用户
-            fsql.Insert(new Models.User { Username = "admin", Password = "123456", TenantId = tenant.Id }).ExecuteAffrows();
+            //fsql.Insert(new Models.User { Username = "admin", Password = "123456", TenantId = tenant.Id }).ExecuteAffrows();
         }
     }
 
