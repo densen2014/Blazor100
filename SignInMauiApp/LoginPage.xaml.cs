@@ -69,7 +69,6 @@ public partial class LoginPage : ContentPage
         }
         var tenantId = _tenants[tenantIdx].Id;
         var user = _fsql!.Select<User>().Where(u => u.Username == username && u.Password == password && u.TenantId == tenantId).First();
-        var user2 = _fsql!.Select<User>().Where(u => u.Username == username && u.Password == password && u.TenantId == tenantId).ToSql();
         if (user == null)
         {
             ErrorLabel.Text = "用户名或密码错误";
